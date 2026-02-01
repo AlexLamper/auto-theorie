@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/github/contributors/AlexLamper/gratis-theorie?style=for-the-badge&logo=github" alt="Contributors" />
 </p>
 
-**Oefen gratis en onbeperkt voor je theorie-examen auto, motor of scooter met realistische CBR-vragen.**
+**Oefen gratis en onbeperkt voor je theorie-examen auto met realistische CBR-vragen.**
 
 ![Gratis Theorie Screenshot](public/screenshot.png)
 <p>
@@ -17,7 +17,7 @@
 
 ## Over Gratis Theorie
 
-*Gratis Theorie* is een modern, interactief leerplatform waarmee je je optimaal kunt voorbereiden op je theorie-examen voor de auto, motor of scooter. Met realistische oefenvragen, proefexamens, en een uitgebreide verkeersbordenbibliotheek is dit hét platform voor iedereen die wil slagen — gratis en zonder limieten.
+*Gratis Theorie* is een modern, interactief leerplatform waarmee je je optimaal kunt voorbereiden op je theorie-examen voor de auto. Met realistische oefenvragen, proefexamens, en een uitgebreide verkeersbordenbibliotheek is dit hét platform voor iedereen die wil slagen — gratis en zonder limieten.
 
 ## Inhoudsopgave
 
@@ -37,7 +37,6 @@
 - ![🛑](https://img.shields.io/badge/🛑-Verkeersborden-lightgrey?style=flat-square) **Verkeersborden** — Leer alle Nederlandse verkeersborden met visuele ondersteuning.
 - ![📊](https://img.shields.io/badge/📊-Voortgangsmeting-lightgrey?style=flat-square) **Voortgangsmeting** — Houd je prestaties en groei bij.  
 - ![📱](https://img.shields.io/badge/📱-Responsief_design-lightgrey?style=flat-square) **Mobile-friendly** — Oefen altijd en overal, op mobiel, tablet of desktop.  
-- ![🌐](https://img.shields.io/badge/🌐-Meertalig-lightgrey?style=flat-square) **Meertalige ondersteuning** — Nederlands, Engels en meer in de toekomst.
 
 ## Technologieën
 
@@ -57,7 +56,6 @@
 - **Oefenen** — Selecteer categorieën en oefen per onderwerp.
 - **Proefexamens** — Neem volledige proefexamens af zoals bij het CBR.
 - **Verkeersborden** — Alle verkeersborden overzichtelijk met uitleg.
-- **Categorieën** — Oefenmateriaal per voertuigtype (Auto, Motor, Scooter).
 
 ## Bijdragen
 
