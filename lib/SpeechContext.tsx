@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useState, useCallback, useRef, useEffect } from 'react'
+import React, { createContext, useContext, useState, useCallback, useRef, useEffect, Suspense } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { cleanForSpeech } from './utils'
 
@@ -17,6 +17,14 @@ interface SpeechContextType {
 const SpeechContext = createContext<SpeechContextType | undefined>(undefined)
 
 export function SpeechProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<>{children}</>}>
+      <SpeechProviderInner>{children}</SpeechProviderInner>
+    </Suspense>
+  )
+}
+
+function SpeechProviderInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isSpeaking, setIsSpeaking] = useState(false)

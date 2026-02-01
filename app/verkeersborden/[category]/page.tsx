@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { TextToSpeechButton } from "@/components/TextToSpeechButton"
 import { HighlightableText } from "@/components/HighlightableText"
 import { cleanForSpeech } from "@/lib/utils"
-import { Search, Filter, Car, Bike, BikeIcon as Motorcycle, AlertTriangle, RefreshCw } from "lucide-react"
+import { Search, Filter, Car, AlertTriangle, RefreshCw } from "lucide-react"
 import Link from "next/link"
 import { useParams, usePathname, useRouter } from "next/navigation"
 import Footer from "@/components/footer"
@@ -70,26 +70,12 @@ export default function CategoryTrafficSignsPage() {
       bgColor: "bg-blue-50",
       description: "Alle verkeersborden die relevant zijn voor autobestuurders",
     },
-    bromfiets: {
-      name: "Bromfiets Verkeersborden",
-      icon: Bike,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-      description: "Verkeersborden specifiek voor bromfiets- en scooterbestuurders",
-    },
-    motor: {
-      name: "Motor Verkeersborden",
-      icon: Motorcycle,
-      color: "text-red-600",
-      bgColor: "bg-red-50",
-      description: "Verkeersborden voor motorfietsbestuurders",
-    },
     alle: {
       name: "Alle Verkeersborden",
       icon: Car,
       color: "text-purple-600",
       bgColor: "bg-purple-50",
-      description: "Alle Nederlandse verkeersborden in één overzicht",
+      description: "Alle Nederlandse verkeersborden voor het B-rijbewijs",
     },
   }
 
@@ -462,22 +448,6 @@ export default function CategoryTrafficSignsPage() {
                             <TextToSpeechButton text={fullCardText} minimal />
                           </div>
 
-                          <div className="flex flex-wrap gap-1 pt-1">
-                            {sign.applicableFor.slice(0, 2).map((vehicle, index) => (
-                              <Badge
-                                key={index}
-                                variant="outline"
-                                className="text-[10px] bg-slate-50 text-slate-600 border-slate-200 px-1.5 py-0"
-                              >
-                                {vehicle}
-                              </Badge>
-                            ))}
-                            {sign.applicableFor.length > 2 && (
-                              <Badge variant="outline" className="text-[10px] bg-slate-50 text-slate-600 border-slate-200 px-1.5 py-0">
-                                +{sign.applicableFor.length - 2}
-                              </Badge>
-                            )}
-                          </div>
                         </div>
                       </CardContent>
                     </Card>

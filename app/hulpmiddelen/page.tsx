@@ -60,10 +60,6 @@ const productConfigs: ProductConfig[] = [
     url: "https://www.bol.com/nl/nl/f/auto-theorieboek-2025-rijbewijs-b-met-samenvatting-cbr-info-en-borden-boek/9300000173965977/",
     subid: "auto_fullpakket_2025",
   },
-  {
-    url: "https://www.bol.com/nl/nl/p/scooter-theorieboek-compact-2024-2025-rijbewijs-am-brommer-en-bromfiets-vekabest-verkeersleermiddelen/9300000170244672/",
-    subid: "scooter_compact_2025",
-  },
 ]
 
 export default async function HulpmiddelenPage() {

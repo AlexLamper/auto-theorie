@@ -11,9 +11,9 @@ export default function Footer() {
               <div className="bg-blue-600 p-1.5 rounded-lg">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold tracking-tight">Gratis Theorie</span>
+              <span className="text-xl font-bold tracking-tight">Gratis Auto Theorie</span>
             </div>
-            <p className="text-slate-400 mb-6 leading-relaxed">Het beste gratis platform voor theorie-examens in Nederland. Oefen onbeperkt en bereid je optimaal voor.</p>
+            <p className="text-slate-400 mb-6 leading-relaxed">Het beste gratis platform voor auto theorie-examens in Nederland. Oefen onbeperkt en bereid je optimaal voor.</p>
             <div className="space-y-3 text-sm text-slate-400">
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-blue-500" />
@@ -26,24 +26,24 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="font-bold mb-6 text-lg text-slate-100">Categorieën</h4>
+            <h4 className="font-bold mb-6 text-lg text-slate-100">Auto Theorie</h4>
             <ul className="space-y-4 text-slate-400">
               <li>
-                <Link href="/categories" className="hover:text-blue-400 transition-colors flex items-center">
+                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
-                  Auto (B) Theorie
+                  Gevaarherkenning
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="hover:text-blue-400 transition-colors flex items-center">
+                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
-                  Scooter (AM) Theorie
+                  Verkeersregels
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="hover:text-blue-400 transition-colors flex items-center">
+                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
-                  Motor (A) Theorie
+                  Verkeersinzicht
                 </Link>
               </li>
             </ul>
@@ -89,11 +89,6 @@ export default function Footer() {
               <li>
                 <Link href="/verkeersborden" className="hover:text-blue-400 transition-colors">
                   Verkeersborden
-                </Link>
-              </li>
-              <li>
-                <Link href="/categories" className="hover:text-blue-400 transition-colors">
-                  Categorieën
                 </Link>
               </li>
             </ul>

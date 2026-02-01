@@ -1,18 +1,26 @@
-import mongoose, { Schema, Types } from "mongoose"
+import mongoose, { Schema } from "mongoose"
 
 const schemaName = "Exam"
 
+const QuestionSchema = new Schema({
+  index: { type: Number, required: true },
+  question_text: { type: String, required: true },
+  answers: [{ type: String }],
+  correct_answer_indices: [{ type: Schema.Types.Mixed }],
+  correct_answer_raw: { type: Schema.Types.Mixed },
+  image: { type: String },
+  explanation: { type: String },
+})
+
 const ExamSchema = new mongoose.Schema(
   {
+    exam_id: { type: Number, required: true, unique: true },
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
-    category: { type: String, required: true },
-    questions: [{ type: Schema.Types.ObjectId, ref: "Question", required: true }],
-    timeLimit: { type: Number, default: 30 },
-    passRate: { type: Number, default: 70 },
+    questions: [QuestionSchema],
+    created_at: { type: Date, default: Date.now },
   },
   {
-    timestamps: true,
     collection: "exams",
   }
 )

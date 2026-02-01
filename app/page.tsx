@@ -2,8 +2,6 @@ import { Button } from "@/components/ui/button"
 import {
   BookOpen,
   Car,
-  Bike,
-  BikeIcon as Motorcycle,
   Trophy,
   Users,
   Clock,
@@ -20,13 +18,13 @@ import Footer from "@/components/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Gratis Theorie - Het Beste Gratis Platform voor Nederlandse Theorie-examens",
+  title: "Gratis Auto Theorie - Het Beste Platform voor je B Rijbewijs",
   description:
-    "Oefen gratis voor je Nederlandse theorie-examen. Auto, scooter en motor theorie met actuele vragen, proefexamens en verkeersborden. Geen registratie, 100% gratis.",
+    "Oefen gratis voor je Nederlandse auto theorie-examen. Actuele vragen, proefexamens en verkeersborden. Geen registratie, 100% gratis.",
   openGraph: {
-    title: "Gratis Theorie - Het Beste Gratis Platform voor Nederlandse Theorie-examens",
+    title: "Gratis Auto Theorie - Slaag in één keer voor je B Rijbewijs",
     description:
-      "Oefen gratis voor je Nederlandse theorie-examen. Auto, scooter en motor theorie met actuele vragen, proefexamens en verkeersborden.",
+      "Het meest complete gratis platform voor je auto theorie-examen. Oefen onbeperkt met actuele CBR-stijl vragen.",
     url: "https://gratis-theorie.com",
   },
 }
@@ -41,16 +39,16 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-sm font-medium text-blue-800">
               <span className="flex h-2 w-2 rounded-full bg-blue-600 mr-2"></span>
-              Volledig Gratis • Geen Registratie • Actueel
+              Volledig Gratis • Geen Registratie • CBR 2024/2025
             </div>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-8 max-w-4xl mx-auto leading-[1.1]">
-            Slaag voor je <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">theorie-examen</span> in één keer.
+            Slaag voor je <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">auto theorie-examen</span> in één keer.
           </h1>
           
           <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Het meest complete gratis platform van Nederland. Oefen onbeperkt voor auto, motor en scooter. Geen verborgen kosten.
+            Het meest complete gratis platform van Nederland voor je B rijbewijs. Oefen onbeperkt met actuele vragen. Geen verborgen kosten.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -80,9 +78,9 @@ export default function HomePage() {
           {/* Trust Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-slate-100 pt-12">
             {[
-              { label: "Oefenvragen", value: "300+", icon: CheckCircle },
+              { label: "Oefenvragen", value: "500+", icon: CheckCircle },
               { label: "Verkeersborden", value: "90+", icon: Shield },
-              { label: "Categorieën", value: "3", icon: Target },
+              { label: "Proefexamens", value: "Onbeperkt", icon: Target },
               { label: "Kosten", value: "€0", icon: Zap },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center">
@@ -97,110 +95,61 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* Main Features Section */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Kies je Categorie</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Start direct met de Auto Theorie</h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Selecteer het voertuig waarvoor je wilt oefenen. Alle content is up-to-date met de laatste CBR richtlijnen.
+              Alle content is up-to-date met de laatste CBR-richtlijnen voor het auto rijbewijs (B).
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Auto Card */}
+          <div className="max-w-4xl mx-auto">
             <div className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100">
               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <Car className="w-32 h-32 text-blue-600" />
               </div>
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Car className="w-7 h-7 text-blue-600" />
+              <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Car className="w-7 h-7 text-blue-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2">Auto Theorie (B)</h3>
+                  <p className="text-slate-600 mb-6">
+                    De meest complete gratis voorbereiding op het Nederlandse theorie-examen.
+                  </p>
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      "500+ oefenvragen in CBR-stijl",
+                      "Volledige gevaarherkenning",
+                      "Alle verkeersregels en borden",
+                      "Gratis proefexamens oefenen"
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center text-sm text-slate-600">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white transition-colors" asChild size="lg">
+                      <Link href="/leren">Start Theorie</Link>
+                    </Button>
+                    <Button className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-900 transition-colors" asChild variant="secondary" size="lg">
+                      <Link href="/exams">Proefexamens</Link>
+                    </Button>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Auto (B)</h3>
-                <p className="text-slate-600 mb-6">
-                  Complete theorie voor personenauto's. Inclusief gevaarherkenning en verkeersinzicht.
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "500+ oefenvragen",
-                    "Gevaarherkenning",
-                    "Verkeersregels",
-                    "Voorrangssituaties"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center text-sm text-slate-600">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button className="w-full bg-slate-900 hover:bg-blue-600 text-white transition-colors" asChild>
-                  <Link href="/leren/auto">Start Auto Theorie</Link>
-                </Button>
-              </div>
-            </div>
-
-            {/* Scooter Card */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 opacity-75">
-              <div className="absolute top-4 right-4">
-                <Badge variant="secondary" className="bg-slate-100 text-slate-600">Binnenkort</Badge>
-              </div>
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center mb-6">
-                  <Bike className="w-7 h-7 text-slate-500" />
+                <div className="hidden md:block">
+                  <div className="aspect-square bg-blue-50 rounded-2xl flex items-center justify-center p-8 border border-blue-100">
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-blue-600 mb-2">100%</div>
+                      <div className="text-slate-600 font-medium">Gratis Toegang</div>
+                      <div className="mt-4 text-xs text-slate-400">Geen account nodig, begin direct</div>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Scooter (AM)</h3>
-                <p className="text-slate-600 mb-6">
-                  Theorie voor bromfiets, snorfiets en brommobiel.
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "300+ oefenvragen",
-                    "Verkeersborden",
-                    "Plaats op de weg",
-                    "Snelheid"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center text-sm text-slate-500">
-                      <CheckCircle className="w-4 h-4 text-slate-300 mr-2" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button disabled className="w-full bg-slate-100 text-slate-400 cursor-not-allowed">
-                  Niet beschikbaar
-                </Button>
-              </div>
-            </div>
-
-            {/* Motor Card */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 opacity-75">
-              <div className="absolute top-4 right-4">
-                <Badge variant="secondary" className="bg-slate-100 text-slate-600">Binnenkort</Badge>
-              </div>
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center mb-6">
-                  <Motorcycle className="w-7 h-7 text-slate-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Motor (A)</h3>
-                <p className="text-slate-600 mb-6">
-                  Voor motorrijbewijs A1, A2 en A. Focus op inzicht en veiligheid.
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "400+ oefenvragen",
-                    "Voertuigbeheersing",
-                    "Veiligheid",
-                    "Wetgeving"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center text-sm text-slate-500">
-                      <CheckCircle className="w-4 h-4 text-slate-300 mr-2" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button disabled className="w-full bg-slate-100 text-slate-400 cursor-not-allowed">
-                  Niet beschikbaar
-                </Button>
               </div>
             </div>
           </div>

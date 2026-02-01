@@ -4,7 +4,7 @@ const schemaName = "Lesson"
 
 const LessonSchema = new mongoose.Schema(
   {
-    categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
+    category: { type: String, required: true },
     slug: { type: String, required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },

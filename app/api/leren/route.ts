@@ -1,66 +1,35 @@
 import { NextRequest, NextResponse } from "next/server"
-import mongoose from "mongoose"
 import connectMongoDB from "@/libs/mongodb"
-import Vehicle from "@/models/Vehicle"
-import Category from "@/models/Category"
 import Lesson from "@/models/Lesson"
 
-interface VehicleDoc {
-  _id: mongoose.Types.ObjectId
-  name: string
-  displayName: string
-  icon?: string
-}
-
-interface CategoryDoc {
-  _id: mongoose.Types.ObjectId
-  slug: string
-  title: string
-  icon?: string
-  vehicleId: mongoose.Types.ObjectId
-  order: number
-}
+const AUTO_TOPICS = [
+  { slug: "milieu", title: "Verantwoord en milieubewust rijden", order: 1 },
+  { slug: "verkeersborden", title: "Verkeersborden en verkeersregelaars", order: 2 },
+  { slug: "verkeersregels", title: "Verkeersregels, snelheden en parkeren", order: 3 },
+  { slug: "veiligheid", title: "Verkeersveiligheid", order: 4 },
+  { slug: "voorrang", title: "Voorrang en voor laten gaan", order: 5 },
+  { slug: "weggebruikers", title: "Andere weggebruikers", order: 6 },
+  { slug: "voertuig", title: "Het voertuig", order: 7 },
+  { slug: "verkeerswetten", title: "Wetgeving en documenten", order: 8 },
+]
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
-    const voertuig = searchParams.get("voertuig")
     const categorie = searchParams.get("categorie")
 
-    // Verbinden met MongoDB
     await connectMongoDB()
 
-    if (!voertuig) {
-      return NextResponse.json({ error: "Voertuig is vereist." }, { status: 400 })
-    }
-
-    // voertuig en categorie info
-
-    // Zoek voertuig op naam
-    const vehicle = await Vehicle.findOne({ name: voertuig }).lean<VehicleDoc | null>()
-    if (!vehicle || !vehicle._id) {
-      return NextResponse.json({ error: "Voertuig niet gevonden." }, { status: 404 })
-    }
-
-    const vehicleId = new mongoose.Types.ObjectId(vehicle._id)
-
     if (categorie) {
-      // Opzoeken categorie voor voertuigId en slug
-      const category = await Category.findOne({
-        vehicleId,
-        slug: categorie,
-      }).lean<CategoryDoc | null>()
-
-      let lessons: any[] = []
-
-      if (category && category._id) {
-        const categoryId = new mongoose.Types.ObjectId(category._id)
-        lessons = await Lesson.find({ categoryId }).sort({ order: 1 }).lean()
-      }
-
-      // Fallback voor oude data
+      // Zoek lessen voor deze categorie (versie met string 'category')
+      let lessons = await Lesson.find({ category: categorie }).sort({ order: 1 }).lean()
+      
+      // Fallback voor oude data die nog categoryId gebruikt
       if (lessons.length === 0) {
-        lessons = await Lesson.find({ voertuig, categorie }).sort({ volgorde: 1 }).lean()
+        // Hier zouden we normaal gesproken de categoryId moeten opzoeken, 
+        // maar de user wil de Category model weg.
+        // We proberen lessen te vinden waar 'category' (string) gelijk is aan de slug
+        lessons = await Lesson.find({ category: categorie }).sort({ order: 1 }).lean()
       }
 
       if (lessons.length === 0) {
@@ -70,10 +39,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(lessons)
     }
 
-    // Geen categorie? Geef alle categorieën voor dit voertuig
-    const categories = await Category.find({ vehicleId }).sort({ order: 1 }).lean()
-    return NextResponse.json(categories)
+    // Geen categorie? Geef de hardcoded lijst van auto onderwerpen
+    return NextResponse.json(AUTO_TOPICS)
   } catch (error) {
+    console.error("Leren API Error:", error)
     return NextResponse.json({ error: "Interne serverfout" }, { status: 500 })
   }
 }

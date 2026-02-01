@@ -16,13 +16,11 @@ export const metadata: Metadata = {
     template: "%s | Gratis Theorie",
   },
   description:
-    "Het beste gratis platform om te oefenen voor je Nederlandse theorie-examen. Auto, scooter en motor theorie-examens. Geen registratie vereist, 100% gratis, actuele vragen en proefexamens.",
+    "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen. Geen registratie vereist, 100% gratis, actuele vragen en proefexamens.",
   keywords: [
     "theorie examen",
     "gratis theorie",
     "auto theorie",
-    "scooter theorie",
-    "motor theorie",
     "CBR theorie",
     "rijbewijs theorie",
     "theorie oefenen",
@@ -52,23 +50,23 @@ export const metadata: Metadata = {
     locale: "nl_NL",
     url: "https://gratis-theorie.com",
     siteName: "Gratis Theorie",
-    title: "Gratis Theorie - Gratis Nederlandse Theorie-examens Oefenen",
+    title: "Gratis Auto Theorie - Gratis Nederlandse Theorie-examens Oefenen",
     description:
-      "Het beste gratis platform om te oefenen voor je Nederlandse theorie-examen. Auto, scooter en motor theorie-examens. Geen registratie vereist, 100% gratis.",
+      "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen. Geen registratie vereist, 100% gratis.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Gratis Theorie - Gratis Nederlandse Theorie-examens",
+        alt: "Gratis Auto Theorie - Gratis Nederlandse Theorie-examens",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gratis Theorie - Gratis Nederlandse Theorie-examens Oefenen",
+    title: "Gratis Auto Theorie - Gratis Nederlandse Theorie-examens Oefenen",
     description:
-      "Het beste gratis platform om te oefenen voor je Nederlandse theorie-examen. 100% gratis, geen registratie vereist.",
+      "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen. 100% gratis, geen registratie vereist.",
     images: ["/og-image.jpg"],
   },
   alternates: {
@@ -104,10 +102,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Gratis Theorie",
+              name: "Gratis Auto Theorie",
               url: "https://gratis-theorie.com",
               description:
-                "Het beste gratis platform om te oefenen voor je Nederlandse theorie-examen. Auto, scooter en motor theorie-examens.",
+                "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen.",
               inLanguage: "nl-NL",
               potentialAction: {
                 "@type": "SearchAction",

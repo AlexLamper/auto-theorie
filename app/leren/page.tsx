@@ -1,8 +1,7 @@
 "use client"
 
+import { JSX, useEffect, useMemo, useState } from "react"
 import Link from "next/link"
-import { useEffect, useState } from "react"
-import { Car, Bike, BikeIcon as Scooter } from "lucide-react"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,69 +10,122 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import {
+  ParkingCircle,
+  TrafficCone,
+  User,
+  BookOpen,
+  Car,
+  Leaf,
+  Shield,
+  HelpCircle,
+  Users,
+  Route,
+  TrafficConeIcon,
+} from "lucide-react"
+import { getVoortgang } from "@/lib/session"
+import { Input } from "@/components/ui/input"
 
-const iconMap: Record<string, any> = {
-  auto: Car,
-  motor: Bike,
-  scooter: Scooter,
+const categorieIconen: Record<string, JSX.Element> = {
+  "milieu": <Leaf className="h-6 w-6 text-green-600" />,
+  "verkeersborden": <ParkingCircle className="h-6 w-6 text-red-600" />,
+  "verkeersregels": <Route className="h-6 w-6 text-blue-500" />,
+  "veiligheid": <Shield className="h-6 w-6 text-yellow-500" />,
+  "voorrang": <User className="h-6 w-6 text-pink-600" />,
+  "weggebruikers": <Users className="h-6 w-6 text-indigo-600" />,
+  "voertuig": <Car className="h-6 w-6 text-orange-600" />,
+  "verkeerswetten": <BookOpen className="h-6 w-6 text-gray-600" />,
+  "verkeersregelaar": <TrafficCone className="h-6 w-6 text-red-500" />,
+  "kruispunten": <TrafficConeIcon className="h-6 w-6 text-teal-600" />,
+  "default": <HelpCircle className="h-6 w-6 text-gray-500" />,
 }
 
-type Vehicle = {
-  name: string
-  displayName: string
-  icon?: string
+interface CategorieInfo {
+  slug: string
+  title: string
+  order: number
 }
 
 export default function LerenStartPage() {
-  const [voertuigen, setVoertuigen] = useState<Vehicle[]>([])
+  const [categorieen, setCategorieen] = useState<CategorieInfo[]>([])
   const [loading, setLoading] = useState(true)
+  const [zoek, setZoek] = useState("")
 
   useEffect(() => {
-    async function fetchVoertuigen() {
+    async function fetchData() {
       try {
-        const res = await fetch("/api/voertuigen")
-        const data = await res.json()
-        setVoertuigen(data)
-      } catch (error) {
-        console.error("Fout bij ophalen voertuigen:", error)
+        const res = await fetch(`/api/leren?voertuig=auto`)
+        if (res.ok) {
+          const data = await res.json()
+          const cats = data.map((cat: any) => ({
+            slug: cat.slug,
+            title: cat.title,
+            order: cat.order || 0,
+          }))
+          setCategorieen(cats)
+        } else {
+          console.error("Fout bij laden van onderwerpen", await res.text())
+        }
+      } catch (err) {
+        console.error("Fout tijdens ophalen:", err)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchVoertuigen()
+    fetchData()
   }, [])
+
+  const filtered = useMemo(
+    () =>
+      categorieen.filter((c) =>
+        c.title.toLowerCase().includes(zoek.toLowerCase())
+      ),
+    [categorieen, zoek]
+  )
+
+  const voortgang = getVoortgang()
+  const gelezen = voortgang?.gelezen || {}
 
   return (
     <div className="min-h-screen bg-slate-50 py-12">
-      <div className="container mx-auto px-4 max-w-5xl">
+      <div className="container mx-auto px-4 max-w-6xl">
         <Breadcrumb className="mb-8">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink
-                href="/"
-                className="text-slate-500 hover:text-blue-600"
-              >
-                Home
-              </BreadcrumbLink>
+              <BreadcrumbLink href="/" className="text-slate-500 hover:text-blue-600">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator className="text-slate-400" />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900 font-medium">
-                Leren
-              </BreadcrumbPage>
+              <BreadcrumbPage className="text-slate-900 font-medium">Auto Theorie Leren</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-            Kies je voertuig
-          </h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Selecteer het voertuig waarvoor je theorie wilt oefenen. We hebben
-            complete cursussen voor auto, motor en scooter.
-          </p>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+          <div>
+            <div className="flex items-center gap-4 mb-2">
+              <div className={`p-3 rounded-xl bg-white shadow-sm border border-slate-100`}>
+                <Car className="h-8 w-8 text-blue-600" />
+              </div>
+              <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+                Auto Theorie Leren
+              </h1>
+            </div>
+            <p className="text-slate-600 text-lg ml-0 md:ml-[4.5rem]">
+              Bereid je stap voor stap voor op het auto theorie-examen (B).
+            </p>
+          </div>
+
+          <div className="w-full md:w-72">
+            <Input
+              type="text"
+              placeholder="Zoek onderwerp..."
+              value={zoek}
+              onChange={(e) => setZoek(e.target.value)}
+              className="bg-white border-slate-200 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-xl shadow-sm"
+            />
+          </div>
         </div>
 
         {loading ? (
@@ -81,76 +133,43 @@ export default function LerenStartPage() {
             <div className="h-12 w-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
-          <div className="grid md:grid-cols-3 gap-8">
-            {voertuigen.map(({ name, displayName }) => {
-              const Icon = iconMap[name] ?? Car
-              const isDisabled = name === "motor" || name === "scooter"
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((cat) => {
+              const iconKey = Object.keys(categorieIconen).find((k) =>
+                cat.slug.toLowerCase().includes(k)
+              ) || "default"
+              const CatIcon = categorieIconen[iconKey]
+              const isCompleted = gelezen[cat.slug]
 
               return (
                 <Link
-                  key={name}
-                  href={isDisabled ? "#" : `/leren/${name}`}
-                  className={`group relative bg-white rounded-2xl p-8 shadow-sm border border-slate-100 transition-all duration-300 ${
-                    isDisabled
-                      ? "opacity-75 cursor-not-allowed"
-                      : "hover:shadow-xl hover:-translate-y-1 hover:border-blue-100 cursor-pointer"
-                  }`}
-                  onClick={(e) => isDisabled && e.preventDefault()}
+                  key={cat.slug}
+                  href={`/leren/${cat.slug}`}
+                  className="group bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                 >
-                  {isDisabled && (
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                        Binnenkort
-                      </span>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="p-3 rounded-xl bg-slate-50 group-hover:bg-blue-50 transition-colors">
+                      {CatIcon}
                     </div>
-                  )}
-
-                  <div
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-colors duration-300 ${
-                      isDisabled
-                        ? "bg-slate-100"
-                        : "bg-blue-50 group-hover:bg-blue-100"
-                    }`}
-                  >
-                    <Icon
-                      className={`h-8 w-8 ${
-                        isDisabled ? "text-slate-400" : "text-blue-600"
-                      }`}
-                    />
-                  </div>
-
-                  <h2 className="text-2xl font-bold text-slate-900 mb-2">
-                    {displayName}
-                  </h2>
-                  <p className="text-slate-600 mb-6">
-                    {name === "auto" && "Volledige theoriecursus voor rijbewijs B."}
-                    {name === "motor" && "Theorie voor motorrijbewijs A."}
-                    {name === "scooter" && "Theorie voor bromfietsrijbewijs AM."}
-                  </p>
-
-                  <div
-                    className={`flex items-center font-medium ${
-                      isDisabled
-                        ? "text-slate-400"
-                        : "text-blue-600 group-hover:translate-x-1 transition-transform"
-                    }`}
-                  >
-                    {isDisabled ? "Niet beschikbaar" : "Start cursus"}
-                    {!isDisabled && (
-                      <svg
-                        className="w-4 h-4 ml-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
+                    {isCompleted && (
+                      <span className="bg-green-100 text-green-700 text-xs font-bold px-2.5 py-1 rounded-full flex items-center">
+                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Voltooid
+                      </span>
                     )}
+                  </div>
+                  
+                  <h2 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    {cat.title}
+                  </h2>
+                  
+                  <div className="mt-auto pt-4 flex items-center text-sm font-medium text-slate-500 group-hover:text-blue-600">
+                    Onderwerp starten
+                    <svg className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </div>
                 </Link>
               )

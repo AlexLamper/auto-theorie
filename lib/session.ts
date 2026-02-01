@@ -4,8 +4,8 @@ export function getVoortgang() {
   return data ? JSON.parse(data) : null
 }
 
-export function markeerCategorieGelezen(voertuig: string, categorie: string) {
-  const data = getVoortgang() || { voertuig, gelezen: {} }
+export function markeerCategorieGelezen(categorie: string) {
+  const data = getVoortgang() || { voertuig: "auto", gelezen: {} }
   data.gelezen[categorie] = true
   sessionStorage.setItem("voortgang_leren", JSON.stringify(data))
 }

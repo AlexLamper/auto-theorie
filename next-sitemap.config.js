@@ -1,5 +1,3 @@
-const voertuigTypes = ['auto', 'motor', 'scooter']
-
 const categorieNamen = [
   "Verantwoord en milieubewust rijden",
   "Verkeersborden en verkeersregelaars",
@@ -28,14 +26,12 @@ module.exports = {
   async additionalPaths(config) {
     const paths = []
 
-    voertuigTypes.forEach((voertuig) => {
-      // /leren/[voertuig]
-      paths.push({ loc: `/leren/${voertuig}` })
+    // /leren
+    paths.push({ loc: `/leren` })
 
-      categorieNamen.forEach((catName) => {
-        const slug = slugify(catName)
-        paths.push({ loc: `/leren/${voertuig}/${slug}` })
-      })
+    categorieNamen.forEach((catName) => {
+      const slug = slugify(catName)
+      paths.push({ loc: `/leren/${slug}` })
     })
 
     return paths

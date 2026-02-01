@@ -16,27 +16,16 @@ export default function Navbar() {
   const getPageTitle = () => {
     if (pathname.startsWith("/practice")) return "Oefenen"
     if (pathname.startsWith("/exams")) return "Examens"
-    if (pathname.startsWith("/verkeersborden")) {
-      const category = pathname.split("/")[2]
-      const categoryNames = {
-        auto: "Auto Verkeersborden",
-        bromfiets: "Bromfiets Verkeersborden",
-        motor: "Motor Verkeersborden",
-      }
-      return categoryNames[category as keyof typeof categoryNames] || "Verkeersborden"
-    }
-    if (pathname.startsWith("/categories")) return "Categorieën"
+    if (pathname.startsWith("/verkeersborden")) return "Verkeersborden"
     return null
   }
 
 
   const navigationItems = [
     { href: "/", label: "Home" },
-    { href: "/leren", label: "Leren" },
+    { href: "/leren", label: "Auto Theorie" },
     { href: "/exams", label: "Proefexamens" },
     { href: "/verkeersborden", label: "Verkeersborden" },
-    { href: "/categories", label: "Categorieën" },
-    // { href: "/hulpmiddelen", label: "Hulpmiddelen" },
   ]
 
   return (
@@ -49,7 +38,7 @@ export default function Navbar() {
               <div className="bg-blue-600 p-1.5 rounded-lg group-hover:bg-blue-700 transition-colors">
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">Gratis Theorie</h1>
+              <h1 className="text-xl font-bold text-slate-900 tracking-tight">Gratis Auto Theorie</h1>
             </Link>
 
             {/* Page title for non-home pages */}

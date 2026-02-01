@@ -29,7 +29,7 @@ export function htmlToBlocks(html: string): any[] {
   // (h2, p, ul/li, blockquote)
   
   // 1. Handle paragraphs/headers/quotes - Match tags NOT inside a list
-  const groupRegex = /<(h[1-6]|p|blockquote)>(.*?)<\/\1>/gs;
+  const groupRegex = /<(h[1-6]|p|blockquote)>([\s\S]*?)<\/\1>/g;
   let match;
   while ((match = groupRegex.exec(html)) !== null) {
       blocks.push({
@@ -39,9 +39,9 @@ export function htmlToBlocks(html: string): any[] {
   }
   
   // 2. Handle lists
-  const listRegex = /<ul>(.*?)<\/ul>/gs;
+  const listRegex = /<ul>([\s\S]*?)<\/ul>/g;
   while ((match = listRegex.exec(html)) !== null) {
-      const itemRegex = /<li>(.*?)<\/li>/gs;
+      const itemRegex = /<li>([\s\S]*?)<\/li>/g;
       const items: string[] = [];
       let itemMatch;
       while ((itemMatch = itemRegex.exec(match[1])) !== null) {

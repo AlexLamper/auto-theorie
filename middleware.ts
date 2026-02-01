@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const blockedRoutes = ["/leren/scooter", "/leren/motor"];
+const blockedRoutes: string[] = [];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

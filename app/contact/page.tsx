@@ -97,7 +97,7 @@ export default function ContactPage() {
 
               <div>
                 <h4 className="font-semibold text-slate-900 mb-2">Welke categorieën kan ik oefenen?</h4>
-                <p className="text-slate-600 leading-relaxed">Auto (B), scooter (AM) en motor (A).</p>
+                <p className="text-slate-600 leading-relaxed">Auto (B).</p>
               </div>
             </CardContent>
           </Card>
