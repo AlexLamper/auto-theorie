@@ -10,8 +10,12 @@ export default async function ExamsPage() {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const res = await fetch(`${baseUrl}/api/exams`, { cache: 'no-store' })
     const data = await res.json()
-    // Sorteer numeriek op exam_id (1, 2, 3...)
-    exams = (data.exams || []).sort((a: any, b: any) => (Number(a.exam_id) || 0) - (Number(b.exam_id) || 0))
+    // Robuuste numerieke sortering op exam_id
+    exams = (data.exams || []).sort((a: any, b: any) => {
+      const idA = parseInt(a.title.match(/\d+/)?.[0] || a.exam_id) || 0
+      const idB = parseInt(b.title.match(/\d+/)?.[0] || b.exam_id) || 0
+      return idA - idB
+    })
   } catch (e) {
     console.error("Error fetching exams:", e)
     exams = []
@@ -66,7 +70,7 @@ export default async function ExamsPage() {
                     </div>
                     <Button
                       asChild
-                      className="w-full bg-slate-900 hover:bg-blue-600 text-white transition-all h-11 text-sm font-bold rounded-xl"
+                      className="w-full bg-slate-900 hover:bg-blue-600 text-white transition-all h-11 text-sm font-bold rounded-xl cursor-pointer"
                     >
                       <Link href={`/exams/start?slug=${exam.slug}`}>
                         Start Examen
