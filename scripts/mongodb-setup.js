@@ -1,8 +1,8 @@
 const db = this.db
 const use = db.use
 
-// Switch to the gratis-theorie database
-use("gratis-theorie")
+// Switch to the auto-theorie database
+use("auto-theorie")
 
 // Create the questions collection with sample data
 db.questions.insertMany([

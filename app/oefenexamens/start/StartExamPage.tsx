@@ -30,7 +30,7 @@ export default function StartExamPage() {
 
   useEffect(() => {
     if (slug) {
-      fetch(`/api/exams/${slug}`)
+      fetch(`/api/oefenexamens/${slug}`)
         .then(res => res.json())
         .then(data => {
           // De API data kan direct het object zijn OF verpakt zijn in { exam: ... }
@@ -253,7 +253,7 @@ export default function StartExamPage() {
                   asChild 
                   className="bg-slate-900 hover:bg-blue-600 text-white h-14 px-10 rounded-2xl font-black transition-all cursor-pointer text-lg shadow-xl hover:shadow-blue-500/20"
                 >
-                  <Link href="/exams">Alle Examens</Link>
+                  <Link href="/oefenexamens">Alle Examens</Link>
                 </Button>
               </div>
             </CardContent>
@@ -302,7 +302,7 @@ export default function StartExamPage() {
                 </button>
               </div>
               <button 
-                onClick={() => router.push("/exams")}
+                onClick={() => router.push("/oefenexamens")}
                 className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer bg-white px-4 py-2 rounded-full border border-slate-100 shadow-sm"
               >
                 <X size={16} />

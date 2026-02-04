@@ -239,6 +239,23 @@ function LesPaginaContent() {
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
+            <div className="rounded-3xl border border-slate-100 bg-slate-50 p-6 sm:p-8 mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Lesmodule</p>
+                  <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                    {huidigeGroep?.titel || "Les"}
+                  </h1>
+                  <p className="text-sm text-slate-600 mt-2">
+                    Volg de lessen stap voor stap en navigeer eenvoudig via de inhoudsopgave.
+                  </p>
+                </div>
+                <div className="rounded-2xl bg-white border border-slate-100 px-4 py-3 text-sm text-slate-600 shadow-sm">
+                  {huidigeGroep?.sublessen.length || 0} lessen in deze categorie
+                </div>
+              </div>
+            </div>
+
             <Breadcrumb className="mb-8 hidden lg:flex">
               <BreadcrumbList>
                 <BreadcrumbItem>

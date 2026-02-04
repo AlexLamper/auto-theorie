@@ -1,6 +1,6 @@
 import { MongoClient, type Db } from "mongodb"
 
-process.env.MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/gratis-theorie"
+process.env.MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/auto-theorie"
 
 const uri = process.env.MONGODB_URI
 const options = {}
@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "development") {
 export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db }> {
   try {
     const client = await clientPromise
-    const db = client.db("gratis-theorie") // Database name
+    const db = client.db("auto-theorie") // Database name
     return { client, db }
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error)

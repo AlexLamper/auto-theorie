@@ -46,9 +46,9 @@ next-env.d.ts
 # docs
 /docs
 /docs*
-# Scraped data & images
-/scraped-data/
+# Data & images
+/data/
 /public/images/lessons/
 /public/verkeersborden/
 /public/favicon/
-/public/images/exams/
+/public/images/oefenexamens/

@@ -21,7 +21,7 @@ const ExamSchema = new mongoose.Schema(
     created_at: { type: Date, default: Date.now },
   },
   {
-    collection: "exams",
+    collection: "oefenexamens",
   }
 )
 

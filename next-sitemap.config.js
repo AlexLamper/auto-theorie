@@ -18,7 +18,7 @@ const slugify = (text) =>
     .replace(/\s+/g, "-")
 
 module.exports = {
-  siteUrl: 'https://gratis-theorie.com',
+  siteUrl: 'https://auto-theorie.com',
   generateRobotsTxt: true,
   changefreq: 'daily',
   priority: 0.7,

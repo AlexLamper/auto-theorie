@@ -12,7 +12,7 @@ export async function GET(
 
   try {
     // Check local fallback FIRST for instant loading
-    const filePath = path.join(process.cwd(), "docs", "exams.json");
+    const filePath = path.join(process.cwd(), "docs", "oefenexamens.json");
     if (fs.existsSync(filePath)) {
       const fileData = fs.readFileSync(filePath, "utf8");
       const allExams = JSON.parse(fileData);

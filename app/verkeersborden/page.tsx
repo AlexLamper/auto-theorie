@@ -2,14 +2,12 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { TextToSpeechButton } from "@/components/TextToSpeechButton"
-import { HighlightableText } from "@/components/HighlightableText"
-import { cleanForSpeech } from "@/lib/utils"
-import { Search, Filter, AlertTriangle, RefreshCw, Shield } from "lucide-react"
+import { Search } from "lucide-react"
 import Footer from "@/components/footer"
 import DonationPrompt from "@/components/DonationPrompt"
 
@@ -145,12 +143,20 @@ export default function VerkeersbordenPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="container mx-auto px-4 py-12 max-w-7xl">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Nederlandse Verkeersborden</h1>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto font-medium">Alle verkeersborden die je moet kennen voor je auto theorie-examen (B). Klik op de voorlees-knop om de betekenis te horen.</p>
+      <section className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
+        <div className="container mx-auto px-4 py-16 max-w-7xl relative text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
+            Nederlandse verkeersborden
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-4 tracking-tight">Alles wat je moet kennen voor het theorie-examen</h1>
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto mt-4 font-medium">
+            Alle verkeersborden die je moet kennen voor je auto theorie-examen (B). Klik op de voorlees-knop om de betekenis te horen.
+          </p>
         </div>
+      </section>
 
+      <section className="container mx-auto px-4 py-12 max-w-7xl">
         <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-4 items-center mb-6">
             <div className="relative flex-1 w-full">
@@ -245,7 +251,7 @@ export default function VerkeersbordenPage() {
           </>
         )}
         <div className="mt-20"><DonationPrompt /></div>
-      </div>
+      </section>
       <Footer />
     </div>
   )

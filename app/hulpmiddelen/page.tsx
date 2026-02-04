@@ -13,8 +13,11 @@ import { Button } from "@/components/ui/button"
 import { BookOpen, Star } from "lucide-react"
 import Footer from "@/components/footer"
 
-export const metadata: Metadata = {
   title: "Hulpmiddelen – Gratis Theorie",
+  description: "Bol affiliate producten met afbeelding en titel via scraping",
+}
+export const metadata: Metadata = {
+  title: "Hulpmiddelen – Auto Theorie",
   description: "Bol affiliate producten met afbeelding en titel via scraping",
 }
 

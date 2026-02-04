@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 
-// Direct connection string for environments with SRV resolution issues
-const MONGODB_URI = "mongodb://alexlamper:alexlamper@ac-s8m3361-shard-00-00.ehvonkm.mongodb.net:27017,ac-s8m3361-shard-00-01.ehvonkm.mongodb.net:27017,ac-s8m3361-shard-00-02.ehvonkm.mongodb.net:27017/gratis-theorie?ssl=true&replicaSet=atlas-11sn9i-shard-0&authSource=admin&retryWrites=true&w=majority";
+require("dotenv").config({ path: ".env.local" });
+
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const QuestionSchema = new mongoose.Schema({
   index: { type: Number, required: true },
@@ -21,19 +22,24 @@ const ExamSchema = new mongoose.Schema({
   slug: { type: String, required: true, unique: true },
   questions: [QuestionSchema],
   created_at: { type: Date, default: Date.now },
-}, { collection: "exams" });
+}, { collection: "oefenexamens" });
 
 const Exam = mongoose.models.Exam || mongoose.model("Exam", ExamSchema);
 
 async function seedExams() {
   try {
-    console.log("Attempting direct connection to MongoDB shards...");
-    await mongoose.connect(MONGODB_URI, {
-      serverSelectionTimeoutMS: 20000, 
-    });
-    console.log(" Successfully connected to MongoDB via direct shard connection.");
+    if (!MONGODB_URI) {
+      throw new Error("MONGODB_URI ontbreekt in .env.local");
+    }
 
-    const examsDir = path.join(__dirname, "../scraped-data/scraped_exams_fast");
+    console.log("Connecting to MongoDB...");
+    await mongoose.connect(MONGODB_URI, {
+      dbName: "auto-theorie",
+      serverSelectionTimeoutMS: 20000,
+    });
+    console.log(" Successfully connected to MongoDB.");
+
+    const examsDir = path.join(__dirname, "../data/oefenexamens/text");
     if (!fs.existsSync(examsDir)) {
         throw new Error(`Directory not found: ${examsDir}`);
     }
@@ -56,7 +62,7 @@ async function seedExams() {
         if (q.image) {
           const urlMatch = q.image.match(/\/([^\/\?]+)\.jpg/);
           if (urlMatch) {
-            imagePath = `/images/exams/${urlMatch[1]}.jpg`;
+            imagePath = `/images/oefenexamens/${urlMatch[1]}.jpg`;
           }
         }
 
@@ -96,7 +102,7 @@ async function seedExams() {
       console.log(`- Seeded ${title}`);
     }
 
-    const fallbackPath = path.join(__dirname, "../docs/exams.json");
+    const fallbackPath = path.join(__dirname, "../docs/oefenexamens.json");
     fs.writeFileSync(fallbackPath, JSON.stringify(allExams, null, 2));
     console.log(" All exams seeded and local fallback updated.");
   } catch (error) {

@@ -3,9 +3,12 @@ import { Shield, Eye, Lock, UserCheck, Database, Mail } from "lucide-react"
 import Footer from "@/components/footer"
 import type { Metadata } from "next"
 
-export const metadata: Metadata = {
   title: "Privacy Beleid - Gratis Theorie",
   description: "Lees ons privacy beleid en ontdek hoe wij omgaan met je persoonlijke gegevens op Gratis Theorie.",
+}
+export const metadata: Metadata = {
+  title: "Privacy Beleid - Auto Theorie",
+  description: "Lees ons privacy beleid en ontdek hoe wij omgaan met je persoonlijke gegevens op Auto Theorie.",
 }
 
 export default function PrivacyPolicyPage() {
@@ -35,7 +38,7 @@ export default function PrivacyPolicyPage() {
             </CardHeader>
             <CardContent className="prose prose-slate max-w-none text-slate-600">
               <p>
-                Gratis Theorie ("wij", "ons", "onze") respecteert je privacy en is toegewijd aan het beschermen van je
+                Auto Theorie ("wij", "ons", "onze") respecteert je privacy en is toegewijd aan het beschermen van je
                 persoonlijke gegevens. Dit privacy beleid legt uit hoe wij informatie verzamelen, gebruiken en
                 beschermen wanneer je onze website en diensten gebruikt.
               </p>
@@ -83,7 +86,7 @@ export default function PrivacyPolicyPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="prose prose-slate max-w-none text-slate-600">
-              <p>Gratis Theorie gebruikt de verzamelde gegevens voor verschillende doeleinden:</p>
+              <p>Auto Theorie gebruikt de verzamelde gegevens voor verschillende doeleinden:</p>
               <ul>
                 <li>Om de dienst te leveren en te onderhouden</li>
                 <li>Om je op de hoogte te stellen van wijzigingen in onze dienst</li>

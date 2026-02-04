@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://gratis-theorie.com
+Host: https://auto-theorie.com
 
 # Sitemaps
-Sitemap: https://gratis-theorie.com/sitemap.xml
+Sitemap: https://auto-theorie.com/sitemap.xml

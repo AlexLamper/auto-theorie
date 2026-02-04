@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Fallback naar local JSON
-    const filePath = path.join(process.cwd(), "docs", "exams.json")
+    const filePath = path.join(process.cwd(), "docs", "oefenexamens.json")
     if (fs.existsSync(filePath)) {
       const fileData = fs.readFileSync(filePath, "utf8")
       const rawExams = JSON.parse(fileData)
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
         // Robuuste numerieke sortering
         .sort((a: any, b: any) => a.exam_id - b.exam_id)
         
-      console.log("[API] Sorted exams sample:", exams.slice(0, 3).map(e => e.exam_id))
+      console.log("[API] Sorted exams sample:", exams.slice(0, 3).map((e: { exam_id: any }) => e.exam_id))
       return NextResponse.json({ exams })
     }
 

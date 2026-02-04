@@ -3,9 +3,12 @@ import { FileText, Users, Shield, AlertTriangle, Scale } from "lucide-react"
 import type { Metadata } from "next"
 import Footer from "@/components/footer"
 
-export const metadata: Metadata = {
   title: "Algemene Voorwaarden - Gratis Theorie",
   description: "Lees onze algemene voorwaarden voor het gebruik van Gratis Theorie platform.",
+}
+export const metadata: Metadata = {
+  title: "Algemene Voorwaarden - Auto Theorie",
+  description: "Lees onze algemene voorwaarden voor het gebruik van Auto Theorie platform.",
 }
 
 export default function TermsOfServicePage() {
@@ -19,7 +22,7 @@ export default function TermsOfServicePage() {
           </div>
           <h1 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Algemene Voorwaarden</h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            Deze voorwaarden zijn van toepassing op het gebruik van Gratis Theorie.
+            Deze voorwaarden zijn van toepassing op het gebruik van Auto Theorie.
           </p>
           <p className="text-sm text-slate-500 mt-4">Laatst bijgewerkt: 1 januari 2024</p>
         </div>
@@ -35,7 +38,7 @@ export default function TermsOfServicePage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-slate-600">
-                Welkom bij Gratis Theorie. Deze algemene voorwaarden ("Voorwaarden") zijn van toepassing op je gebruik
+                Welkom bij Auto Theorie. Deze algemene voorwaarden ("Voorwaarden") zijn van toepassing op je gebruik
                 van onze website, diensten en alle gerelateerde functionaliteiten (samen "Diensten").
               </p>
               <p className="text-slate-600">
@@ -84,8 +87,8 @@ export default function TermsOfServicePage() {
             </CardHeader>
             <CardContent className="space-y-4 text-slate-600">
               <p>
-                Alle inhoud op Gratis Theorie, inclusief maar niet beperkt tot tekst, afbeeldingen, logo's, vragen en
-                software, is eigendom van Gratis Theorie of haar licentiegevers en wordt beschermd door auteursrecht en
+                Alle inhoud op Auto Theorie, inclusief maar niet beperkt tot tekst, afbeeldingen, logo's, vragen en
+                software, is eigendom van Auto Theorie of haar licentiegevers en wordt beschermd door auteursrecht en
                 andere intellectuele eigendomsrechten.
               </p>
               <p>
@@ -105,12 +108,12 @@ export default function TermsOfServicePage() {
             </CardHeader>
             <CardContent className="space-y-4 text-slate-600">
               <p>
-                Hoewel we ons best doen om ervoor te zorgen dat de informatie op Gratis Theorie accuraat en actueel is,
+                Hoewel we ons best doen om ervoor te zorgen dat de informatie op Auto Theorie accuraat en actueel is,
                 geven we geen garanties over de volledigheid of juistheid ervan. De examenvragen zijn bedoeld als
                 oefenmateriaal en kunnen afwijken van het officiële CBR-examen.
               </p>
               <p>
-                Gratis Theorie is niet aansprakelijk voor enige schade die voortvloeit uit het gebruik van, of het niet
+                Auto Theorie is niet aansprakelijk voor enige schade die voortvloeit uit het gebruik van, of het niet
                 kunnen gebruiken van, onze Diensten, of voor het zakken voor een officieel examen.
               </p>
             </CardContent>

@@ -4,7 +4,7 @@ const connectMongoDB = async () => {
   try {
     if (mongoose.connection.readyState === 0) {
       await mongoose.connect(process.env.MONGODB_URI, {
-        dbName: "gratis-theorie",
+        dbName: "auto-theorie",
         })
       console.log('MongoDB connected successfully');
     } else {

@@ -1,25 +1,25 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Manrope } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/navbar"
 import Script from "next/script"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { SpeechProvider } from "@/lib/SpeechContext"
 
-const inter = Inter({ subsets: ["latin"] })
+const manrope = Manrope({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
   title: {
-    default: "Gratis Theorie - Gratis Nederlandse Theorie-examens Oefenen",
-    template: "%s | Gratis Theorie",
+    default: "Auto Theorie - Gratis Nederlandse Theorie-examens Oefenen",
+    template: "%s | Auto Theorie",
   },
   description:
     "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen. Geen registratie vereist, 100% gratis, actuele vragen en proefexamens.",
   keywords: [
     "theorie examen",
-    "gratis theorie",
+    "auto theorie",
     "auto theorie",
     "CBR theorie",
     "rijbewijs theorie",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     "rijschool",
     "theorie toppers alternatief",
   ],
-  authors: [{ name: "Gratis Theorie Team" }],
-  creator: "Gratis Theorie",
-  publisher: "Gratis Theorie",
+  authors: [{ name: "Auto Theorie Team" }],
+  creator: "Auto Theorie",
+  publisher: "Auto Theorie",
   robots: {
     index: true,
     follow: true,
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "nl_NL",
-    url: "https://gratis-theorie.com",
-    siteName: "Gratis Theorie",
-    title: "Gratis Auto Theorie - Gratis Nederlandse Theorie-examens Oefenen",
+    url: "https://auto-theorie.com",
+    siteName: "Auto Theorie",
+    title: "Auto Theorie - Nederlandse Theorie-examens Oefenen",
     description:
       "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen. Geen registratie vereist, 100% gratis.",
     images: [
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Gratis Auto Theorie - Gratis Nederlandse Theorie-examens",
+        alt: "Auto Theorie - Nederlandse Theorie-examens",
       },
     ],
   },
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://gratis-theorie.com",
+    canonical: "https://auto-theorie.com",
   },
   verification: {
     google: "your-google-verification-code",
@@ -87,7 +87,7 @@ export default function RootLayout({
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158083181827933"
      crossOrigin="anonymous"></script>
-        <link rel="canonical" href="https://gratis-theorie.com" />
+        <link rel="canonical" href="https://auto-theorie.com" />
         <meta name="geo.region" content="NL" />
         <meta name="geo.country" content="Netherlands" />
         <meta name="language" content="Dutch" />
@@ -102,21 +102,21 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Gratis Auto Theorie",
-              url: "https://gratis-theorie.com",
+              name: "Auto Theorie",
+              url: "https://auto-theorie.com",
               description:
                 "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen.",
               inLanguage: "nl-NL",
               potentialAction: {
                 "@type": "SearchAction",
-                target: "https://gratis-theorie.com/search?q={search_term_string}",
+                target: "https://auto-theorie.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             }),
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${manrope.className} antialiased bg-slate-50`}>
         <SpeechProvider>
           <Navbar />
           <main>{children}</main>

@@ -16,8 +16,8 @@ const db = {
   },
 }
 
-// Switch to the gratis-theorie database
-console.log(use("gratis-theorie"))
+// Switch to the auto-theorie database
+console.log(use("auto-theorie"))
 
 // Create the traffic_signs collection with comprehensive data
 db.traffic_signs.insertMany([

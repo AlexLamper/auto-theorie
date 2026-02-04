@@ -88,45 +88,51 @@ export default function LerenStartPage() {
   const gelezen = voortgang?.gelezen || {}
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <Breadcrumb className="mb-8">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/" className="text-slate-500 hover:text-blue-600">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator className="text-slate-400" />
-            <BreadcrumbItem>
-              <BreadcrumbPage className="text-slate-900 font-medium">Auto Theorie Leren</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+    <div className="min-h-screen bg-slate-50">
+      <section className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
+        <div className="container mx-auto px-4 py-16 max-w-6xl relative">
+          <Breadcrumb className="mb-6">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/" className="text-slate-500 hover:text-blue-600">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="text-slate-400" />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="text-slate-900 font-medium">Auto Theorie Leren</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
-          <div>
-            <div className="flex items-center gap-4 mb-2">
-              <div className={`p-3 rounded-xl bg-white shadow-sm border border-slate-100`}>
-                <Car className="h-8 w-8 text-blue-600" />
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
+                <Car className="h-4 w-4" />
+                Leerpad Auto Theorie
               </div>
-              <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
                 Auto Theorie Leren
               </h1>
+              <p className="text-lg text-slate-600 max-w-2xl">
+                Kies een onderwerp en werk stap voor stap toe naar je examen. Alles is opgebouwd volgens de nieuwste CBR-richtlijnen.
+              </p>
             </div>
-            <p className="text-slate-600 text-lg ml-0 md:ml-[4.5rem]">
-              Bereid je stap voor stap voor op het auto theorie-examen (B).
-            </p>
-          </div>
-
-          <div className="w-full md:w-72">
-            <Input
-              type="text"
-              placeholder="Zoek onderwerp..."
-              value={zoek}
-              onChange={(e) => setZoek(e.target.value)}
-              className="bg-white border-slate-200 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-xl shadow-sm"
-            />
+            <div className="w-full lg:w-80">
+              <div className="rounded-2xl border border-slate-100 bg-white shadow-sm p-4">
+                <Input
+                  type="text"
+                  placeholder="Zoek onderwerp..."
+                  value={zoek}
+                  onChange={(e) => setZoek(e.target.value)}
+                  className="bg-slate-50 border-slate-200 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-xl"
+                />
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+
+      <section className="container mx-auto px-4 max-w-6xl py-12">
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
@@ -176,7 +182,7 @@ export default function LerenStartPage() {
             })}
           </div>
         )}
-      </div>
+      </section>
     </div>
   )
 }

@@ -1,23 +1,23 @@
-# Gratis Theorie - Oefenplatform voor het Theorie-examen
+# Auto Theorie - Oefenplatform voor het Theorie-examen
 
 <p>
-  <img src="https://img.shields.io/github/license/AlexLamper/gratis-theorie?style=for-the-badge" alt="License" />
-  <img src="https://img.shields.io/github/issues/AlexLamper/gratis-theorie?style=for-the-badge&logo=github" alt="Issues" />
-  <img src="https://img.shields.io/github/contributors/AlexLamper/gratis-theorie?style=for-the-badge&logo=github" alt="Contributors" />
+  <img src="https://img.shields.io/github/license/AlexLamper/auto-theorie?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/github/issues/AlexLamper/auto-theorie?style=for-the-badge&logo=github" alt="Issues" />
+  <img src="https://img.shields.io/github/contributors/AlexLamper/auto-theorie?style=for-the-badge&logo=github" alt="Contributors" />
 </p>
 
-**Oefen gratis en onbeperkt voor je theorie-examen auto, motor of scooter met realistische CBR-vragen.**
+**Oefen gratis met voorbeeldlessen en stap over naar volledige toegang wanneer je er klaar voor bent.**
 
-![Gratis Theorie Screenshot](public/screenshot.png)
+![Auto Theorie Screenshot](public/screenshot.png)
 <p>
-  <a href="https://gratis-theorie.com">
+  <a href="https://auto-theorie.com">
     <img src="https://img.shields.io/badge/Ga naar Site-▶️-blue?style=for-the-badge" alt="Ga Naar Site" />
   </a>
 </p>
 
-## Over Gratis Theorie
+## Over Auto Theorie
 
-*Gratis Theorie* is een modern, interactief leerplatform waarmee je je optimaal kunt voorbereiden op je theorie-examen voor de auto, motor of scooter. Met realistische oefenvragen, proefexamens, en een uitgebreide verkeersbordenbibliotheek is dit hét platform voor iedereen die wil slagen — gratis en zonder limieten.
+*Auto Theorie* is een modern, interactief leerplatform waarmee je je optimaal kunt voorbereiden op je theorie-examen voor de auto, motor of scooter. Met realistische oefenvragen, proefexamens, en een uitgebreide verkeersbordenbibliotheek is dit hét platform voor iedereen die wil slagen — gratis en zonder limieten.
 
 ## Inhoudsopgave
 
@@ -51,6 +51,67 @@
   <img src="https://img.shields.io/badge/Framer_Motion-000000?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
 </p>
 
+## Configuratie (Auth en Stripe)
+
+### Benodigde environment variabelen
+
+Maak een `.env.local` aan in de root met minimaal:
+
+```
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=VUL_HIER_EEN_GEHEIM_IN
+
+GOOGLE_CLIENT_ID=VUL_HIER_JE_CLIENT_ID_IN
+GOOGLE_CLIENT_SECRET=VUL_HIER_JE_CLIENT_SECRET_IN
+
+EMAIL_SERVER_HOST=smtp.jouwdomein.nl
+EMAIL_SERVER_PORT=587
+EMAIL_SERVER_USER=jij@jouwdomein.nl
+EMAIL_SERVER_PASSWORD=JE_SMTP_WACHTWOORD
+EMAIL_FROM="Auto Theorie <noreply@jouwdomein.nl>"
+
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_PRICE_AUTO_DAG=price_...
+STRIPE_PRICE_AUTO_WEEK=price_...
+STRIPE_PRICE_AUTO_MAAND=price_...
+```
+
+### Google Cloud Console (OAuth) stappen
+
+1. Ga naar https://console.cloud.google.com/apis/credentials?project=... en kies je project.
+2. Maak een OAuth 2.0 Client ID aan (type: Web Application).
+3. Voeg Authorized JavaScript origins toe:
+  - `http://localhost:3000`
+  - `https://auto-theorie.com` (of jouw domein)
+4. Voeg Authorized redirect URIs toe:
+  - `http://localhost:3000/api/auth/callback/google`
+  - `https://auto-theorie.com/api/auth/callback/google`
+5. Kopieer de Client ID en Client Secret naar `GOOGLE_CLIENT_ID` en `GOOGLE_CLIENT_SECRET`.
+
+### NextAuth secret genereren
+
+Gebruik bijvoorbeeld:
+
+```
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+```
+
+Plaats de output in `NEXTAUTH_SECRET`.
+
+### Stripe basis instellen
+
+1. Maak in het Stripe dashboard drie producten/prijzen aan:
+  - Auto dag (EUR 19,99)
+  - Auto week (EUR 29,99)
+  - Auto maand (EUR 39,99 met 79,99 als doorgestreepte prijs in de UI)
+2. Kopieer de price IDs naar:
+  - `STRIPE_PRICE_AUTO_DAG`
+  - `STRIPE_PRICE_AUTO_WEEK`
+  - `STRIPE_PRICE_AUTO_MAAND`
+3. Zet je `STRIPE_SECRET_KEY`.
+
+
 ## Paginastructuur
 
 - **Home** — Introductie tot het platform met duidelijke call-to-actions.
@@ -81,9 +142,9 @@ Dit project valt onder de [MIT Licentie](LICENSE). Bekijk het LICENSE-bestand vo
 ## FAQ
 
 <details>
-<summary>Is Gratis Theorie écht gratis?</summary>
+<summary>Kan ik gratis starten?</summary>
 
-Ja! Het platform is volledig gratis en zal dat altijd blijven. Er zijn geen verborgen kosten of proefperiodes.
+Ja. Je kunt direct starten met een selectie lessen en voorbeeldvragen. Volledige toegang is beschikbaar via een pakket.
 
 </details>
 
@@ -97,17 +158,13 @@ De vragen zijn gebaseerd op het officiële CBR-vragentype en zijn samengesteld m
 <details>
 <summary>Kan ik mijn voortgang bijhouden?</summary>
 
-Binnenkort wel! We zijn bezig met een module waarbij we via sessionStorage informatie opslaan zodat jij jouw voortgang kunt zien.
+Ja, na betaling wordt je voortgang opgeslagen via je account.
 
 </details>
 
 ## Contact
 
 Voor vragen, feedback of samenwerking:  
-- Open een [issue op GitHub](https://github.com/AlexLamper/gratistheorie/issues)  
-- Email: [devlamper06@gmail.com](mailto:devlamper06@gmail.com)    
-- GitHub: [@AlexLamper](https://github.com/AlexLamper)
 
----
 
-Dank je wel voor het gebruiken van *Gratis Theorie* — en veel succes met je theorie-examen! 🎓🚗📚
+Dank je wel voor het gebruiken van *Auto Theorie* — en veel succes met je theorie-examen! 🎓🚗📚

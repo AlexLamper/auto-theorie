@@ -1,9 +1,9 @@
 "use client"
 
-import { BookOpen, ArrowLeft, Menu, X } from "lucide-react"
+import { BookOpen, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
 export default function Navbar() {
@@ -15,7 +15,7 @@ export default function Navbar() {
 
   const getPageTitle = () => {
     if (pathname.startsWith("/practice")) return "Oefenen"
-    if (pathname.startsWith("/exams")) return "Examens"
+    if (pathname.startsWith("/oefenexamens")) return "Examens"
     if (pathname.startsWith("/verkeersborden")) return "Verkeersborden"
     return null
   }
@@ -24,8 +24,11 @@ export default function Navbar() {
   const navigationItems = [
     { href: "/", label: "Home" },
     { href: "/leren", label: "Auto Theorie" },
-    { href: "/exams", label: "Proefexamens" },
+    { href: "/oefenexamens", label: "Proefexamens" },
     { href: "/verkeersborden", label: "Verkeersborden" },
+    { href: "/pricing", label: "Prijzen" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/over-ons", label: "Over ons" },
   ]
 
   return (
@@ -38,7 +41,7 @@ export default function Navbar() {
               <div className="bg-blue-600 p-1.5 rounded-lg group-hover:bg-blue-700 transition-colors">
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">Gratis Auto Theorie</h1>
+              <h1 className="text-xl font-bold text-slate-900 tracking-tight">Auto Theorie</h1>
             </Link>
 
             {/* Page title for non-home pages */}
@@ -67,6 +70,9 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <Button asChild size="sm" className="ml-2 bg-blue-600 hover:bg-blue-700 text-white">
+              <Link href="/inloggen">Inloggen</Link>
+            </Button>
           </nav>
 
           {/* Mobile menu toggle */}
@@ -98,6 +104,13 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
+              <Link
+                href="/inloggen"
+                className="px-4 py-3 rounded-lg text-sm font-medium text-blue-700 bg-blue-50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Inloggen
+              </Link>
             </nav>
           </div>
         )}

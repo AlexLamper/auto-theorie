@@ -11,9 +11,9 @@ export default function Footer() {
               <div className="bg-blue-600 p-1.5 rounded-lg">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold tracking-tight">Gratis Auto Theorie</span>
+              <span className="text-xl font-bold tracking-tight">Auto Theorie</span>
             </div>
-            <p className="text-slate-400 mb-6 leading-relaxed">Het beste gratis platform voor auto theorie-examens in Nederland. Oefen onbeperkt en bereid je optimaal voor.</p>
+            <p className="text-slate-400 mb-6 leading-relaxed">Het beste platform voor auto theorie-examens in Nederland. Oefen gericht en slaag met vertrouwen.</p>
             <div className="space-y-3 text-sm text-slate-400">
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-blue-500" />
@@ -57,6 +57,21 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/pricing" className="hover:text-blue-400 transition-colors">
+                  Prijzen
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" className="hover:text-blue-400 transition-colors">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link href="/over-ons" className="hover:text-blue-400 transition-colors">
+                  Over ons
+                </Link>
+              </li>
+              <li>
                 <Link href="/privacy-policy" className="hover:text-blue-400 transition-colors">
                   Privacy Beleid
                 </Link>
@@ -69,33 +84,23 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-6 text-lg text-slate-100">Pagina's</h4>
+            <h4 className="font-bold mb-6 text-lg text-slate-100">Account</h4>
             <ul className="space-y-4 text-slate-400">
               <li>
-                <Link href="/" className="hover:text-blue-400 transition-colors">
-                  Home
+                <Link href="/inloggen" className="hover:text-blue-400 transition-colors">
+                  Inloggen
                 </Link>
               </li>
               <li>
-                <Link href="/leren" className="hover:text-blue-400 transition-colors">
-                  Leren
-                </Link>
-              </li>
-              <li>
-                <Link href="/exams" className="hover:text-blue-400 transition-colors">
-                  Proefexamens
-                </Link>
-              </li>
-              <li>
-                <Link href="/verkeersborden" className="hover:text-blue-400 transition-colors">
-                  Verkeersborden
+                <Link href="/aanmelden" className="hover:text-blue-400 transition-colors">
+                  Aanmelden
                 </Link>
               </li>
             </ul>
           </div>
         </div>
         <div className="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm">
-          <p>&copy; 2025 Gratis Theorie. Alle rechten voorbehouden.</p>
+          <p>&copy; 2025 Auto Theorie. Alle rechten voorbehouden.</p>
         </div>
       </div>
     </footer>

@@ -1,14 +1,23 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Clock, Trophy, CheckCircle, AlertCircle, Target, Users } from "lucide-react"
+import { Trophy, AlertCircle } from "lucide-react"
 import Link from "next/link"
 import Footer from "@/components/footer"
 
 export default async function ExamsPage() {
   let exams = []
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${baseUrl}/api/exams`, { cache: 'no-store' })
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+    const res = await fetch(`${baseUrl}/api/oefenexamens`, { cache: "no-store" })
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`)
+    }
+    const contentType = res.headers.get("content-type")
+    if (!contentType || !contentType.includes("application/json")) {
+      const text = await res.text()
+      console.error("Received non-JSON response:", text.substring(0, 100))
+      throw new Error("Received non-JSON response from API")
+    }
     const data = await res.json()
     // Robuuste numerieke sortering op exam_id
     exams = (data.exams || []).sort((a: any, b: any) => {
@@ -22,32 +31,39 @@ export default async function ExamsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12">
-      <div className="container mx-auto px-4">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Auto Theorie Proefexamens</h1>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-8">
-            Test je kennis met volledige proefexamens voor het B rijbewijs die identiek zijn aan het echte CBR theorie-examen.
-          </p>
-
-          {/* Key Stats - Compact Version */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-bold text-slate-500 uppercase tracking-widest bg-white py-4 px-8 rounded-2xl shadow-sm border border-slate-100 max-w-2xl mx-auto">
-            <div className="flex items-center gap-2">
-              <span className="text-slate-900">{exams.length}</span> Oefenexamens
+    <div className="min-h-screen bg-slate-50">
+      <section className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
+        <div className="container mx-auto px-4 py-16 relative">
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
+              <Trophy className="h-4 w-4" />
+              Proefexamens
             </div>
-            <div className="w-1 h-1 bg-slate-300 rounded-full hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <span className="text-slate-900">30 min</span> tijd
-            </div>
-            <div className="w-1 h-1 bg-slate-300 rounded-full hidden sm:block" />
-            <div className="flex items-center gap-2 text-green-600">
-              €0 kosten
+            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-4 tracking-tight">
+              Auto Theorie Proefexamens
+            </h1>
+            <p className="text-lg text-slate-600 mt-4">
+              Test je kennis met volledige proefexamens voor het B rijbewijs die identiek zijn aan het echte CBR theorie-examen.
+            </p>
+            <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-bold text-slate-500 uppercase tracking-widest bg-white py-4 px-8 rounded-2xl shadow-sm border border-slate-100">
+              <div className="flex items-center gap-2">
+                <span className="text-slate-900">{exams.length}</span> Oefenexamens
+              </div>
+              <div className="w-1 h-1 bg-slate-300 rounded-full hidden sm:block" />
+              <div className="flex items-center gap-2">
+                <span className="text-slate-900">30 min</span> tijd
+              </div>
+              <div className="w-1 h-1 bg-slate-300 rounded-full hidden sm:block" />
+              <div className="flex items-center gap-2 text-green-600">
+                €0 kosten
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Exams Grid */}
+      <section className="container mx-auto px-4 py-12">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {exams.length > 0 ? (
@@ -72,7 +88,7 @@ export default async function ExamsPage() {
                       asChild
                       className="w-full bg-slate-900 hover:bg-blue-600 text-white transition-all h-11 text-sm font-bold rounded-xl cursor-pointer"
                     >
-                      <Link href={`/exams/start?slug=${exam.slug}`}>
+                      <Link href={`/oefenexamens/start?slug=${exam.slug}`}>
                         Start Examen
                       </Link>
                     </Button>
@@ -88,10 +104,8 @@ export default async function ExamsPage() {
             )}
           </div>
         </div>
-      </div>
-      <div className="mt-20">
-        <Footer />
-      </div>
+      </section>
+      <Footer />
     </div>
   )
 }

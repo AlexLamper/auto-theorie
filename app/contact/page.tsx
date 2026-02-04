@@ -23,7 +23,7 @@ export default function ContactPage() {
           </div>
           <h1 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Contact</h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            Heb je vragen, feedback of suggesties? We helpen je graag verder!
+            Heb je vragen, feedback of suggesties? We helpen je graag snel en persoonlijk.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-semibold text-slate-900 mb-1">Reactietijd</p>
-                  <p className="text-slate-600">Kan even duren sorry ;d</p>
+                  <p className="text-slate-600">Meestal binnen 24 uur</p>
                 </div>
               </div>
             </CardContent>
@@ -77,14 +77,14 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent className="p-8 space-y-8">
               <div>
-                <h4 className="font-semibold text-slate-900 mb-2">Is Gratis Theorie écht gratis?</h4>
-                <p className="text-slate-600 leading-relaxed">Ja! Alles is 100% gratis — zonder verborgen kosten of advertenties.</p>
+                <h4 className="font-semibold text-slate-900 mb-2">Kan ik gratis starten?</h4>
+                <p className="text-slate-600 leading-relaxed">Ja. Je kunt direct starten met een selectie lessen en voorbeeldvragen.</p>
               </div>
 
               <div>
-                <h4 className="font-semibold text-slate-900 mb-2">Moet ik een account aanmaken?</h4>
+                <h4 className="font-semibold text-slate-900 mb-2">Wanneer moet ik inloggen?</h4>
                 <p className="text-slate-600 leading-relaxed">
-                  Nee, je kunt meteen beginnen met oefenen. Je voortgang wordt lokaal opgeslagen in je browser.
+                  Inloggen is pas nodig wanneer je een pakket kiest. Dan bewaren we je voortgang.
                 </p>
               </div>
 

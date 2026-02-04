@@ -5,6 +5,8 @@ const schemaName = "Lesson"
 const LessonSchema = new mongoose.Schema(
   {
     category: { type: String, required: true },
+    categoryTitle: { type: String, required: true },
+    categoryOrder: { type: Number, default: 0 },
     slug: { type: String, required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },

@@ -2,17 +2,6 @@ import { NextRequest, NextResponse } from "next/server"
 import connectMongoDB from "@/libs/mongodb"
 import Lesson from "@/models/Lesson"
 
-const AUTO_TOPICS = [
-  { slug: "milieu", title: "Verantwoord en milieubewust rijden", order: 1 },
-  { slug: "verkeersborden", title: "Verkeersborden en verkeersregelaars", order: 2 },
-  { slug: "verkeersregels", title: "Verkeersregels, snelheden en parkeren", order: 3 },
-  { slug: "veiligheid", title: "Verkeersveiligheid", order: 4 },
-  { slug: "voorrang", title: "Voorrang en voor laten gaan", order: 5 },
-  { slug: "weggebruikers", title: "Andere weggebruikers", order: 6 },
-  { slug: "voertuig", title: "Het voertuig", order: 7 },
-  { slug: "verkeerswetten", title: "Wetgeving en documenten", order: 8 },
-]
-
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
@@ -39,8 +28,28 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(lessons)
     }
 
-    // Geen categorie? Geef de hardcoded lijst van auto onderwerpen
-    return NextResponse.json(AUTO_TOPICS)
+    // Geen categorie? Geef alle categorieen uit de database
+    const categories = await Lesson.aggregate([
+      { $sort: { categoryOrder: 1, order: 1 } },
+      {
+        $group: {
+          _id: "$category",
+          title: { $first: "$categoryTitle" },
+          order: { $first: "$categoryOrder" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          slug: "$_id",
+          title: 1,
+          order: 1,
+        },
+      },
+      { $sort: { order: 1, title: 1 } },
+    ])
+
+    return NextResponse.json(categories)
   } catch (error) {
     console.error("Leren API Error:", error)
     return NextResponse.json({ error: "Interne serverfout" }, { status: 500 })
