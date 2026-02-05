@@ -110,7 +110,7 @@ function LesPaginaContent() {
           if (les) {
             setActieveLes({
               titel: les.title,
-              inhoud: htmlToBlocks(les.content),
+              inhoud: les.content,
               volgorde: lesVolgorde,
             })
           }
@@ -296,7 +296,15 @@ function LesPaginaContent() {
                 </div>
 
                 <div className="lesson-content-wrapper min-h-[400px]">
-                  <LessonContent inhoud={typeof actieveLes.inhoud === 'string' ? [{ type: 'paragraaf', tekst: actieveLes.inhoud }] : actieveLes.inhoud} />
+                  {/* Als inhoud een string is (onze HTML), renderen we die direct met parse() */}
+                  {typeof actieveLes.inhoud === 'string' ? (
+                    <div className="theory-html-content">
+                      {parse(actieveLes.inhoud)}
+                    </div>
+                  ) : (
+                    /* Fallback voor als je toch nog blokken gebruikt */
+                    <LessonContent inhoud={actieveLes.inhoud} />
+                  )}
                 </div>
 
                 <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-6">
