@@ -12,6 +12,7 @@ import {
   Trophy,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import Footer from "@/components/footer"
 import type { Metadata } from "next"
 
@@ -48,10 +49,10 @@ export default function HomePage() {
               </div>
               <div className="space-y-5 animate-fade-up animate-delay-1">
                 <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-                  Slaag voor je auto theorie met een helder, modern en effectief leerpad.
+                  Slaag voor je <span className="text-blue-700">auto-theorie</span> op jouw tempo, zonder stress
                 </h1>
                 <p className="text-lg text-slate-600 max-w-2xl">
-                  Alles wat je nodig hebt in een strak platform: oefenen, leren en examens. Start direct en bewaar je voortgang wanneer je later overstapt naar een betaald pakket.
+                  Alles wat je nodig hebt om in één keer te slagen: leren, oefenen en examens. Begin gratis en bewaar je voortgang.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-up animate-delay-2">
@@ -79,30 +80,16 @@ export default function HomePage() {
             </div>
             <div className="relative animate-fade-up animate-delay-2">
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-100 via-white to-slate-100 blur-2xl opacity-80" />
-              <div className="relative rounded-3xl border border-slate-100 bg-white shadow-xl p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="h-12 w-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center">
-                    <Car className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-500">Volgende stap</p>
-                    <p className="text-lg font-semibold">Jouw persoonlijke leerpad</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  {[
-                    "Start met kernregels en verkeersinzicht",
-                    "Train gevaarherkenning en borden",
-                    "Oefen examens met directe feedback",
-                  ].map((item) => (
-                    <div key={item} className="flex items-center gap-3 rounded-2xl border border-slate-100 px-4 py-3">
-                      <CheckCircle className="h-5 w-5 text-emerald-500" />
-                      <p className="text-sm text-slate-600">{item}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6 rounded-2xl bg-slate-50 p-4 text-sm text-slate-500">
-                  Afbeelding placeholder voor dashboard preview
+              <div className="relative rounded-3xl border border-slate-100 bg-white shadow-xl overflow-hidden p-2">
+                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-sm border border-slate-50">
+                  <Image
+                    src="/images/home/hero.png"
+                    alt="Dashboard preview"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 45vw"
+                    priority
+                  />
                 </div>
               </div>
             </div>
@@ -146,10 +133,17 @@ export default function HomePage() {
             </div>
             <div className="lg:w-1/2">
               <div className="rounded-3xl border border-slate-100 bg-white p-8 shadow-lg">
-                <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center text-sm text-slate-500">
-                  Afbeelding placeholder: leerling met tablet
+                <div className="relative aspect-[16/9] w-full mb-6 rounded-2xl overflow-hidden">
+                  <Image
+                    src="/images/home/leren.png"
+                    alt="Leerling met tablet"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    priority
+                  />
                 </div>
-                <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="grid grid-cols-2 gap-4">
                   {[
                     { label: "Gevaarherkenning", value: "92%" },
                     { label: "Verkeersregels", value: "88%" },

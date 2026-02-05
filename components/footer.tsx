@@ -5,27 +5,16 @@ import Link from "next/link"
 export default function Footer() {
   return (
     <footer className="bg-slate-900 text-white py-16 px-4">
-      <div className="container mx-auto max-w-7xl">
+      <div className="container mx-auto">
         <div className="grid md:grid-cols-4 gap-12">
           <div>
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="bg-blue-600 p-1.5 rounded-lg">
-                <BookOpen className="h-6 w-6 text-white" />
-              </div>
-              <div className="relative h-6 w-32">
-                <Image
-                  src="/logo/transparent/logo-transparent.png"
-                  alt="Auto Theorie"
-                  fill
-                  className="object-contain dark:hidden"
-                />
-                <Image
-                  src="/logo/transparent/logo-dark-transparent.png"
-                  alt="Auto Theorie"
-                  fill
-                  className="object-contain hidden dark:block"
-                />
-              </div>
+            <div className="flex items-center space-x-3 mb-6">
+              <img
+                src="/logo/transparent/logo-transparent.png"
+                alt="Logo"
+                className="h-8 w-8 object-contain"
+              />
+              <span className="text-xl font-bold text-white">Auto Theorie</span>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">Het beste platform voor auto theorie-examens in Nederland. Oefen gericht en slaag met vertrouwen.</p>
             <div className="space-y-3 text-sm text-slate-400">

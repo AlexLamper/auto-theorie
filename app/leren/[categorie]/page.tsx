@@ -60,6 +60,13 @@ function LesPaginaContent() {
   const lesIndexParam = searchParams.get("les")
   const lesVolgorde = parseInt(lesIndexParam || "1", 10)
 
+  // Sync state with URL when it changes
+  useEffect(() => {
+    if (categorie) {
+      setActieveGroep(categorie as string)
+    }
+  }, [categorie])
+
   useEffect(() => {
     async function fetchAllData() {
       try {
@@ -172,7 +179,7 @@ function LesPaginaContent() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Mobile Header */}
-      <div className="lg:hidden bg-background/95 border-b border-border px-4 py-4 sticky top-0 z-30 flex items-center justify-between backdrop-blur">
+      <div className="lg:hidden bg-white border-b border-border px-4 py-4 sticky top-0 z-30 flex items-center justify-between">
         <div className="flex items-center gap-2 overflow-hidden">
           <Menu className="h-5 w-5 text-muted-foreground flex-shrink-0 cursor-pointer" onClick={() => setMobileMenuOpen(true)} />
           <span className="font-bold text-foreground truncate">
@@ -183,30 +190,46 @@ function LesPaginaContent() {
       </div>
 
       <main className="flex-1 flex overflow-hidden">
+        {/* Mobile Backdrop */}
+        {mobileMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-black/40 z-40 lg:hidden" 
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+
         {/* Sidebar Navigation */}
         <aside className={clsx(
-          "fixed inset-0 z-40 lg:relative lg:z-auto lg:translate-x-0 transition-transform duration-300 ease-in-out lg:w-80 bg-background border-r border-border flex flex-col",
+          "fixed top-0 left-0 bottom-0 z-50 w-[85%] max-w-[320px] lg:relative lg:z-auto lg:translate-x-0 transition-transform duration-300 ease-in-out lg:w-80 bg-white border-r border-border flex flex-col",
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         )}>
           <div className="p-4 border-b border-border flex items-center justify-between lg:hidden">
             <span className="font-bold text-foreground">Inhoudsopgave</span>
-            <X className="h-6 w-6 text-muted-foreground cursor-pointer" onClick={() => setMobileMenuOpen(false)} />
+            <button 
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-1 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              <X className="h-6 w-6 text-muted-foreground cursor-pointer" />
+            </button>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             <div className="space-y-6">
-              {groepen.map((groep) => {
+              {groepen.map((groep, index) => {
                 const isOpgeklapt = actieveGroep === groep.categorie
                 return (
                   <div key={groep.categorie} className="space-y-2">
                     <button
-                      onClick={() => setActieveGroep(groep.categorie)}
+                      onClick={() => {
+                        // Navigeer naar de eerste les van deze categorie
+                        router.push(`/leren/${groep.categorie}?les=1`)
+                      }}
                       className={clsx(
                         "w-full text-left flex items-center justify-between p-2 rounded-lg transition-colors cursor-pointer",
                         isOpgeklapt ? "bg-blue-50 text-blue-700 font-bold" : "hover:bg-muted text-muted-foreground font-medium"
                       )}
                     >
-                      <span className="truncate mr-2">{groep.titel}</span>
+                      <span className="truncate mr-2">{index + 1}. {groep.titel}</span>
                       {isOpgeklapt ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                     </button>
 
@@ -279,11 +302,11 @@ function LesPaginaContent() {
             ) : actieveLes ? (
               <article className="prose prose-slate prose-blue max-w-none">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-8 border-b border-border">
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-col gap-1">
                     <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground m-0 tracking-tight">
                       {actieveLes.titel}
                     </h1>
-                    <div className="text-muted-foreground text-sm font-medium mt-1">
+                    <div className="text-muted-foreground text-sm font-medium">
                       Onderwerp: {huidigeGroep?.titel} • Les {lesVolgorde} van {huidigeGroep?.sublessen.length}
                     </div>
                   </div>

@@ -16,7 +16,6 @@ export default function Navbar() {
   const { data: session, status } = useSession()
   const isAuthenticated = status === "authenticated"
   const isHomePage = pathname === "/"
-  const showBackButton = !isHomePage
 
   const getPageTitle = () => {
     if (pathname.startsWith("/practice")) return "Oefenen"
@@ -36,9 +35,7 @@ export default function Navbar() {
     { href: "/over-ons", label: "Over ons" },
   ]
 
-  const navItems = isAuthenticated
-    ? [...navigationItems, { href: "/account", label: "Account" }]
-    : navigationItems
+  const navItems = navigationItems
 
   const userName = session?.user?.name || session?.user?.email || "Gebruiker"
   const planLabel = session?.user?.plan?.label
@@ -49,31 +46,20 @@ export default function Navbar() {
     : null
 
   return (
-    <header className="border-b border-slate-100 bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto px-4 py-4 max-w-7xl">
+    <header className="border-b border-slate-100 bg-white sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto px-4 py-4 max-w-[1600px]">
         <div className="flex items-center justify-between">
           {/* Left side - Logo and Page title */}
           <div className="flex items-center space-x-4">
             <Link href="/" className="flex items-center space-x-2 group cursor-pointer">
-              <div className="bg-blue-600 p-1.5 rounded-lg group-hover:bg-blue-700 transition-colors">
-                <BookOpen className="h-5 w-5 text-white" />
-              </div>
-              <div className="relative h-6 w-32">
-                <Image
-                  src="/logo/transparent/logo-transparent.png"
-                  alt="Auto Theorie"
-                  fill
-                  className="object-contain dark:hidden"
-                  priority
-                />
-                <Image
-                  src="/logo/transparent/logo-dark-transparent.png"
-                  alt="Auto Theorie"
-                  fill
-                  className="object-contain hidden dark:block"
-                  priority
-                />
-              </div>
+              <img
+                src="/logo/transparent/logo-transparent.png"
+                alt="Logo"
+                className="h-8 w-8 object-contain"
+              />
+              <span className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                Auto Theorie
+              </span>
             </Link>
 
             {/* Page title for non-home pages */}
@@ -93,7 +79,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
                   pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
                     ? "bg-blue-50 text-blue-700"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
@@ -104,32 +90,34 @@ export default function Navbar() {
             ))}
             <ThemeToggle />
             {isAuthenticated ? (
-              <div className="ml-2 flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm">
-                <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full bg-slate-200">
-                  {session.user?.image ? (
-                    <Image
-                      src={session.user.image}
-                      alt={userName}
-                      fill
-                      className="object-cover"
-                      sizes="36px"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-slate-600">
-                      {userName.charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                </div>
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-slate-900">{userName}</p>
-                  <p className="text-xs text-slate-500">
-                    {planLabel ? `${planLabel}${planExpiry ? ` • geldig tot ${planExpiry}` : ""}` : "Ingelogd"}
-                  </p>
-                </div>
+              <div className="ml-2 flex items-center gap-2">
+                <Link href="/account" className="flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 pl-1 pr-4 py-1 text-sm hover:bg-slate-100 transition-colors cursor-pointer">
+                  <div className="relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-full bg-slate-200">
+                    {session.user?.image ? (
+                      <Image
+                        src={session.user.image}
+                        alt={userName}
+                        fill
+                        className="object-cover"
+                        sizes="32px"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-slate-600">
+                        {userName.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-left hidden lg:block">
+                    <p className="text-sm font-semibold text-slate-900 leading-tight">{userName}</p>
+                    {planLabel && (
+                      <p className="text-xs text-slate-500 leading-tight">{planLabel}</p>
+                    )}
+                  </div>
+                </Link>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-slate-500 hover:text-slate-900"
+                  className="text-slate-500 hover:text-slate-900 px-2"
                   onClick={() => signOut({ callbackUrl: "/" })}
                 >
                   Uitloggen
