@@ -88,10 +88,9 @@ export default function LerenStartPage() {
   const gelezen = voortgang?.gelezen || {}
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <section className="relative overflow-hidden bg-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
-        <div className="container mx-auto px-4 py-16 max-w-6xl relative">
+    <div className="min-h-screen bg-background">
+      <section>
+        <div className="container mx-auto px-4 py-16 max-w-6xl">
           <Breadcrumb className="mb-6">
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -110,21 +109,21 @@ export default function LerenStartPage() {
                 <Car className="h-4 w-4" />
                 Leerpad Auto Theorie
               </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
                 Auto Theorie Leren
               </h1>
-              <p className="text-lg text-slate-600 max-w-2xl">
+              <p className="text-lg text-muted-foreground max-w-2xl">
                 Kies een onderwerp en werk stap voor stap toe naar je examen. Alles is opgebouwd volgens de nieuwste CBR-richtlijnen.
               </p>
             </div>
             <div className="w-full lg:w-80">
-              <div className="rounded-2xl border border-slate-100 bg-white shadow-sm p-4">
+              <div className="rounded-2xl border border-border bg-card shadow-sm p-4">
                 <Input
                   type="text"
                   placeholder="Zoek onderwerp..."
                   value={zoek}
                   onChange={(e) => setZoek(e.target.value)}
-                  className="bg-slate-50 border-slate-200 focus:border-blue-500 focus:ring-blue-500 h-12 rounded-xl"
+                  className="bg-background border-border focus:border-blue-500 focus:ring-blue-500 h-12 rounded-xl"
                 />
               </div>
             </div>
@@ -151,10 +150,10 @@ export default function LerenStartPage() {
                 <Link
                   key={cat.slug}
                   href={`/leren/${cat.slug}`}
-                  className="group bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                  className="group bg-card rounded-2xl p-6 shadow-sm border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer"
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 rounded-xl bg-slate-50 group-hover:bg-blue-50 transition-colors">
+                    <div className="p-3 rounded-xl bg-muted group-hover:bg-blue-50 transition-colors">
                       {CatIcon}
                     </div>
                     {isCompleted && (
@@ -167,11 +166,11 @@ export default function LerenStartPage() {
                     )}
                   </div>
                   
-                  <h2 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  <h2 className="text-xl font-bold text-foreground mb-2 group-hover:text-blue-600 transition-colors">
                     {cat.title}
                   </h2>
                   
-                  <div className="mt-auto pt-4 flex items-center text-sm font-medium text-slate-500 group-hover:text-blue-600">
+                  <div className="mt-auto pt-4 flex items-center text-sm font-medium text-muted-foreground group-hover:text-blue-600">
                     Onderwerp starten
                     <svg className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

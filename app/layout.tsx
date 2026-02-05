@@ -6,6 +6,7 @@ import Navbar from "@/components/navbar"
 import Script from "next/script"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { SpeechProvider } from "@/lib/SpeechContext"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const manrope = Manrope({ subsets: ["latin"] })
 
@@ -83,7 +84,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="nl">
+    <html lang="nl" suppressHydrationWarning>
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158083181827933"
      crossOrigin="anonymous"></script>
@@ -116,11 +117,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${manrope.className} antialiased bg-slate-50`}>
-        <SpeechProvider>
-          <Navbar />
-          <main>{children}</main>
-        </SpeechProvider>
+      <body className={`${manrope.className} antialiased min-h-screen flex flex-col bg-background`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <SpeechProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+          </SpeechProvider>
+        </ThemeProvider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"} />
       </body>
     </html>

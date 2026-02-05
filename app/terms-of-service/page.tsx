@@ -2,10 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { FileText, Users, Shield, AlertTriangle, Scale } from "lucide-react"
 import type { Metadata } from "next"
 import Footer from "@/components/footer"
-
-  title: "Algemene Voorwaarden - Gratis Theorie",
-  description: "Lees onze algemene voorwaarden voor het gebruik van Gratis Theorie platform.",
-}
 export const metadata: Metadata = {
   title: "Algemene Voorwaarden - Auto Theorie",
   description: "Lees onze algemene voorwaarden voor het gebruik van Auto Theorie platform.",
@@ -13,23 +9,23 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <div className="min-h-screen bg-slate-50 py-12">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-background py-12 flex flex-col">
+      <div className="container mx-auto px-4 flex-1">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 mb-6">
             <FileText className="h-8 w-8 text-blue-600" />
           </div>
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Algemene Voorwaarden</h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+          <h1 className="text-4xl font-extrabold text-foreground mb-4 tracking-tight">Algemene Voorwaarden</h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Deze voorwaarden zijn van toepassing op het gebruik van Auto Theorie.
           </p>
-          <p className="text-sm text-slate-500 mt-4">Laatst bijgewerkt: 1 januari 2024</p>
+          <p className="text-sm text-muted-foreground mt-4">Laatst bijgewerkt: 1 januari 2024</p>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Introduction */}
-          <Card className="border-slate-100 shadow-sm rounded-2xl">
+          <Card className="border-border bg-card shadow-sm rounded-2xl">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 text-xl font-bold text-slate-900">
                 <FileText className="h-5 w-5 text-blue-600" />
@@ -37,11 +33,11 @@ export default function TermsOfServicePage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-slate-600">
+              <p className="text-muted-foreground">
                 Welkom bij Auto Theorie. Deze algemene voorwaarden ("Voorwaarden") zijn van toepassing op je gebruik
                 van onze website, diensten en alle gerelateerde functionaliteiten (samen "Diensten").
               </p>
-              <p className="text-slate-600">
+              <p className="text-muted-foreground">
                 Door gebruik te maken van onze Diensten, ga je akkoord met deze Voorwaarden. Als je niet akkoord gaat
                 met deze voorwaarden, mag je onze Diensten niet gebruiken.
               </p>
@@ -55,14 +51,14 @@ export default function TermsOfServicePage() {
           </Card>
 
           {/* Use of Service */}
-          <Card className="border-slate-100 shadow-sm rounded-2xl">
+          <Card className="border-border bg-card shadow-sm rounded-2xl">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 text-xl font-bold text-slate-900">
                 <Users className="h-5 w-5 text-blue-600" />
                 <span>2. Gebruik van de Dienst</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-slate-600">
+            <CardContent className="space-y-4 text-muted-foreground">
               <p>
                 Je mag onze Diensten alleen gebruiken voor persoonlijke, niet-commerciële doeleinden (het oefenen voor
                 je theorie-examen).
@@ -78,14 +74,14 @@ export default function TermsOfServicePage() {
           </Card>
 
           {/* Intellectual Property */}
-          <Card className="border-slate-100 shadow-sm rounded-2xl">
+          <Card className="border-border bg-card shadow-sm rounded-2xl">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 text-xl font-bold text-slate-900">
                 <Shield className="h-5 w-5 text-blue-600" />
                 <span>3. Intellectueel Eigendom</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-slate-600">
+            <CardContent className="space-y-4 text-muted-foreground">
               <p>
                 Alle inhoud op Auto Theorie, inclusief maar niet beperkt tot tekst, afbeeldingen, logo's, vragen en
                 software, is eigendom van Auto Theorie of haar licentiegevers en wordt beschermd door auteursrecht en
@@ -99,14 +95,14 @@ export default function TermsOfServicePage() {
           </Card>
 
           {/* Disclaimer */}
-          <Card className="border-slate-100 shadow-sm rounded-2xl">
+          <Card className="border-border bg-card shadow-sm rounded-2xl">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 text-xl font-bold text-slate-900">
                 <AlertTriangle className="h-5 w-5 text-blue-600" />
                 <span>4. Aansprakelijkheid en Disclaimer</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-slate-600">
+            <CardContent className="space-y-4 text-muted-foreground">
               <p>
                 Hoewel we ons best doen om ervoor te zorgen dat de informatie op Auto Theorie accuraat en actueel is,
                 geven we geen garanties over de volledigheid of juistheid ervan. De examenvragen zijn bedoeld als
@@ -120,14 +116,14 @@ export default function TermsOfServicePage() {
           </Card>
 
           {/* Applicable Law */}
-          <Card className="border-slate-100 shadow-sm rounded-2xl">
+          <Card className="border-border bg-card shadow-sm rounded-2xl">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2 text-xl font-bold text-slate-900">
                 <Scale className="h-5 w-5 text-blue-600" />
                 <span>5. Toepasselijk Recht</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-slate-600">
+            <CardContent className="space-y-4 text-muted-foreground">
               <p>
                 Op deze Voorwaarden is Nederlands recht van toepassing. Geschillen zullen worden voorgelegd aan de
                 bevoegde rechter in Nederland.

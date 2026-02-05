@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/breadcrumb"
 import parse from "html-react-parser"
 import Footer from "@/components/footer"
-import DonationPrompt from "@/components/DonationPrompt"
 
 interface LesData {
   titel: string
@@ -41,7 +40,7 @@ interface CategorieGroep {
 
 export default function LesPagina() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-slate-50 flex items-center justify-center">Laden...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center">Laden...</div>}>
       <LesPaginaContent />
     </Suspense>
   )
@@ -171,27 +170,27 @@ function LesPaginaContent() {
   const plainText = actieveLes ? cleanForSpeech(stripHtml(typeof actieveLes.inhoud === 'string' ? actieveLes.inhoud : '')) : ""
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Mobile Header */}
-      <div className="lg:hidden bg-white border-b border-slate-200 px-4 py-4 sticky top-0 z-30 flex items-center justify-between">
+      <div className="lg:hidden bg-background/95 border-b border-border px-4 py-4 sticky top-0 z-30 flex items-center justify-between backdrop-blur">
         <div className="flex items-center gap-2 overflow-hidden">
-          <Menu className="h-5 w-5 text-slate-500 flex-shrink-0" onClick={() => setMobileMenuOpen(true)} />
-          <span className="font-bold text-slate-900 truncate">
+          <Menu className="h-5 w-5 text-muted-foreground flex-shrink-0 cursor-pointer" onClick={() => setMobileMenuOpen(true)} />
+          <span className="font-bold text-foreground truncate">
             {actieveLes?.titel || "Laden..."}
           </span>
         </div>
-        <Link href="/leren" className="text-blue-600 font-medium text-sm">Overzicht</Link>
+        <Link href="/leren" className="text-blue-600 font-medium text-sm cursor-pointer">Overzicht</Link>
       </div>
 
-      <div className="flex-1 flex overflow-hidden">
+      <main className="flex-1 flex overflow-hidden">
         {/* Sidebar Navigation */}
         <aside className={clsx(
-          "fixed inset-0 z-40 lg:relative lg:z-auto lg:translate-x-0 transition-transform duration-300 ease-in-out lg:w-80 bg-white border-r border-slate-200 flex flex-col",
+          "fixed inset-0 z-40 lg:relative lg:z-auto lg:translate-x-0 transition-transform duration-300 ease-in-out lg:w-80 bg-background border-r border-border flex flex-col",
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         )}>
-          <div className="p-4 border-b border-slate-200 flex items-center justify-between lg:hidden">
-            <span className="font-bold text-slate-900">Inhoudsopgave</span>
-            <X className="h-6 w-6 text-slate-500" onClick={() => setMobileMenuOpen(false)} />
+          <div className="p-4 border-b border-border flex items-center justify-between lg:hidden">
+            <span className="font-bold text-foreground">Inhoudsopgave</span>
+            <X className="h-6 w-6 text-muted-foreground cursor-pointer" onClick={() => setMobileMenuOpen(false)} />
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
@@ -203,8 +202,8 @@ function LesPaginaContent() {
                     <button
                       onClick={() => setActieveGroep(groep.categorie)}
                       className={clsx(
-                        "w-full text-left flex items-center justify-between p-2 rounded-lg transition-colors",
-                        isOpgeklapt ? "bg-blue-50 text-blue-700 font-bold" : "hover:bg-slate-50 text-slate-600 font-medium"
+                        "w-full text-left flex items-center justify-between p-2 rounded-lg transition-colors cursor-pointer",
+                        isOpgeklapt ? "bg-blue-50 text-blue-700 font-bold" : "hover:bg-muted text-muted-foreground font-medium"
                       )}
                     >
                       <span className="truncate mr-2">{groep.titel}</span>
@@ -218,10 +217,10 @@ function LesPaginaContent() {
                             key={subles.volgorde}
                             href={`/leren/${groep.categorie}?les=${subles.volgorde}`}
                             className={clsx(
-                              "block py-2 text-sm transition-colors",
+                              "block py-2 text-sm transition-colors cursor-pointer",
                               actieveGroep === groep.categorie && lesVolgorde === subles.volgorde
                                 ? "text-blue-600 font-bold"
-                                : "text-slate-500 hover:text-slate-900"
+                                : "text-muted-foreground hover:text-foreground"
                             )}
                           >
                             {subles.titel}
@@ -237,20 +236,20 @@ function LesPaginaContent() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto bg-white">
+        <section className="flex-1 overflow-y-auto bg-background">
           <div className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
-            <div className="rounded-3xl border border-slate-100 bg-slate-50 p-6 sm:p-8 mb-8">
+            <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 mb-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Lesmodule</p>
-                  <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Lesmodule</p>
+                  <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
                     {huidigeGroep?.titel || "Les"}
                   </h1>
-                  <p className="text-sm text-slate-600 mt-2">
+                  <p className="text-sm text-muted-foreground mt-2">
                     Volg de lessen stap voor stap en navigeer eenvoudig via de inhoudsopgave.
                   </p>
                 </div>
-                <div className="rounded-2xl bg-white border border-slate-100 px-4 py-3 text-sm text-slate-600 shadow-sm">
+                <div className="rounded-2xl bg-background border border-border px-4 py-3 text-sm text-muted-foreground shadow-sm">
                   {huidigeGroep?.sublessen.length || 0} lessen in deze categorie
                 </div>
               </div>
@@ -259,15 +258,15 @@ function LesPaginaContent() {
             <Breadcrumb className="mb-8 hidden lg:flex">
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/" className="text-slate-500 hover:text-blue-600">Home</BreadcrumbLink>
+                  <BreadcrumbLink href="/" className="text-muted-foreground hover:text-blue-600 cursor-pointer">Home</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="text-slate-400" />
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/leren" className="text-slate-500 hover:text-blue-600">Auto Theorie</BreadcrumbLink>
+                  <BreadcrumbLink href="/leren" className="text-muted-foreground hover:text-blue-600 cursor-pointer">Auto Theorie</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="text-slate-400" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage className="text-slate-900 font-medium">{huidigeGroep?.titel}</BreadcrumbPage>
+                  <BreadcrumbPage className="text-foreground font-medium">{huidigeGroep?.titel}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -275,20 +274,20 @@ function LesPaginaContent() {
             {loading ? (
               <div className="flex flex-col items-center justify-center h-64 space-y-4">
                 <div className="h-10 w-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                <p className="text-slate-500 animate-pulse font-medium">Les ophalen...</p>
+                <p className="text-muted-foreground animate-pulse font-medium">Les ophalen...</p>
               </div>
             ) : actieveLes ? (
               <article className="prose prose-slate prose-blue max-w-none">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-8 border-b border-slate-100">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-8 border-b border-border">
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
                       <Car className="h-6 w-6" />
                     </div>
                     <div>
-                      <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 m-0 tracking-tight">
+                      <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground m-0 tracking-tight">
                         {actieveLes.titel}
                       </h1>
-                      <div className="text-slate-500 text-sm font-medium mt-1">
+                      <div className="text-muted-foreground text-sm font-medium mt-1">
                         Onderwerp: {huidigeGroep?.titel} • Les {lesVolgorde} van {huidigeGroep?.sublessen.length}
                       </div>
                     </div>
@@ -300,11 +299,11 @@ function LesPaginaContent() {
                   <LessonContent inhoud={typeof actieveLes.inhoud === 'string' ? [{ type: 'paragraaf', tekst: actieveLes.inhoud }] : actieveLes.inhoud} />
                 </div>
 
-                <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-6">
                   <button
                     onClick={gaNaarVorige}
                     disabled={huidigeGroepIndex === 0 && lesVolgorde === 1}
-                    className="w-full sm:w-auto flex items-center justify-center px-6 py-3 rounded-xl font-bold bg-white border-2 border-slate-100 text-slate-600 hover:border-blue-600 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="w-full sm:w-auto flex items-center justify-center px-6 py-3 rounded-xl font-bold bg-card border-2 border-border text-muted-foreground hover:border-blue-600 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
                   >
                     <ChevronRight className="h-5 w-5 mr-2 rotate-180" />
                     Vorige les
@@ -312,7 +311,7 @@ function LesPaginaContent() {
 
                   <button
                     onClick={gaNaarVolgende}
-                    className="w-full sm:w-auto flex items-center justify-center px-8 py-3 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all border-2 border-blue-600"
+                    className="w-full sm:w-auto flex items-center justify-center px-8 py-3 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all border-2 border-blue-600 cursor-pointer"
                   >
                     {isLaatsteLesInGroep && huidigeGroepIndex === groepen.length - 1 ? (
                       "Afronden"
@@ -327,13 +326,10 @@ function LesPaginaContent() {
               </article>
             ) : null}
             
-            <div className="mt-20">
-              <DonationPrompt />
-            </div>
           </div>
-          <Footer />
-        </main>
-      </div>
+        </section>
+      </main>
+      <Footer />
     </div>
   )
 }

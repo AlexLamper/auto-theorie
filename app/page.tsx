@@ -77,7 +77,7 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <div className="relative">
+            <div className="relative animate-fade-up animate-delay-2">
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-100 via-white to-slate-100 blur-2xl opacity-80" />
               <div className="relative rounded-3xl border border-slate-100 bg-white shadow-xl p-8">
                 <div className="flex items-center gap-3 mb-6">
@@ -214,7 +214,7 @@ export default function HomePage() {
                 ))}
               </div>
               <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-                <Link href="/pricing">
+                <Link href="/prijzen">
                   Bekijk prijzen
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -275,7 +275,7 @@ export default function HomePage() {
                   <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-emerald-500" />Voortgang opgeslagen</li>
                 </ul>
                 <Button asChild className="mt-6 bg-slate-900 hover:bg-blue-600 text-white">
-                  <Link href="/pricing">Kies {plan.name}</Link>
+                  <Link href="/prijzen">Kies {plan.name}</Link>
                 </Button>
               </div>
             ))}
@@ -337,7 +337,7 @@ export default function HomePage() {
                 <Link href="/leren">Start met leren</Link>
               </Button>
               <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                <Link href="/pricing">Bekijk pakketten</Link>
+                <Link href="/prijzen">Bekijk pakketten</Link>
               </Button>
             </div>
           </div>

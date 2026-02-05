@@ -14,7 +14,7 @@ export default function BetalingGeannuleerdPage() {
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="bg-slate-900 hover:bg-blue-600 text-white">
-              <Link href="/pricing">Bekijk pakketten</Link>
+              <Link href="/prijzen">Bekijk pakketten</Link>
             </Button>
             <Button asChild variant="outline" className="border-slate-200">
               <Link href="/leren">Start gratis</Link>

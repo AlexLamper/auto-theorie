@@ -135,36 +135,36 @@ export default function VerkeersbordenPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <section className="relative overflow-hidden bg-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
-        <div className="container mx-auto px-4 py-16 max-w-7xl relative text-center">
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="flex-1">
+        <section>
+          <div className="container mx-auto px-4 py-16 max-w-7xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
             Nederlandse verkeersborden
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-4 tracking-tight">Alles wat je moet kennen voor het theorie-examen</h1>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto mt-4 font-medium">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mt-4 tracking-tight">Alles wat je moet kennen voor het theorie-examen</h1>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mt-4 font-medium">
             Alle verkeersborden die je moet kennen voor je auto theorie-examen (B). Klik op de voorlees-knop om de betekenis te horen.
           </p>
         </div>
-      </section>
+        </section>
 
-      <section className="container mx-auto px-4 py-12 max-w-7xl">
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-8">
+        <section className="container mx-auto px-4 py-12 max-w-7xl">
+        <div className="bg-card rounded-2xl border border-border shadow-sm p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-4 items-center mb-6">
             <div className="relative flex-1 w-full">
               <Input
                 placeholder="Zoek verkeersborden op naam of betekenis..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-slate-50 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl h-12 text-sm font-medium"
+                className="bg-background border-border focus:border-blue-500 focus:ring-blue-500 rounded-xl h-12 text-sm font-medium"
               />
             </div>
           </div>
@@ -173,8 +173,8 @@ export default function VerkeersbordenPage() {
               <button
                 key={type.id}
                 onClick={() => setSelectedType(type.id)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  selectedType === type.id ? "bg-blue-600 text-white shadow-md shadow-blue-200" : "bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200"
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer ${
+                  selectedType === type.id ? "bg-blue-600 text-white shadow-md shadow-blue-200" : "bg-muted text-muted-foreground hover:bg-muted/80 border border-border"
                 }`}
               >
                 {type.name} ({type.count})
@@ -204,9 +204,9 @@ export default function VerkeersbordenPage() {
           <>
             <div className="mb-6 text-sm text-slate-500 font-medium">{filteredSigns.length} van {signs.length} borden</div>
             {filteredSigns.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-slate-100 p-12 text-center shadow-sm">
+              <div className="bg-card rounded-3xl border border-border p-12 text-center shadow-sm">
                 <Search className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-slate-900 mb-2">Geen resultaten</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Geen resultaten</h3>
                 <Button onClick={() => { setSearchTerm(""); setSelectedType("all") }} variant="outline">Filters wissen</Button>
               </div>
             ) : (
@@ -216,9 +216,9 @@ export default function VerkeersbordenPage() {
                   const displayType = sign.type || (Array.isArray(sign.category) ? sign.category[0] : sign.category);
 
                   return (
-                    <Card key={signId} className="group bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl overflow-hidden">
+                    <Card key={signId} className="group bg-card border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-2xl overflow-hidden">
                       <CardContent className="p-5">
-                        <div className="bg-slate-50 border border-slate-100 rounded-xl p-6 mb-4 flex items-center justify-center group-hover:bg-white transition-colors h-48">
+                        <div className="bg-muted border border-border rounded-xl p-6 mb-4 flex items-center justify-center group-hover:bg-card transition-colors h-48">
                           <img
                             src={imageErrors.has(signId) ? createPlaceholderSVG(160, 160) : sign.image}
                             alt={sign.name}
@@ -229,15 +229,15 @@ export default function VerkeersbordenPage() {
                         </div>
                         <div className="space-y-3">
                           <div className="flex items-start justify-between">
-                            <h3 className="font-bold text-slate-900 text-sm leading-tight line-clamp-2">{sign.name}</h3>
+                            <h3 className="font-bold text-foreground text-sm leading-tight line-clamp-2">{sign.name}</h3>
                             <span className="text-lg ml-2">{getShapeIcon(sign.shape)}</span>
                           </div>
                           <Badge className={`${getTypeColor(displayType)} border text-[10px] uppercase font-bold px-2 py-0.5`} variant="outline">{displayType}</Badge>
-                          <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed min-h-[2.5rem]">{sign.description}</p>
-                          <div className="pt-3 border-t border-slate-100 flex justify-between items-start gap-2">
+                          <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed min-h-[2.5rem]">{sign.description}</p>
+                          <div className="pt-3 border-t border-border flex justify-between items-start gap-2">
                             <div className="flex-1">
                               <p className="text-[10px] font-bold text-blue-600 uppercase mb-1">Betekenis:</p>
-                              <p className="text-xs text-slate-700 line-clamp-3 font-medium leading-relaxed">{sign.meaning}</p>
+                              <p className="text-xs text-foreground line-clamp-3 font-medium leading-relaxed">{sign.meaning}</p>
                             </div>
                             <TextToSpeechButton text={`${sign.name}. ${sign.description}. Betekenis: ${sign.meaning}.`} minimal />
                           </div>
@@ -251,7 +251,8 @@ export default function VerkeersbordenPage() {
           </>
         )}
         <div className="mt-20"><DonationPrompt /></div>
-      </section>
+        </section>
+      </div>
       <Footer />
     </div>
   )

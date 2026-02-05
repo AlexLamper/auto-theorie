@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { HighlightableText } from "./HighlightableText"
 import { cleanForSpeech } from "@/lib/utils"
 
@@ -15,6 +14,9 @@ interface Props {
 }
 
 export default function LessonContent({ inhoud }: Props) {
+  const placeholderSvg =
+    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNlMmU4ZjAiLz48dGV4dCB4PSIzMDAiIHk9IjIwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzk0YTNiOCIgc3R5bGU9ImZvbnQtc2l6ZToxNnB4O2ZvbnQtZmFtaWx5OkFyaWFsLHNhbnMtc2VyaWYiPkFmYmVlbGRpbmcgbmlldCBnZXZvbmRlbjwvdGV4dD48L3N2Zz4="
+
   const spokenText = cleanForSpeech(inhoud
     .map(b => {
       if (b.type === "paragraaf") return b.tekst || "";
@@ -46,7 +48,7 @@ export default function LessonContent({ inhoud }: Props) {
         switch (blok.type) {
           case "paragraaf":
             return (
-              <p key={i} className="text-gray-700 leading-relaxed">
+              <p key={i} className="text-muted-foreground leading-relaxed">
                 <HighlightableText text={blok.tekst || ""} offset={blockOffset} />
               </p>
             )
@@ -54,14 +56,24 @@ export default function LessonContent({ inhoud }: Props) {
           case "afbeelding":
             return (
               <div key={i} className="text-center">
-                <Image src={blok.bron || ""} alt={blok.bijschrift || "Afbeelding"} width={600} height={400} className="mx-auto" />
-                {blok.bijschrift && <p className="text-sm text-gray-500 mt-2">{blok.bijschrift}</p>}
+                <img
+                  src={blok.bron || placeholderSvg}
+                  alt={blok.bijschrift || "Afbeelding"}
+                  className="mx-auto max-w-full rounded-2xl border border-border shadow-sm"
+                  loading="lazy"
+                  onError={(event) => {
+                    event.currentTarget.src = placeholderSvg
+                  }}
+                />
+                {blok.bijschrift && (
+                  <p className="text-sm text-muted-foreground mt-2">{blok.bijschrift}</p>
+                )}
               </div>
             )
 
           case "lijst":
             return (
-              <ul key={i} className="list-disc list-inside space-y-1 text-gray-700">
+              <ul key={i} className="list-disc list-inside space-y-1 text-muted-foreground">
                 {blok.items?.map((item, j) => {
                    let itemOffset = -1;
                    const cleanItemText = cleanForSpeech(item);

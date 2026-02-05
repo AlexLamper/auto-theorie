@@ -18,41 +18,67 @@ export function cleanForSpeech(text: string) {
     .trim();
 }
 
+function mapLessonImageSrc(src: string) {
+  if (!src) return ""
+  const fileName = src.split("/").pop()?.split("?")[0]
+  if (!fileName) return src
+  return `/leren-images/${fileName}`
+}
+
 /**
  * Very basic HTML to InhoudBlok converter for legacy lessons
  */
 export function htmlToBlocks(html: string): any[] {
-  console.log("[utils/htmlToBlocks] Converting HTML to blocks, length:", html.length);
-  const blocks: any[] = [];
-  
-  // Use a simple regex approach for basic tags found in the lesson JSON
-  // (h2, p, ul/li, blockquote)
-  
-  // 1. Handle paragraphs/headers/quotes - Match tags NOT inside a list
-  const groupRegex = /<(h[1-6]|p|blockquote)>([\s\S]*?)<\/\1>/g;
-  let match;
-  while ((match = groupRegex.exec(html)) !== null) {
-      blocks.push({
-          type: 'paragraaf',
-          tekst: match[2].replace(/<[^>]*>/g, "").trim()
-      });
-  }
-  
-  // 2. Handle lists
-  const listRegex = /<ul>([\s\S]*?)<\/ul>/g;
-  while ((match = listRegex.exec(html)) !== null) {
-      const itemRegex = /<li>([\s\S]*?)<\/li>/g;
-      const items: string[] = [];
-      let itemMatch;
-      while ((itemMatch = itemRegex.exec(match[1])) !== null) {
-          items.push(itemMatch[1].replace(/<[^>]*>/g, "").trim());
+  const blocks: any[] = []
+
+  const tokenRegex = /(<img[\s\S]*?>)|(<ul[\s\S]*?<\/ul>)|(<h[1-6][\s\S]*?<\/h[1-6]>)|(<p[\s\S]*?<\/p>)|(<blockquote[\s\S]*?<\/blockquote>)/gi
+  const tokens = html.match(tokenRegex) || []
+
+  tokens.forEach((token) => {
+    if (token.startsWith("<img")) {
+      const srcMatch = token.match(/src=["']([^"']+)["']/i)
+      const altMatch = token.match(/alt=["']([^"']*)["']/i)
+      const rawSrc = srcMatch?.[1] || ""
+      const mappedSrc = mapLessonImageSrc(rawSrc)
+
+      if (mappedSrc) {
+        blocks.push({
+          type: "afbeelding",
+          bron: mappedSrc,
+          bijschrift: altMatch?.[1] || "",
+        })
       }
+      return
+    }
+
+    if (token.startsWith("<ul")) {
+      const itemRegex = /<li>([\s\S]*?)<\/li>/g
+      const items: string[] = []
+      let itemMatch
+      while ((itemMatch = itemRegex.exec(token)) !== null) {
+        items.push(itemMatch[1].replace(/<[^>]*>/g, "").trim())
+      }
+      if (items.length > 0) {
+        blocks.push({
+          type: "lijst",
+          items,
+        })
+      }
+      return
+    }
+
+    const text = token.replace(/<[^>]*>/g, "").trim()
+    if (text) {
       blocks.push({
-          type: 'lijst',
-          items
-      });
+        type: "paragraaf",
+        tekst: text,
+      })
+    }
+  })
+
+  if (blocks.length === 0) {
+    return [{ type: "paragraaf", tekst: html.replace(/<[^>]*>/g, "").trim() }]
   }
-  
-  console.log("[utils/htmlToBlocks] Resulting blocks:", blocks.length);
-  return blocks.length > 0 ? blocks : [{ type: 'paragraaf', tekst: html.replace(/<[^>]*>/g, "").trim() }];
+
+  return blocks
 }

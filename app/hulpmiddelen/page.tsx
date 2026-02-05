@@ -10,12 +10,9 @@ import {
   CardContent,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { BookOpen, Star } from "lucide-react"
+import { BookOpen } from "lucide-react"
 import Footer from "@/components/footer"
 
-  title: "Hulpmiddelen – Gratis Theorie",
-  description: "Bol affiliate producten met afbeelding en titel via scraping",
-}
 export const metadata: Metadata = {
   title: "Hulpmiddelen – Auto Theorie",
   description: "Bol affiliate producten met afbeelding en titel via scraping",

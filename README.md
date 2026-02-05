@@ -51,67 +51,6 @@
   <img src="https://img.shields.io/badge/Framer_Motion-000000?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
 </p>
 
-## Configuratie (Auth en Stripe)
-
-### Benodigde environment variabelen
-
-Maak een `.env.local` aan in de root met minimaal:
-
-```
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=VUL_HIER_EEN_GEHEIM_IN
-
-GOOGLE_CLIENT_ID=VUL_HIER_JE_CLIENT_ID_IN
-GOOGLE_CLIENT_SECRET=VUL_HIER_JE_CLIENT_SECRET_IN
-
-EMAIL_SERVER_HOST=smtp.jouwdomein.nl
-EMAIL_SERVER_PORT=587
-EMAIL_SERVER_USER=jij@jouwdomein.nl
-EMAIL_SERVER_PASSWORD=JE_SMTP_WACHTWOORD
-EMAIL_FROM="Auto Theorie <noreply@jouwdomein.nl>"
-
-STRIPE_SECRET_KEY=sk_live_...
-STRIPE_PRICE_AUTO_DAG=price_...
-STRIPE_PRICE_AUTO_WEEK=price_...
-STRIPE_PRICE_AUTO_MAAND=price_...
-```
-
-### Google Cloud Console (OAuth) stappen
-
-1. Ga naar https://console.cloud.google.com/apis/credentials?project=... en kies je project.
-2. Maak een OAuth 2.0 Client ID aan (type: Web Application).
-3. Voeg Authorized JavaScript origins toe:
-  - `http://localhost:3000`
-  - `https://auto-theorie.com` (of jouw domein)
-4. Voeg Authorized redirect URIs toe:
-  - `http://localhost:3000/api/auth/callback/google`
-  - `https://auto-theorie.com/api/auth/callback/google`
-5. Kopieer de Client ID en Client Secret naar `GOOGLE_CLIENT_ID` en `GOOGLE_CLIENT_SECRET`.
-
-### NextAuth secret genereren
-
-Gebruik bijvoorbeeld:
-
-```
-node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
-```
-
-Plaats de output in `NEXTAUTH_SECRET`.
-
-### Stripe basis instellen
-
-1. Maak in het Stripe dashboard drie producten/prijzen aan:
-  - Auto dag (EUR 19,99)
-  - Auto week (EUR 29,99)
-  - Auto maand (EUR 39,99 met 79,99 als doorgestreepte prijs in de UI)
-2. Kopieer de price IDs naar:
-  - `STRIPE_PRICE_AUTO_DAG`
-  - `STRIPE_PRICE_AUTO_WEEK`
-  - `STRIPE_PRICE_AUTO_MAAND`
-3. Zet je `STRIPE_SECRET_KEY`.
-
-
 ## Paginastructuur
 
 - **Home** — Introductie tot het platform met duidelijke call-to-actions.
@@ -167,4 +106,4 @@ Ja, na betaling wordt je voortgang opgeslagen via je account.
 Voor vragen, feedback of samenwerking:  
 
 
-Dank je wel voor het gebruiken van *Auto Theorie* — en veel succes met je theorie-examen! 🎓🚗📚
+Dank je wel voor het gebruiken van *Auto Theorie* — en veel succes met je theorie-examen!

@@ -116,10 +116,10 @@ export default function StartExamPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-slate-600 font-bold">Examen laden...</p>
+          <p className="text-muted-foreground font-bold">Examen laden...</p>
         </div>
       </div>
     )
@@ -130,9 +130,9 @@ export default function StartExamPage() {
   if (isFinished && result) {
     const passed = result.score >= 70
     return (
-      <div className="min-h-screen bg-slate-50 py-12 px-4">
+      <div className="min-h-screen bg-background py-12 px-4">
         <div className="max-w-5xl mx-auto">
-          <Card className="shadow-2xl border-none rounded-[2rem] overflow-hidden bg-white">
+          <Card className="shadow-2xl border-none rounded-[2rem] overflow-hidden bg-card">
             <div className={`p-12 text-center ${passed ? "bg-emerald-600" : "bg-rose-600"} text-white relative overflow-hidden`}>
               {/* Background Decoration */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl" />
@@ -156,31 +156,31 @@ export default function StartExamPage() {
 
             <CardContent className="p-8 md:p-12">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div className="group text-center p-8 bg-slate-50 rounded-[1.5rem] border border-slate-100 transition-all hover:shadow-inner">
-                  <div className="text-xs font-black text-slate-400 mb-2 uppercase tracking-[0.2em]">Jouw Score</div>
+                <div className="group text-center p-8 bg-card rounded-[1.5rem] border border-border transition-all hover:shadow-inner">
+                  <div className="text-xs font-black text-muted-foreground mb-2 uppercase tracking-[0.2em]">Jouw Score</div>
                   <div className={`text-5xl font-black ${passed ? "text-emerald-600" : "text-rose-600"}`}>
                     {Math.round(result.score)}%
                   </div>
                 </div>
-                <div className="text-center p-8 bg-slate-50 rounded-[1.5rem] border border-slate-100 transition-all hover:shadow-inner">
-                  <div className="text-xs font-black text-slate-400 mb-2 uppercase tracking-[0.2em]">Correcte Antwoorden</div>
-                  <div className="text-5xl font-black text-slate-900">
-                    {result.correctCount}<span className="text-2xl text-slate-300 mx-1">/</span>{result.total}
+                <div className="text-center p-8 bg-card rounded-[1.5rem] border border-border transition-all hover:shadow-inner">
+                  <div className="text-xs font-black text-muted-foreground mb-2 uppercase tracking-[0.2em]">Correcte Antwoorden</div>
+                  <div className="text-5xl font-black text-foreground">
+                    {result.correctCount}<span className="text-2xl text-muted-foreground mx-1">/</span>{result.total}
                   </div>
                 </div>
-                <div className="text-center p-8 bg-slate-50 rounded-[1.5rem] border border-slate-100 transition-all hover:shadow-inner">
-                  <div className="text-xs font-black text-slate-400 mb-2 uppercase tracking-[0.2em]">Tijd Gebruikt</div>
-                  <div className="text-5xl font-black text-slate-900">
-                    {Math.floor(result.duration / 60)}<span className="text-2xl text-slate-300">:</span>{String(result.duration % 60).padStart(2, "0")}
+                <div className="text-center p-8 bg-card rounded-[1.5rem] border border-border transition-all hover:shadow-inner">
+                  <div className="text-xs font-black text-muted-foreground mb-2 uppercase tracking-[0.2em]">Tijd Gebruikt</div>
+                  <div className="text-5xl font-black text-foreground">
+                    {Math.floor(result.duration / 60)}<span className="text-2xl text-muted-foreground">:</span>{String(result.duration % 60).padStart(2, "0")}
                   </div>
                 </div>
               </div>
 
               {/* Enhanced Question Overview */}
               <div className="space-y-8">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                  <h3 className="text-2xl font-black text-slate-900 tracking-tight">Vraagoverzicht</h3>
-                  <div className="flex gap-4 text-xs font-bold uppercase tracking-widest text-slate-400">
+                <div className="flex items-center justify-between border-b border-border pb-4">
+                  <h3 className="text-2xl font-black text-foreground tracking-tight">Vraagoverzicht</h3>
+                  <div className="flex gap-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     <span className="flex items-center gap-2"><div className="w-3 h-3 bg-emerald-500 rounded-full" /> Goed</span>
                     <span className="flex items-center gap-2"><div className="w-3 h-3 bg-rose-500 rounded-full" /> Fout</span>
                   </div>
@@ -204,12 +204,12 @@ export default function StartExamPage() {
                             {i + 1}
                           </button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-80 p-6 z-50 bg-white rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-none">
+                        <DropdownMenuContent className="w-80 p-6 z-50 bg-card rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-none">
                           <div className="mb-4">
                             <span className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest mb-2 inline-block ${isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
                               Vraag {i + 1} • {isCorrect ? "Correct" : "Onjuist"}
                             </span>
-                            <p className="font-bold text-slate-900 leading-snug">{q.question_text}</p>
+                            <p className="font-bold text-foreground leading-snug">{q.question_text}</p>
                           </div>
                           
                           <div className="space-y-3">
@@ -245,7 +245,7 @@ export default function StartExamPage() {
                 <Button 
                   onClick={() => location.reload()} 
                   variant="outline" 
-                  className="h-14 px-10 rounded-2xl font-black text-slate-600 border-slate-200 hover:bg-slate-50 transition-all cursor-pointer text-lg"
+                  className="h-14 px-10 rounded-2xl font-black text-muted-foreground border-border hover:bg-muted transition-all cursor-pointer text-lg"
                 >
                   Opnieuw Proberen
                 </Button>
@@ -279,20 +279,20 @@ export default function StartExamPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
       <div className="max-w-[1200px] mx-auto p-4 md:p-8 flex flex-col min-h-screen">
         {/* Header */}
         <header className="flex flex-col md:flex-row justify-between items-start mb-12 gap-8 md:gap-0">
           <div className="flex-1 pr-4">
             <div className="text-blue-600 font-black text-sm mb-4 uppercase tracking-[0.2em]">Vraag {current + 1} / {questions.length}</div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black max-w-4xl leading-[1.1] tracking-tight text-slate-900">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black max-w-4xl leading-[1.1] tracking-tight text-foreground">
               <HighlightableText text={q.question_text} />
             </h1>
           </div>
 
           <div className="flex flex-col items-end gap-8 shrink-0 w-full md:w-auto">
-            <div className="flex items-center gap-6 text-[13px] text-slate-400 font-black uppercase tracking-widest">
-              <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-full border border-slate-100 shadow-sm">
+            <div className="flex items-center gap-6 text-[13px] text-muted-foreground font-black uppercase tracking-widest">
+              <div className="flex items-center gap-3 bg-card px-4 py-2 rounded-full border border-border shadow-sm">
                 <span>Timer aan</span>
                 <button 
                   onClick={() => setTimerEnabled(!timerEnabled)}
@@ -303,7 +303,7 @@ export default function StartExamPage() {
               </div>
               <button 
                 onClick={() => router.push("/oefenexamens")}
-                className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer bg-white px-4 py-2 rounded-full border border-slate-100 shadow-sm"
+                className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer bg-card px-4 py-2 rounded-full border border-border shadow-sm"
               >
                 <X size={16} />
                 <span>Stoppen</span>
@@ -313,7 +313,7 @@ export default function StartExamPage() {
             {/* Circular Timer */}
             <div className="relative w-24 h-24 hidden md:block">
               <svg className="w-full h-full transform -rotate-90">
-                <circle cx="48" cy="48" r="44" stroke="currentColor" strokeWidth="8" fill="white" className="text-slate-100" />
+                <circle cx="48" cy="48" r="44" stroke="currentColor" strokeWidth="8" fill="white" className="text-muted-foreground" />
                 <circle 
                   cx="48" cy="48" r="44" 
                   stroke="currentColor" 
@@ -325,7 +325,7 @@ export default function StartExamPage() {
                   strokeLinecap="round"
                 />
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center text-sm font-black text-slate-900 uppercase">
+              <div className="absolute inset-0 flex items-center justify-center text-sm font-black text-foreground uppercase">
                 {questionTime} <span className="text-[10px] ml-1">S</span>
               </div>
             </div>
@@ -335,7 +335,7 @@ export default function StartExamPage() {
         {/* Main Content */}
         <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 flex-1 content-start items-start">
           {/* Left: Situatieschets */}
-          <div className="lg:col-span-7 aspect-video relative rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white group">
+          <div className="lg:col-span-7 aspect-video relative rounded-3xl overflow-hidden border-4 border-border shadow-2xl bg-card group">
             {q.image && (
               <img 
                 src={q.image} 
@@ -344,12 +344,12 @@ export default function StartExamPage() {
               />
             )}
             {!q.image && (
-              <div className="absolute inset-0 flex items-center justify-center text-slate-300 font-bold bg-slate-50 italic">
+              <div className="absolute inset-0 flex items-center justify-center text-muted-foreground font-bold bg-muted italic">
                 Geen afbeelding voor deze vraag
               </div>
             )}
             {/* Mobile Timer Overlay */}
-            <div className="md:hidden absolute top-4 right-4 bg-white/90 backdrop-blur-md text-slate-900 text-xs font-black px-4 py-2 rounded-full border border-slate-100 shadow-xl">
+            <div className="md:hidden absolute top-4 right-4 bg-card/90 backdrop-blur-md text-foreground text-xs font-black px-4 py-2 rounded-full border border-border shadow-xl">
               {questionTime} SEC
             </div>
           </div>
@@ -360,17 +360,17 @@ export default function StartExamPage() {
               <button
                 key={idx}
                 onClick={() => selectAnswer(idx)}
-                className={`group flex items-center p-6 bg-white rounded-2xl shadow-sm border-2 transition-all text-left w-full hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
-                  answers[current] === idx ? "border-blue-600 ring-4 ring-blue-500/10 shadow-lg" : "border-slate-100 hover:border-blue-200 hover:bg-slate-50 shadow-slate-200/50"
+                className={`group flex items-center p-6 bg-card rounded-2xl shadow-sm border-2 transition-all text-left w-full hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
+                  answers[current] === idx ? "border-blue-600 ring-4 ring-blue-500/10 shadow-lg" : "border-border hover:border-blue-200 hover:bg-muted shadow-slate-200/50"
                 }`}
               >
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl mr-5 shrink-0 transition-all ${
-                  answers[current] === idx ? "bg-blue-600 text-white shadow-lg rotate-3" : "bg-slate-100 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500"
+                  answers[current] === idx ? "bg-blue-600 text-white shadow-lg rotate-3" : "bg-muted text-muted-foreground group-hover:bg-blue-50 group-hover:text-blue-500"
                 }`}>
                   {["A", "B", "C", "D"][idx]}
                 </div>
                 <span className={`font-bold text-[17px] leading-snug transition-colors ${
-                  answers[current] === idx ? "text-slate-900" : "text-slate-600 group-hover:text-slate-900"
+                  answers[current] === idx ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"
                 }`}>
                   <HighlightableText text={opt} />
                 </span>

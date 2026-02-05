@@ -1,10 +1,12 @@
 "use client"
 
 import { BookOpen, Menu, X } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import ThemeToggle from "@/components/theme-toggle"
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -26,8 +28,8 @@ export default function Navbar() {
     { href: "/leren", label: "Auto Theorie" },
     { href: "/oefenexamens", label: "Proefexamens" },
     { href: "/verkeersborden", label: "Verkeersborden" },
-    { href: "/pricing", label: "Prijzen" },
-    { href: "/faq", label: "FAQ" },
+    { href: "/prijzen", label: "Prijzen" },
+    { href: "/veelgestelde-vragen", label: "FAQ" },
     { href: "/over-ons", label: "Over ons" },
   ]
 
@@ -37,11 +39,26 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Left side - Logo and Page title */}
           <div className="flex items-center space-x-4">
-            <Link href="/" className="flex items-center space-x-2 group">
+            <Link href="/" className="flex items-center space-x-2 group cursor-pointer">
               <div className="bg-blue-600 p-1.5 rounded-lg group-hover:bg-blue-700 transition-colors">
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">Auto Theorie</h1>
+              <div className="relative h-6 w-32">
+                <Image
+                  src="/logo/transparent/logo-transparent.png"
+                  alt="Auto Theorie"
+                  fill
+                  className="object-contain dark:hidden"
+                  priority
+                />
+                <Image
+                  src="/logo/transparent/logo-dark-transparent.png"
+                  alt="Auto Theorie"
+                  fill
+                  className="object-contain hidden dark:block"
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Page title for non-home pages */}
@@ -61,7 +78,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
                   pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
                     ? "bg-blue-50 text-blue-700"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
@@ -70,6 +87,7 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <ThemeToggle />
             <Button asChild size="sm" className="ml-2 bg-blue-600 hover:bg-blue-700 text-white">
               <Link href="/inloggen">Inloggen</Link>
             </Button>
@@ -94,7 +112,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                     pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
                       ? "bg-blue-50 text-blue-700"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
@@ -106,11 +124,14 @@ export default function Navbar() {
               ))}
               <Link
                 href="/inloggen"
-                className="px-4 py-3 rounded-lg text-sm font-medium text-blue-700 bg-blue-50"
+                className="px-4 py-3 rounded-lg text-sm font-medium text-blue-700 bg-blue-50 cursor-pointer"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Inloggen
               </Link>
+              <div className="px-4 py-2">
+                <ThemeToggle />
+              </div>
             </nav>
           </div>
         )}

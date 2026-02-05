@@ -1,4 +1,5 @@
 import { BookOpen, Mail, MapPin } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 export default function Footer() {
@@ -11,7 +12,20 @@ export default function Footer() {
               <div className="bg-blue-600 p-1.5 rounded-lg">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold tracking-tight">Auto Theorie</span>
+              <div className="relative h-6 w-32">
+                <Image
+                  src="/logo/transparent/logo-transparent.png"
+                  alt="Auto Theorie"
+                  fill
+                  className="object-contain dark:hidden"
+                />
+                <Image
+                  src="/logo/transparent/logo-dark-transparent.png"
+                  alt="Auto Theorie"
+                  fill
+                  className="object-contain hidden dark:block"
+                />
+              </div>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">Het beste platform voor auto theorie-examens in Nederland. Oefen gericht en slaag met vertrouwen.</p>
             <div className="space-y-3 text-sm text-slate-400">
@@ -29,19 +43,19 @@ export default function Footer() {
             <h4 className="font-bold mb-6 text-lg text-slate-100">Auto Theorie</h4>
             <ul className="space-y-4 text-slate-400">
               <li>
-                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center">
+                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
                   Gevaarherkenning
                 </Link>
               </li>
               <li>
-                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center">
+                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
                   Verkeersregels
                 </Link>
               </li>
               <li>
-                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center">
+                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
                   Verkeersinzicht
                 </Link>
@@ -52,32 +66,32 @@ export default function Footer() {
             <h4 className="font-bold mb-6 text-lg text-slate-100">Platform</h4>
             <ul className="space-y-4 text-slate-400">
               <li>
-                <Link href="/contact" className="hover:text-blue-400 transition-colors">
+                <Link href="/contact" className="hover:text-blue-400 transition-colors cursor-pointer">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="hover:text-blue-400 transition-colors">
+                <Link href="/prijzen" className="hover:text-blue-400 transition-colors cursor-pointer">
                   Prijzen
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-blue-400 transition-colors">
+                <Link href="/veelgestelde-vragen" className="hover:text-blue-400 transition-colors cursor-pointer">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/over-ons" className="hover:text-blue-400 transition-colors">
+                <Link href="/over-ons" className="hover:text-blue-400 transition-colors cursor-pointer">
                   Over ons
                 </Link>
               </li>
               <li>
-                <Link href="/privacy-policy" className="hover:text-blue-400 transition-colors">
+                <Link href="/privacy-policy" className="hover:text-blue-400 transition-colors cursor-pointer">
                   Privacy Beleid
                 </Link>
               </li>
               <li>
-                <Link href="/terms-of-service" className="hover:text-blue-400 transition-colors">
+                <Link href="/terms-of-service" className="hover:text-blue-400 transition-colors cursor-pointer">
                   Algemene Voorwaarden
                 </Link>
               </li>
@@ -87,12 +101,12 @@ export default function Footer() {
             <h4 className="font-bold mb-6 text-lg text-slate-100">Account</h4>
             <ul className="space-y-4 text-slate-400">
               <li>
-                <Link href="/inloggen" className="hover:text-blue-400 transition-colors">
+                <Link href="/inloggen" className="hover:text-blue-400 transition-colors cursor-pointer">
                   Inloggen
                 </Link>
               </li>
               <li>
-                <Link href="/aanmelden" className="hover:text-blue-400 transition-colors">
+                <Link href="/aanmelden" className="hover:text-blue-400 transition-colors cursor-pointer">
                   Aanmelden
                 </Link>
               </li>
