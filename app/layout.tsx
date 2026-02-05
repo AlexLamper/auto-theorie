@@ -5,8 +5,9 @@ import "./globals.css"
 import Navbar from "@/components/navbar"
 import Script from "next/script"
 import { GoogleAnalytics } from "@next/third-parties/google"
-import { SpeechProvider } from "@/lib/SpeechContext"
-import { ThemeProvider } from "@/components/theme-provider"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+import { Providers } from "@/components/Providers"
 
 const manrope = Manrope({ subsets: ["latin"] })
 
@@ -78,11 +79,12 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const session = await getServerSession(authOptions)
   return (
     <html lang="nl" suppressHydrationWarning>
       <head>
@@ -118,12 +120,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${manrope.className} antialiased min-h-screen flex flex-col bg-background`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SpeechProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-          </SpeechProvider>
-        </ThemeProvider>
+        <Providers session={session}>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+        </Providers>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"} />
       </body>
     </html>

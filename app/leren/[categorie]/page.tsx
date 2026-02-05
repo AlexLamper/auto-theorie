@@ -237,7 +237,7 @@ function LesPaginaContent() {
 
         {/* Main Content */}
         <section className="flex-1 overflow-y-auto bg-background">
-          <div className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
+          <div className="lg:max-w-[75%] md:max-w-[90%] sm:max-w-[95%] max-w-[95%] mx-auto px-4 sm:px-8 py-8 sm:py-12">
             <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 mb-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
@@ -280,16 +280,11 @@ function LesPaginaContent() {
               <article className="prose prose-slate prose-blue max-w-none">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-8 border-b border-border">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
-                      <Car className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground m-0 tracking-tight">
-                        {actieveLes.titel}
-                      </h1>
-                      <div className="text-muted-foreground text-sm font-medium mt-1">
-                        Onderwerp: {huidigeGroep?.titel} • Les {lesVolgorde} van {huidigeGroep?.sublessen.length}
-                      </div>
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground m-0 tracking-tight">
+                      {actieveLes.titel}
+                    </h1>
+                    <div className="text-muted-foreground text-sm font-medium mt-1">
+                      Onderwerp: {huidigeGroep?.titel} • Les {lesVolgorde} van {huidigeGroep?.sublessen.length}
                     </div>
                   </div>
                   <TextToSpeechButton text={plainText} />

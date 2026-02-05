@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
     // OF als je alle externe afbeeldingen wilt toelaten (minder veilig, maar handig tijdens ontwikkeling):
     /*

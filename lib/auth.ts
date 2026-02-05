@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google"
 import EmailProvider from "next-auth/providers/email"
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import clientPromise from "@/lib/mongodb"
+import { ensureUserRemovalDate } from "@/lib/user"
 
 export const authOptions: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -26,6 +27,33 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_FROM,
     }),
   ],
+  callbacks: {
+    async jwt({ token, user, trigger, session }) {
+      if (user) {
+        token.id = user.id
+        token.plan = (user as any).plan
+      }
+      if (trigger === "update" && session?.plan) {
+        token.plan = session.plan
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string
+        session.user.plan = token.plan as any
+      }
+      return session
+    },
+  },
+  events: {
+    async createUser({ user }) {
+      await ensureUserRemovalDate(user.id)
+    },
+    async signIn({ user }) {
+      await ensureUserRemovalDate(user.id)
+    },
+  },
   pages: {
     signIn: "/inloggen",
   },

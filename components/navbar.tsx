@@ -7,11 +7,14 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import ThemeToggle from "@/components/theme-toggle"
+import { signOut, useSession } from "next-auth/react"
 
 export default function Navbar() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const { data: session, status } = useSession()
+  const isAuthenticated = status === "authenticated"
   const isHomePage = pathname === "/"
   const showBackButton = !isHomePage
 
@@ -32,6 +35,18 @@ export default function Navbar() {
     { href: "/veelgestelde-vragen", label: "FAQ" },
     { href: "/over-ons", label: "Over ons" },
   ]
+
+  const navItems = isAuthenticated
+    ? [...navigationItems, { href: "/account", label: "Account" }]
+    : navigationItems
+
+  const userName = session?.user?.name || session?.user?.email || "Gebruiker"
+  const planLabel = session?.user?.plan?.label
+  const planExpiry = session?.user?.plan?.expiresAt
+    ? new Intl.DateTimeFormat("nl-NL", { dateStyle: "medium" }).format(
+        new Date(session.user.plan.expiresAt)
+      )
+    : null
 
   return (
     <header className="border-b border-slate-100 bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
@@ -74,7 +89,7 @@ export default function Navbar() {
 
           {/* Right side - Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
-            {navigationItems.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -88,9 +103,43 @@ export default function Navbar() {
               </Link>
             ))}
             <ThemeToggle />
-            <Button asChild size="sm" className="ml-2 bg-blue-600 hover:bg-blue-700 text-white">
-              <Link href="/inloggen">Inloggen</Link>
-            </Button>
+            {isAuthenticated ? (
+              <div className="ml-2 flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm">
+                <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full bg-slate-200">
+                  {session.user?.image ? (
+                    <Image
+                      src={session.user.image}
+                      alt={userName}
+                      fill
+                      className="object-cover"
+                      sizes="36px"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-slate-600">
+                      {userName.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-slate-900">{userName}</p>
+                  <p className="text-xs text-slate-500">
+                    {planLabel ? `${planLabel}${planExpiry ? ` • geldig tot ${planExpiry}` : ""}` : "Ingelogd"}
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-slate-500 hover:text-slate-900"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                >
+                  Uitloggen
+                </Button>
+              </div>
+            ) : (
+              <Button asChild size="sm" className="ml-2 bg-blue-600 hover:bg-blue-700 text-white">
+                <Link href="/inloggen">Inloggen</Link>
+              </Button>
+            )}
           </nav>
 
           {/* Mobile menu toggle */}
@@ -108,7 +157,7 @@ export default function Navbar() {
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-slate-100">
             <nav className="flex flex-col space-y-1 pt-4">
-              {navigationItems.map((item) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -122,13 +171,37 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/inloggen"
-                className="px-4 py-3 rounded-lg text-sm font-medium text-blue-700 bg-blue-50 cursor-pointer"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Inloggen
-              </Link>
+              {isAuthenticated && (
+                <div className="border-t border-slate-100 pt-3">
+                  <p className="text-sm font-semibold text-slate-900">{userName}</p>
+                  {planLabel && (
+                    <p className="text-xs text-slate-500">
+                      {planLabel}
+                      {planExpiry ? ` • geldig tot ${planExpiry}` : ""}
+                    </p>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-2 text-slate-500"
+                    onClick={() => {
+                      signOut({ callbackUrl: "/" })
+                      setMobileMenuOpen(false)
+                    }}
+                  >
+                    Uitloggen
+                  </Button>
+                </div>
+              )}
+              {!isAuthenticated && (
+                <Link
+                  href="/inloggen"
+                  className="px-4 py-3 rounded-lg text-sm font-medium text-blue-700 bg-blue-50 cursor-pointer"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Inloggen
+                </Link>
+              )}
               <div className="px-4 py-2">
                 <ThemeToggle />
               </div>
