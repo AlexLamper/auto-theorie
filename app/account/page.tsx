@@ -78,7 +78,7 @@ export default async function AccountPage() {
                       <p className="font-semibold uppercase tracking-[0.2em] text-slate-400">Metadata</p>
                       {Object.entries(plan.metadata).map(([key, value]) => (
                         <p key={key}>
-                          {key}: {value}
+                          {key}: {String(value)}
                         </p>
                       ))}
                     </div>
