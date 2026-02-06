@@ -13,6 +13,7 @@ import { Search, Car, Filter, AlertTriangle, RefreshCw } from "lucide-react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import Footer from "@/components/footer"
+import LoadingSpinner from "@/components/LoadingSpinner"
 import DonationPrompt from "@/components/DonationPrompt"
 
 interface TrafficSign {
@@ -211,7 +212,7 @@ export default function CategoryTrafficSignsPage() {
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <LoadingSpinner className="h-12 w-12 mx-auto mb-4" />
             <p className="text-slate-600">Laden...</p>
           </div>
         </div>
@@ -341,7 +342,7 @@ export default function CategoryTrafficSignsPage() {
         {/* Loading State */}
         {loading && (
           <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <LoadingSpinner className="h-12 w-12 mx-auto mb-4" />
             <p className="text-muted-foreground">Verkeersborden laden...</p>
           </div>
         )}

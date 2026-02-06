@@ -5,9 +5,8 @@ import { useParams, useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import LessonContent, { InhoudBlok } from "@/components/LessonContent"
 import { TextToSpeechButton } from "@/components/TextToSpeechButton"
-import { markeerCategorieGelezen } from "@/lib/session"
-import { stripHtml, cleanForSpeech, htmlToBlocks } from "@/lib/utils"
-import { ChevronDown, ChevronRight, Menu, X, Car } from "lucide-react"
+import { stripHtml, cleanForSpeech, formatLessonContent } from "@/lib/utils"
+import { ChevronDown, ChevronRight, Menu, X, Lock } from "lucide-react"
 import { HighlightableText } from "@/components/HighlightableText"
 import clsx from "clsx"
 import {
@@ -20,11 +19,15 @@ import {
 } from "@/components/ui/breadcrumb"
 import parse from "html-react-parser"
 import Footer from "@/components/footer"
+import { useSession } from "next-auth/react"
+import LoadingSpinner from "@/components/LoadingSpinner"
 
 interface LesData {
+  id?: string
   titel: string
   inhoud: InhoudBlok[] | string
   volgorde?: number
+  isLocked?: boolean
 }
 
 interface Subles {
@@ -40,7 +43,13 @@ interface CategorieGroep {
 
 export default function LesPagina() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center">Laden...</div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-background flex items-center justify-center">
+          <LoadingSpinner className="h-10 w-10" />
+        </div>
+      }
+    >
       <LesPaginaContent />
     </Suspense>
   )
@@ -50,12 +59,17 @@ function LesPaginaContent() {
   const { categorie } = useParams()
   const searchParams = useSearchParams()
   const router = useRouter()
+  const { status } = useSession()
 
   const [groepen, setGroepen] = useState<CategorieGroep[]>([])
   const [actieveGroep, setActieveGroep] = useState<string | null>(categorie as string)
   const [actieveLes, setActieveLes] = useState<LesData | null>(null)
   const [loading, setLoading] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [accessInfo, setAccessInfo] = useState<{
+    hasActivePlan: boolean
+    lessonAccessMaxOrder: number | null
+  } | null>(null)
 
   const lesIndexParam = searchParams.get("les")
   const lesVolgorde = parseInt(lesIndexParam || "1", 10)
@@ -102,6 +116,25 @@ function LesPaginaContent() {
   }, [])
 
   useEffect(() => {
+    async function fetchAccess() {
+      if (status === "loading") return
+      try {
+        const res = await fetch("/api/access")
+        if (!res.ok) return
+        const data = await res.json()
+        setAccessInfo({
+          hasActivePlan: Boolean(data.hasActivePlan),
+          lessonAccessMaxOrder: data.lessonAccessMaxOrder ?? null,
+        })
+      } catch (err) {
+        console.error("Fout bij laden toegang:", err)
+      }
+    }
+
+    fetchAccess()
+  }, [status])
+
+  useEffect(() => {
     async function fetchActiveLesson() {
       if (!actieveGroep) return
       setLoading(true)
@@ -116,9 +149,11 @@ function LesPaginaContent() {
 
           if (les) {
             setActieveLes({
+              id: les._id?.toString(),
               titel: les.title,
               inhoud: les.content,
               volgorde: lesVolgorde,
+              isLocked: Boolean(les.isLocked),
             })
           }
         }
@@ -133,6 +168,25 @@ function LesPaginaContent() {
     setMobileMenuOpen(false)
   }, [actieveGroep, lesVolgorde])
 
+  useEffect(() => {
+    async function saveProgress() {
+      if (status !== "authenticated") return
+      if (!actieveLes?.id || actieveLes.isLocked) return
+
+      try {
+        await fetch("/api/progress/lessons", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ lessonId: actieveLes.id }),
+        })
+      } catch (err) {
+        console.error("Fout bij opslaan voortgang:", err)
+      }
+    }
+
+    saveProgress()
+  }, [actieveLes?.id, actieveLes?.isLocked, status])
+
   const huidigeGroepIndex = groepen.findIndex((g) => g.categorie === actieveGroep)
   const huidigeGroep = groepen[huidigeGroepIndex]
   const isLaatsteLesInGroep = huidigeGroep && lesVolgorde >= huidigeGroep.sublessen.length
@@ -145,11 +199,9 @@ function LesPaginaContent() {
     } else {
       const volgendeGroep = groepen[huidigeGroepIndex + 1]
       if (volgendeGroep) {
-        markeerCategorieGelezen(actieveGroep!)
         router.push(`/leren/${volgendeGroep.categorie}?les=1`)
         setActieveGroep(volgendeGroep.categorie)
       } else {
-        markeerCategorieGelezen(actieveGroep!)
         router.push("/leren")
       }
     }
@@ -175,6 +227,9 @@ function LesPaginaContent() {
   }
 
   const plainText = actieveLes ? cleanForSpeech(stripHtml(typeof actieveLes.inhoud === 'string' ? actieveLes.inhoud : '')) : ""
+  const hasPlanAccess = accessInfo?.hasActivePlan ?? false
+  const lessonLockedByPlan = accessInfo ? !hasPlanAccess && lesVolgorde > 1 : false
+  const isLessonLocked = lessonLockedByPlan || Boolean(actieveLes?.isLocked)
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -215,45 +270,69 @@ function LesPaginaContent() {
 
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             <div className="space-y-6">
-              {groepen.map((groep, index) => {
-                const isOpgeklapt = actieveGroep === groep.categorie
-                return (
-                  <div key={groep.categorie} className="space-y-2">
-                    <button
-                      onClick={() => {
-                        // Navigeer naar de eerste les van deze categorie
-                        router.push(`/leren/${groep.categorie}?les=1`)
-                      }}
-                      className={clsx(
-                        "w-full text-left flex items-center justify-between p-2 rounded-lg transition-colors cursor-pointer",
-                        isOpgeklapt ? "bg-blue-50 text-blue-700 font-bold" : "hover:bg-muted text-muted-foreground font-medium"
-                      )}
-                    >
-                      <span className="truncate mr-2">{index + 1}. {groep.titel}</span>
-                      {isOpgeklapt ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                    </button>
+              {groepen.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-10 text-sm text-muted-foreground">
+                  <LoadingSpinner className="h-8 w-8" />
+                  <span className="mt-3">Inhoud laden...</span>
+                </div>
+              ) : (
+                groepen.map((groep, index) => {
+                  const isOpgeklapt = actieveGroep === groep.categorie
+                  return (
+                    <div key={groep.categorie} className="space-y-2">
+                      <button
+                        onClick={() => {
+                          router.push(`/leren/${groep.categorie}?les=1`)
+                        }}
+                        className={clsx(
+                          "w-full text-left flex items-center justify-between p-2 rounded-lg transition-colors cursor-pointer",
+                          isOpgeklapt ? "bg-blue-50 text-blue-700 font-bold" : "hover:bg-muted text-muted-foreground font-medium"
+                        )}
+                      >
+                        <span className="truncate mr-2">{index + 1}. {groep.titel}</span>
+                        {isOpgeklapt ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                      </button>
 
-                    {isOpgeklapt && (
-                      <div className="ml-4 space-y-1 mt-1 border-l-2 border-blue-100 pl-4">
-                        {groep.sublessen.map((subles) => (
-                          <Link
-                            key={subles.volgorde}
-                            href={`/leren/${groep.categorie}?les=${subles.volgorde}`}
-                            className={clsx(
-                              "block py-2 text-sm transition-colors cursor-pointer",
-                              actieveGroep === groep.categorie && lesVolgorde === subles.volgorde
-                                ? "text-blue-600 font-bold"
-                                : "text-muted-foreground hover:text-foreground"
-                            )}
-                          >
-                            {subles.titel}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
+                      {isOpgeklapt && (
+                        <div className="ml-4 space-y-1 mt-1 border-l-2 border-blue-100 pl-4">
+                          {groep.sublessen.map((subles) => {
+                            const isLocked = !hasPlanAccess && subles.volgorde > 1
+                            if (isLocked) {
+                              return (
+                                <Link
+                                  key={subles.volgorde}
+                                  href="/prijzen"
+                                  className="block py-2 text-sm text-muted-foreground hover:text-blue-600 transition-colors cursor-pointer"
+                                >
+                                  <span className="flex items-center gap-2">
+                                    <Lock className="h-3.5 w-3.5" />
+                                    {subles.titel}
+                                  </span>
+                                </Link>
+                              )
+                            }
+
+                            return (
+                              <Link
+                                key={subles.volgorde}
+                                href={`/leren/${groep.categorie}?les=${subles.volgorde}`}
+                                className={clsx(
+                                  "block py-2 text-sm transition-colors cursor-pointer",
+                                  actieveGroep === groep.categorie && lesVolgorde === subles.volgorde
+                                    ? "text-blue-600 font-bold"
+                                    : "text-muted-foreground hover:text-foreground"
+                                )}
+                              >
+                                {subles.titel}
+                              </Link>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })
+              )}
             </div>
           </div>
         </aside>
@@ -296,8 +375,32 @@ function LesPaginaContent() {
 
             {loading ? (
               <div className="flex flex-col items-center justify-center h-64 space-y-4">
-                <div className="h-10 w-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                <LoadingSpinner className="h-10 w-10" />
                 <p className="text-muted-foreground animate-pulse font-medium">Les ophalen...</p>
+              </div>
+            ) : isLessonLocked ? (
+              <div className="rounded-3xl border border-blue-100 bg-blue-50/50 p-8 text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-blue-600 shadow-sm">
+                  <Lock className="h-6 w-6" />
+                </div>
+                <h2 className="mt-5 text-2xl font-bold text-foreground">Deze les is onderdeel van Premium</h2>
+                <p className="mt-2 text-sm text-muted-foreground max-w-xl mx-auto">
+                  Je ziet nu de gratis eerste les. Activeer Premium om alle lessen en oefenexamens te ontgrendelen.
+                </p>
+                <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+                  <Link
+                    href="/prijzen"
+                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 transition-colors"
+                  >
+                    Bekijk Premium pakketten
+                  </Link>
+                  <Link
+                    href="/oefenexamens"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                  >
+                    Gratis oefenexamen starten
+                  </Link>
+                </div>
               </div>
             ) : actieveLes ? (
               <article className="prose prose-slate prose-blue max-w-none">
@@ -317,7 +420,7 @@ function LesPaginaContent() {
                   {/* Als inhoud een string is (onze HTML), renderen we die direct met parse() */}
                   {typeof actieveLes.inhoud === 'string' ? (
                     <div className="theory-html-content">
-                      {parse(actieveLes.inhoud)}
+                      {parse(formatLessonContent(actieveLes.inhoud))}
                     </div>
                   ) : (
                     /* Fallback voor als je toch nog blokken gebruikt */

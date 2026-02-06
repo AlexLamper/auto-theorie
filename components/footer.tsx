@@ -20,7 +20,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-slate-400">
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-blue-500" />
-                <span>devlamper06@gmail.com</span>
+                <a href="mailto:info@auto-theorie.com" className="hover:text-blue-400 transition-colors">info@auto-theorie.com</a>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-4 w-4 text-blue-500" />
@@ -67,11 +67,6 @@ export default function Footer() {
               <li>
                 <Link href="/veelgestelde-vragen" className="hover:text-blue-400 transition-colors cursor-pointer">
                   FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/over-ons" className="hover:text-blue-400 transition-colors cursor-pointer">
-                  Over ons
                 </Link>
               </li>
               <li>

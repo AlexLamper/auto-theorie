@@ -5,38 +5,38 @@ import { CheckCircle, CreditCard } from "lucide-react"
 
 const plans = [
   {
-    name: "Auto dag",
+    name: "Premium Dag",
     id: "auto-dag",
-    price: "19,99",
+    price: "29,99",
     note: "24 uur toegang",
     features: [
       "Volledige toegang tot lessen",
-      "Alle oefenexamens",
+      "3 oefenexamens",
       "Directe feedback",
     ],
   },
   {
-    name: "Auto week",
+    name: "Premium 7 Dagen",
     id: "auto-week",
-    price: "29,99",
+    price: "39,99",
     note: "7 dagen toegang",
     features: [
       "Volledige toegang tot lessen",
-      "Alle oefenexamens",
+      "5 oefenexamens",
       "Voortgang wordt opgeslagen",
     ],
   },
   {
-    name: "Auto maand",
+    name: "Premium 31 Dagen",
     id: "auto-maand",
-    price: "39,99",
-    oldPrice: "79,99",
-    note: "30 dagen toegang",
-    highlight: "50% korting",
+    price: "39,00",
+    oldPrice: "59,99",
+    note: "31 dagen toegang",
+    highlight: "Meest gekozen",
     features: [
       "Volledige toegang tot lessen",
-      "Alle oefenexamens",
-      "Premium support",
+      "10 oefenexamens",
+      "Voortgang wordt opgeslagen",
     ],
   },
 ]

@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://auto-theorie.com/contact</loc><lastmod>2026-02-05T11:52:48.727Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/inloggen</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/over-ons</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/aanmelden</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/prijzen</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/oefenexamens/start</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/veelgestelde-vragen</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/betaling/geannuleerd</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/verkeersborden</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/terms-of-service</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/privacy-policy</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/betaling/geslaagd</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/leren</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/hulpmiddelen</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://auto-theorie.com/oefenexamens</loc><lastmod>2026-02-05T11:52:48.728Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://auto-theorie.com/leren</loc></url>
 <url><loc>https://auto-theorie.com/leren/verantwoord-en-milieubewust-rijden</loc></url>
 <url><loc>https://auto-theorie.com/leren/verkeersborden-en-verkeersregelaars</loc></url>
 <url><loc>https://auto-theorie.com/leren/verkeersregels-snelheden-en-parkeren</loc></url>

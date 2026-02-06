@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 import connectMongoDB from "@/libs/mongodb";
 import Exam from "@/models/Exam";
+import UserExamAttempt from "@/models/UserExamAttempt";
 import fs from "fs";
 import path from "path";
+import { authOptions } from "@/lib/auth";
+import { findUserById } from "@/lib/user";
+import { getExamLimit, hasActivePlan } from "@/lib/access";
 
 export async function GET(
   req: NextRequest,
@@ -11,6 +16,33 @@ export async function GET(
   const { slug } = await params;
 
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ message: "Log in om een examen te starten." }, { status: 401 });
+    }
+
+    const user = await findUserById(session.user.id);
+    const active = hasActivePlan(user?.plan);
+    const examLimit = getExamLimit(user?.plan?.name, active);
+
+    await connectMongoDB();
+
+    const attemptQuery: Record<string, any> = { userId: session.user.id };
+    if (active && user?.plan?.startedAt && user?.plan?.expiresAt) {
+      attemptQuery.createdAt = {
+        $gte: new Date(user.plan.startedAt),
+        $lte: new Date(user.plan.expiresAt),
+      };
+    }
+
+    const attemptCount = await UserExamAttempt.countDocuments(attemptQuery);
+    if (attemptCount >= examLimit) {
+      return NextResponse.json(
+        { message: "Je examencode is op. Kies een pakket om verder te oefenen." },
+        { status: 402 }
+      );
+    }
+
     // Check local fallback FIRST for instant loading
     const filePath = path.join(process.cwd(), "docs", "oefenexamens.json");
     if (fs.existsSync(filePath)) {

@@ -31,8 +31,7 @@ export default function Navbar() {
     { href: "/oefenexamens", label: "Proefexamens" },
     { href: "/verkeersborden", label: "Verkeersborden" },
     { href: "/prijzen", label: "Prijzen" },
-    { href: "/veelgestelde-vragen", label: "FAQ" },
-    { href: "/over-ons", label: "Over ons" },
+    { href: "/informatie", label: "Informatie" },
   ]
 
   const navItems = navigationItems

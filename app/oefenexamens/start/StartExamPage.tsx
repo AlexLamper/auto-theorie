@@ -3,14 +3,13 @@
 import { useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { HighlightableText } from "@/components/HighlightableText"
-import { TextToSpeechButton } from "@/components/TextToSpeechButton"
-import { X, ArrowRight, Timer, Trophy, AlertCircle } from "lucide-react"
+import { X, ArrowRight, Timer, Trophy, AlertCircle, Lock } from "lucide-react"
+import LoadingSpinner from "@/components/LoadingSpinner"
 
 export default function StartExamPage() {
   const router = useRouter()
@@ -27,14 +26,29 @@ export default function StartExamPage() {
   const [isFinished, setIsFinished] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [accessMessage, setAccessMessage] = useState<string | null>(null)
+  const [accessInfo, setAccessInfo] = useState<{
+    hasActivePlan: boolean
+    examAttemptsUsed: number
+    examAttemptsLimit: number
+  } | null>(null)
+  const [attemptLogged, setAttemptLogged] = useState(false)
 
   useEffect(() => {
     if (slug) {
       fetch(`/api/oefenexamens/${slug}`)
-        .then(res => res.json())
+        .then(async res => {
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}))
+            setAccessMessage(data.message || "Je hebt geen toegang tot dit examen.")
+            setLoading(false)
+            return null
+          }
+          return res.json()
+        })
         .then(data => {
-          // De API data kan direct het object zijn OF verpakt zijn in { exam: ... }
-          const examData = data.exam || data;
+          if (!data) return
+          const examData = data.exam || data
           setExam(examData)
           setQuestions(examData.questions || [])
           setAnswers(new Array((examData.questions || []).length).fill(-1))
@@ -46,6 +60,25 @@ export default function StartExamPage() {
         })
     }
   }, [slug])
+
+  useEffect(() => {
+    async function fetchAccess() {
+      try {
+        const res = await fetch("/api/access")
+        if (!res.ok) return
+        const data = await res.json()
+        setAccessInfo({
+          hasActivePlan: Boolean(data.hasActivePlan),
+          examAttemptsUsed: data.examAttemptsUsed || 0,
+          examAttemptsLimit: data.examAttemptsLimit || 1,
+        })
+      } catch (err) {
+        console.error("Error loading access:", err)
+      }
+    }
+
+    fetchAccess()
+  }, [])
 
   useEffect(() => {
     if (timeLeft > 0 && !isFinished && !loading) {
@@ -114,12 +147,68 @@ export default function StartExamPage() {
     })
   }
 
+  useEffect(() => {
+    async function logAttempt() {
+      if (!isFinished || !result || attemptLogged || !slug) return
+      try {
+        await fetch("/api/progress/exams", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            examSlug: slug,
+            score: result.score,
+            passed: result.score >= 70,
+            durationSeconds: result.duration,
+          }),
+        })
+        setAttemptLogged(true)
+      } catch (err) {
+        console.error("Error logging attempt:", err)
+      }
+    }
+
+    logAttempt()
+  }, [attemptLogged, isFinished, result, slug])
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-muted-foreground font-bold">Examen laden...</p>
+          <LoadingSpinner className="h-12 w-12 mx-auto mb-4" />
+          <p className="text-slate-600 font-bold">Examen laden...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (accessMessage) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+        <div className="max-w-2xl w-full rounded-3xl border border-blue-100 bg-white p-10 text-center shadow-sm">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <Lock className="h-6 w-6" />
+          </div>
+          <h1 className="mt-6 text-3xl font-bold text-foreground">Premium vereist</h1>
+          <p className="mt-3 text-slate-600 font-medium">{accessMessage}</p>
+          {accessInfo && (
+            <div className="mt-4 text-xs text-slate-500">
+              Pogingen gebruikt: {accessInfo.examAttemptsUsed} / {accessInfo.examAttemptsLimit}
+            </div>
+          )}
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/prijzen"
+              className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 transition-colors"
+            >
+              Bekijk Premium pakketten
+            </Link>
+            <Link
+              href="/oefenexamens"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+            >
+              Terug naar examens
+            </Link>
+          </div>
         </div>
       </div>
     )
@@ -130,130 +219,126 @@ export default function StartExamPage() {
   if (isFinished && result) {
     const passed = result.score >= 70
     return (
-      <div className="min-h-screen bg-background py-12 px-4">
-        <div className="max-w-5xl mx-auto">
-          <Card className="shadow-2xl border-none rounded-[2rem] overflow-hidden bg-card">
-            <div className={`p-12 text-center ${passed ? "bg-emerald-600" : "bg-rose-600"} text-white relative overflow-hidden`}>
-              {/* Background Decoration */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full -ml-32 -mb-32 blur-3xl" />
-              
-              <div className="relative z-10">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6 backdrop-blur-sm">
-                  {passed ? <Trophy size={40} /> : <AlertCircle size={40} />}
+      <div className="min-h-screen bg-slate-50 py-12 px-4">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <Card className="shadow-lg border border-slate-100 rounded-3xl overflow-hidden bg-white">
+            <CardContent className="p-8 md:p-10">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+                <div className={`h-16 w-16 rounded-2xl flex items-center justify-center ${passed ? "bg-emerald-50 text-emerald-600" : "bg-rose-50 text-rose-600"}`}>
+                  {passed ? <Trophy size={28} /> : <AlertCircle size={28} />}
                 </div>
-                <h1 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tighter">
-                  {passed ? "Gefeliciteerd!" : "Helaas, niet geslaagd"}
-                </h1>
-                <p className="text-xl opacity-90 font-medium max-w-2xl mx-auto leading-relaxed">
-                  {passed 
-                    ? `Je hebt het examen succesvol afgerond met een score van ${Math.round(result.score)}%. Je bent klaar voor het echte werk!`
-                    : `Je hebt een score van ${Math.round(result.score)}% behaald. Oefen nog even verder om de 70% te halen.`
-                  }
-                </p>
+                <div className="space-y-2">
+                  <h1 className="text-3xl md:text-4xl font-extrabold text-foreground">
+                    {passed ? "Gefeliciteerd, je bent geslaagd" : "Niet geslaagd, nog even oefenen"}
+                  </h1>
+                  <p className="text-muted-foreground max-w-2xl">
+                    {passed
+                      ? `Je hebt het examen afgerond met een score van ${Math.round(result.score)}%. Je bent klaar voor het echte werk.`
+                      : `Je hebt ${Math.round(result.score)}% behaald. Oefen nog even verder om de 70% te halen.`
+                    }
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm">
+              <div className="text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest">Jouw score</div>
+              <div className={`text-4xl font-black ${passed ? "text-emerald-600" : "text-rose-600"}`}>
+                {Math.round(result.score)}%
               </div>
             </div>
+            <div className="text-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm">
+              <div className="text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest">Correcte antwoorden</div>
+              <div className="text-4xl font-black text-foreground">
+                {result.correctCount}<span className="text-2xl text-muted-foreground mx-1">/</span>{result.total}
+              </div>
+            </div>
+            <div className="text-center p-6 bg-white rounded-2xl border border-slate-100 shadow-sm">
+              <div className="text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest">Tijd gebruikt</div>
+              <div className="text-4xl font-black text-foreground">
+                {Math.floor(result.duration / 60)}<span className="text-2xl text-muted-foreground">:</span>{String(result.duration % 60).padStart(2, "0")}
+              </div>
+            </div>
+          </div>
 
-            <CardContent className="p-8 md:p-12">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div className="group text-center p-8 bg-card rounded-[1.5rem] border border-border transition-all hover:shadow-inner">
-                  <div className="text-xs font-black text-muted-foreground mb-2 uppercase tracking-[0.2em]">Jouw Score</div>
-                  <div className={`text-5xl font-black ${passed ? "text-emerald-600" : "text-rose-600"}`}>
-                    {Math.round(result.score)}%
-                  </div>
-                </div>
-                <div className="text-center p-8 bg-card rounded-[1.5rem] border border-border transition-all hover:shadow-inner">
-                  <div className="text-xs font-black text-muted-foreground mb-2 uppercase tracking-[0.2em]">Correcte Antwoorden</div>
-                  <div className="text-5xl font-black text-foreground">
-                    {result.correctCount}<span className="text-2xl text-muted-foreground mx-1">/</span>{result.total}
-                  </div>
-                </div>
-                <div className="text-center p-8 bg-card rounded-[1.5rem] border border-border transition-all hover:shadow-inner">
-                  <div className="text-xs font-black text-muted-foreground mb-2 uppercase tracking-[0.2em]">Tijd Gebruikt</div>
-                  <div className="text-5xl font-black text-foreground">
-                    {Math.floor(result.duration / 60)}<span className="text-2xl text-muted-foreground">:</span>{String(result.duration % 60).padStart(2, "0")}
-                  </div>
+          <Card className="shadow-sm border border-slate-100 rounded-3xl overflow-hidden bg-white">
+            <CardContent className="p-8">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                <h3 className="text-2xl font-bold text-foreground">Vraagoverzicht</h3>
+                <div className="flex gap-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                  <span className="flex items-center gap-2"><div className="w-3 h-3 bg-emerald-500 rounded-full" /> Goed</span>
+                  <span className="flex items-center gap-2"><div className="w-3 h-3 bg-rose-500 rounded-full" /> Fout</span>
                 </div>
               </div>
 
-              {/* Enhanced Question Overview */}
-              <div className="space-y-8">
-                <div className="flex items-center justify-between border-b border-border pb-4">
-                  <h3 className="text-2xl font-black text-foreground tracking-tight">Vraagoverzicht</h3>
-                  <div className="flex gap-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                    <span className="flex items-center gap-2"><div className="w-3 h-3 bg-emerald-500 rounded-full" /> Goed</span>
-                    <span className="flex items-center gap-2"><div className="w-3 h-3 bg-rose-500 rounded-full" /> Fout</span>
-                  </div>
-                </div>
+              <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-3 mt-6">
+                {questions.map((q, i) => {
+                  const answer = answers[i]
+                  const isCorrect = answer !== -1 && (q.correct_answer_indices[answer] === 1 || q.correct_answer_indices[answer] === "1")
 
-                <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-3">
-                  {questions.map((q, i) => {
-                    const answer = answers[i]
-                    const isCorrect = answer !== -1 && (q.correct_answer_indices[answer] === 1 || q.correct_answer_indices[answer] === "1")
+                  return (
+                    <DropdownMenu key={i}>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          className={`aspect-square rounded-xl font-bold text-sm flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95 shadow-sm ${
+                            isCorrect
+                              ? "bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-100"
+                              : "bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-100"
+                          }`}
+                        >
+                          {i + 1}
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-80 p-6 z-50 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100">
+                        <div className="mb-4">
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-widest mb-2 inline-block ${isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
+                            Vraag {i + 1} • {isCorrect ? "Correct" : "Onjuist"}
+                          </span>
+                          <p className="font-bold text-foreground leading-snug">{q.question_text}</p>
+                        </div>
 
-                    return (
-                      <DropdownMenu key={i}>
-                        <DropdownMenuTrigger asChild>
-                          <button
-                            className={`aspect-square rounded-xl font-black text-sm flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95 shadow-sm ${
-                              isCorrect 
-                                ? "bg-emerald-50 text-emerald-600 border-2 border-emerald-100 hover:bg-emerald-100" 
-                                : "bg-rose-50 text-rose-600 border-2 border-rose-100 hover:bg-rose-100"
-                            }`}
-                          >
-                            {i + 1}
-                          </button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-80 p-6 z-50 bg-card rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-none">
-                          <div className="mb-4">
-                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest mb-2 inline-block ${isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
-                              Vraag {i + 1} • {isCorrect ? "Correct" : "Onjuist"}
-                            </span>
-                            <p className="font-bold text-foreground leading-snug">{q.question_text}</p>
+                        <div className="space-y-3">
+                          <div className={`p-3 rounded-xl text-sm font-semibold ${isCorrect ? "bg-emerald-50/50 text-emerald-700" : "bg-rose-50/50 text-rose-700"}`}>
+                            <span className="opacity-60 text-[10px] uppercase block mb-0.5">Jouw antwoord</span>
+                            {answer !== -1 ? (q.answers[answer] || `Optie ${answer + 1}`) : "Geen antwoord"}
                           </div>
-                          
-                          <div className="space-y-3">
-                            <div className={`p-3 rounded-xl text-sm font-bold ${isCorrect ? "bg-emerald-50/50 text-emerald-700" : "bg-rose-50/50 text-rose-700"}`}>
-                              <span className="opacity-60 text-[10px] uppercase block mb-0.5">Jouw antwoord</span>
-                              {answer !== -1 ? (q.answers[answer] || `Optie ${answer + 1}`) : "Geen antwoord"}
-                            </div>
 
-                            {!isCorrect && (
-                              <>
-                                <div className="p-3 rounded-xl bg-emerald-50/50 text-emerald-700 text-sm font-bold">
-                                  <span className="opacity-60 text-[10px] uppercase block mb-0.5">Correct antwoord</span>
-                                  {q.answers[q.correct_answer_indices.findIndex((idx: any) => idx === 1 || idx === "1")] || "Zie uitleg"}
+                          {!isCorrect && (
+                            <>
+                              <div className="p-3 rounded-xl bg-emerald-50/50 text-emerald-700 text-sm font-semibold">
+                                <span className="opacity-60 text-[10px] uppercase block mb-0.5">Correct antwoord</span>
+                                {q.answers[q.correct_answer_indices.findIndex((idx: any) => idx === 1 || idx === "1")] || "Zie uitleg"}
+                              </div>
+                              {q.explanation && (
+                                <div className="p-4 bg-blue-50/50 rounded-xl text-xs text-blue-700 font-medium leading-relaxed border border-blue-100/50">
+                                  <span className="font-bold uppercase tracking-widest block mb-1 opacity-60">Uitleg</span>
+                                  {q.explanation}
                                 </div>
-                                {q.explanation && (
-                                  <div className="p-4 bg-blue-50/50 rounded-xl text-xs text-blue-700 font-medium leading-relaxed border border-blue-100/50">
-                                    <span className="font-black uppercase tracking-widest block mb-1 opacity-60">Uitleg</span>
-                                    {q.explanation}
-                                  </div>
-                                )}
-                              </>
-                            )}
-                          </div>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    )
-                  })}
-                </div>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )
+                })}
               </div>
 
-              {/* Actions */}
-              <div className="flex flex-col sm:flex-row justify-center gap-4 pt-12 border-t border-slate-100 mt-16">
-                <Button 
-                  onClick={() => location.reload()} 
-                  variant="outline" 
-                  className="h-14 px-10 rounded-2xl font-black text-muted-foreground border-border hover:bg-muted transition-all cursor-pointer text-lg"
+              <div className="flex flex-col sm:flex-row justify-center gap-4 pt-10 border-t border-slate-100 mt-10">
+                <Button
+                  onClick={() => location.reload()}
+                  variant="outline"
+                  className="h-12 px-8 rounded-xl font-bold text-muted-foreground border-border hover:bg-muted transition-all cursor-pointer"
                 >
-                  Opnieuw Proberen
+                  Opnieuw proberen
                 </Button>
-                <Button 
-                  asChild 
-                  className="bg-slate-900 hover:bg-blue-600 text-white h-14 px-10 rounded-2xl font-black transition-all cursor-pointer text-lg shadow-xl hover:shadow-blue-500/20"
+                <Button
+                  asChild
+                  className="bg-slate-900 hover:bg-blue-600 text-white h-12 px-8 rounded-xl font-bold transition-all cursor-pointer shadow-lg hover:shadow-blue-500/20"
                 >
-                  <Link href="/oefenexamens">Alle Examens</Link>
+                  <Link href="/oefenexamens">Alle examens</Link>
                 </Button>
               </div>
             </CardContent>
@@ -279,98 +364,80 @@ export default function StartExamPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
-      <div className="max-w-[1200px] mx-auto p-4 md:p-8 flex flex-col min-h-screen">
-        {/* Header */}
-        <header className="flex flex-col md:flex-row justify-between items-start mb-12 gap-8 md:gap-0">
-          <div className="flex-1 pr-4">
-            <div className="text-blue-600 font-black text-sm mb-4 uppercase tracking-[0.2em]">Vraag {current + 1} / {questions.length}</div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black max-w-4xl leading-[1.1] tracking-tight text-foreground">
-              <HighlightableText text={q.question_text} />
-            </h1>
-          </div>
+    <div className="min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden">
+      <div className="max-w-6xl mx-auto p-4 md:p-8 flex flex-col min-h-screen">
+        <header className="rounded-3xl border border-slate-100 bg-white p-6 md:p-8 shadow-sm mb-10">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div className="space-y-3">
+              <div className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                Vraag {current + 1} / {questions.length}
+              </div>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-foreground leading-tight">
+                <HighlightableText text={q.question_text} />
+              </h1>
+              <div className="text-sm text-muted-foreground font-semibold">
+                Resterende tijd: {minutes}:{seconds}
+              </div>
+              <Progress value={(timeLeft / 1800) * 100} className="h-2 bg-slate-100" />
+            </div>
 
-          <div className="flex flex-col items-end gap-8 shrink-0 w-full md:w-auto">
-            <div className="flex items-center gap-6 text-[13px] text-muted-foreground font-black uppercase tracking-widest">
-              <div className="flex items-center gap-3 bg-card px-4 py-2 rounded-full border border-border shadow-sm">
-                <span>Timer aan</span>
-                <button 
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-full border border-slate-200">
+                <span className="text-xs font-bold uppercase tracking-widest text-slate-500">Timer</span>
+                <button
                   onClick={() => setTimerEnabled(!timerEnabled)}
                   className={`w-10 h-5 rounded-full relative transition-colors cursor-pointer ${timerEnabled ? "bg-emerald-500" : "bg-slate-300"}`}
                 >
                   <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${timerEnabled ? "left-6" : "left-1"}`} />
                 </button>
               </div>
-              <button 
-                onClick={() => router.push("/oefenexamens")}
-                className="flex items-center gap-2 hover:text-rose-600 transition-colors cursor-pointer bg-card px-4 py-2 rounded-full border border-border shadow-sm"
-              >
-                <X size={16} />
-                <span>Stoppen</span>
-              </button>
-            </div>
-
-            {/* Circular Timer */}
-            <div className="relative w-24 h-24 hidden md:block">
-              <svg className="w-full h-full transform -rotate-90">
-                <circle cx="48" cy="48" r="44" stroke="currentColor" strokeWidth="8" fill="white" className="text-muted-foreground" />
-                <circle 
-                  cx="48" cy="48" r="44" 
-                  stroke="currentColor" 
-                  strokeWidth="8" 
-                  fill="none" 
-                  className={`transition-all duration-1000 ease-linear ${questionTime < 5 ? "text-rose-500" : "text-emerald-500"}`}
-                  strokeDasharray={276}
-                  strokeDashoffset={276 - (questionTime / 15) * 276}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center text-sm font-black text-foreground uppercase">
-                {questionTime} <span className="text-[10px] ml-1">S</span>
+              <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-widest text-slate-500">
+                <Timer size={14} />
+                {questionTime}s
               </div>
+              <button
+                onClick={() => router.push("/oefenexamens")}
+                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 bg-slate-50 px-4 py-2 rounded-full border border-slate-200 hover:text-rose-600 transition-colors cursor-pointer"
+              >
+                <X size={14} />
+                Stoppen
+              </button>
             </div>
           </div>
         </header>
 
-        {/* Main Content */}
-        <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 flex-1 content-start items-start">
-          {/* Left: Situatieschets */}
-          <div className="lg:col-span-7 aspect-video relative rounded-3xl overflow-hidden border-4 border-border shadow-2xl bg-card group">
+        <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 flex-1 content-start items-start">
+          <div className="lg:col-span-7 aspect-video relative rounded-3xl overflow-hidden border border-slate-100 shadow-lg bg-white">
             {q.image && (
-              <img 
-                src={q.image} 
-                alt="Situatieschets" 
+              <img
+                src={q.image}
+                alt="Situatieschets"
                 className="absolute inset-0 w-full h-full object-contain"
               />
             )}
             {!q.image && (
-              <div className="absolute inset-0 flex items-center justify-center text-muted-foreground font-bold bg-muted italic">
+              <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-semibold bg-slate-50">
                 Geen afbeelding voor deze vraag
               </div>
             )}
-            {/* Mobile Timer Overlay */}
-            <div className="md:hidden absolute top-4 right-4 bg-card/90 backdrop-blur-md text-foreground text-xs font-black px-4 py-2 rounded-full border border-border shadow-xl">
-              {questionTime} SEC
-            </div>
           </div>
 
-          {/* Right: Answer Options */}
           <div className="lg:col-span-5 flex flex-col gap-4">
             {options.map((opt: string, idx: number) => (
               <button
                 key={idx}
                 onClick={() => selectAnswer(idx)}
-                className={`group flex items-center p-6 bg-card rounded-2xl shadow-sm border-2 transition-all text-left w-full hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
-                  answers[current] === idx ? "border-blue-600 ring-4 ring-blue-500/10 shadow-lg" : "border-border hover:border-blue-200 hover:bg-muted shadow-slate-200/50"
+                className={`group flex items-center p-5 bg-white rounded-2xl shadow-sm border transition-all text-left w-full hover:shadow-md cursor-pointer ${
+                  answers[current] === idx ? "border-blue-600 ring-2 ring-blue-500/10" : "border-slate-100 hover:border-blue-200"
                 }`}
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl mr-5 shrink-0 transition-all ${
-                  answers[current] === idx ? "bg-blue-600 text-white shadow-lg rotate-3" : "bg-muted text-muted-foreground group-hover:bg-blue-50 group-hover:text-blue-500"
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-lg mr-4 shrink-0 transition-all ${
+                  answers[current] === idx ? "bg-blue-600 text-white" : "bg-slate-50 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600"
                 }`}>
-                  {["A", "B", "C", "D"][idx]}
+                  {['A', 'B', 'C', 'D'][idx]}
                 </div>
-                <span className={`font-bold text-[17px] leading-snug transition-colors ${
-                  answers[current] === idx ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"
+                <span className={`font-semibold text-base leading-snug transition-colors ${
+                  answers[current] === idx ? "text-foreground" : "text-slate-600 group-hover:text-foreground"
                 }`}>
                   <HighlightableText text={opt} />
                 </span>
@@ -379,19 +446,29 @@ export default function StartExamPage() {
           </div>
         </main>
 
-        {/* Footer */}
-        <footer className="mt-12 flex justify-end pb-12">
+        <footer className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 pb-10">
+          <button
+            onClick={prevQuestion}
+            disabled={current === 0}
+            className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all cursor-pointer border ${
+              current === 0
+                ? "bg-slate-100 text-slate-400 border-slate-100 cursor-not-allowed"
+                : "bg-white text-slate-600 border-slate-200 hover:border-blue-200 hover:text-blue-600"
+            }`}
+          >
+            Vorige vraag
+          </button>
           <button
             onClick={nextQuestion}
             disabled={answers[current] === -1}
-            className={`flex items-center gap-4 px-12 py-5 rounded-[1.25rem] font-black text-xl transition-all cursor-pointer shadow-xl ${
-              answers[current] === -1 
-              ? "bg-slate-200 text-slate-400 cursor-not-allowed grayscale" 
-              : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-blue-500/40 hover:-translate-y-1 active:translate-y-0"
+            className={`flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-base transition-all cursor-pointer shadow-sm ${
+              answers[current] === -1
+                ? "bg-slate-200 text-slate-400 cursor-not-allowed"
+                : "bg-blue-600 text-white hover:bg-blue-700"
             }`}
           >
             {current === questions.length - 1 ? "Examen afronden" : "Volgende vraag"}
-            <ArrowRight size={24} className={answers[current] === -1 ? "opacity-30" : "animate-pulse"} />
+            <ArrowRight size={20} className={answers[current] === -1 ? "opacity-30" : ""} />
           </button>
         </footer>
       </div>

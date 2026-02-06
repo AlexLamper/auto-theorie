@@ -1,11 +1,12 @@
 "use client"
 
 import React from "react"
-import { Volume2, VolumeX, Loader2 } from "lucide-react"
+import { Volume2, VolumeX } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useSpeech } from "@/lib/SpeechContext"
 import { cleanForSpeech } from "@/lib/utils"
 import clsx from "clsx"
+import LoadingSpinner from "@/components/LoadingSpinner"
 
 interface TextToSpeechButtonProps {
   text: string
@@ -51,7 +52,7 @@ export function TextToSpeechButton({ text, label = "Voorlezen", minimal = false 
       )}
     >
       {isLoading && !isThisSpeaking ? (
-        <Loader2 className={clsx("animate-spin", minimal ? "h-3 w-3" : "h-4 w-4")} />
+        <LoadingSpinner className={minimal ? "h-3 w-3" : "h-4 w-4"} />
       ) : isThisSpeaking ? (
         <VolumeX className={minimal ? "h-3 w-3" : "h-4 w-4"} />
       ) : (

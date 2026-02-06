@@ -4,6 +4,9 @@ import Footer from "@/components/footer"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { findUserById } from "@/lib/user"
+import connectMongoDB from "@/libs/mongodb"
+import Lesson from "@/models/Lesson"
+import UserProgress from "@/models/UserProgress"
 
 const dateFormatter = new Intl.DateTimeFormat("nl-NL", {
   dateStyle: "medium",
@@ -48,6 +51,16 @@ export default async function AccountPage() {
   const planExpiry = plan?.expiresAt ? new Date(plan.expiresAt) : null
   const removalAt = user?.removalAt ? new Date(user.removalAt) : null
   const createdAt = user?.createdAt ? new Date(user.createdAt) : null
+
+  await connectMongoDB()
+  const lessons = await Lesson.find({}, { category: 1 }).lean()
+  const progress = await UserProgress.find(
+    { userId: session.user.id, completed: true },
+    { lessonId: 1 }
+  ).lean()
+
+  const completedLessonsCount = progress.length
+  const totalLessonsCount = lessons.length
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -108,6 +121,26 @@ export default async function AccountPage() {
               </div>
             </section>
           </div>
+
+          <section className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-slate-900">Voortgang</h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-center">
+                <p className="text-xs uppercase tracking-wide text-slate-500">Lessen voltooid</p>
+                <p className="mt-2 text-2xl font-bold text-slate-900">{completedLessonsCount}</p>
+              </div>
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-center">
+                <p className="text-xs uppercase tracking-wide text-slate-500">Totaal lessen</p>
+                <p className="mt-2 text-2xl font-bold text-slate-900">{totalLessonsCount}</p>
+              </div>
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-center">
+                <p className="text-xs uppercase tracking-wide text-slate-500">Voortgang</p>
+                <p className="mt-2 text-2xl font-bold text-slate-900">
+                  {totalLessonsCount > 0 ? Math.round((completedLessonsCount / totalLessonsCount) * 100) : 0}%
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
       </section>
       <Footer />

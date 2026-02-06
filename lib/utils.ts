@@ -18,6 +18,85 @@ export function cleanForSpeech(text: string) {
     .trim();
 }
 
+function escapeHtml(text: string) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+}
+
+function looksLikeHtml(content: string) {
+  return /<\/?[a-z][\s\S]*>/i.test(content)
+}
+
+export function formatLessonContent(content: string) {
+  if (!content) return ""
+  if (looksLikeHtml(content)) return content
+
+  const lines = content
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .split("\n")
+    .map((line) => line.trim())
+
+  const blocks: string[] = []
+  let i = 0
+
+  const nextNonEmpty = (start: number) => {
+    for (let j = start; j < lines.length; j += 1) {
+      if (lines[j]) return j
+    }
+    return -1
+  }
+
+  while (i < lines.length) {
+    if (!lines[i]) {
+      i += 1
+      continue
+    }
+
+    const line = lines[i]
+    const prevEmpty = i === 0 || !lines[i - 1]
+    const nextIndex = nextNonEmpty(i + 1)
+    const nextLine = nextIndex !== -1 ? lines[nextIndex] : ""
+
+    if (prevEmpty && line.length <= 80 && !line.endsWith(".") && nextLine) {
+      blocks.push(`<h2>${escapeHtml(line)}</h2>`)
+      i += 1
+      continue
+    }
+
+    if (line.endsWith(":") && nextLine) {
+      blocks.push(`<p>${escapeHtml(line)}</p>`)
+      const items: string[] = []
+      i += 1
+      while (i < lines.length && lines[i]) {
+        items.push(lines[i])
+        i += 1
+      }
+
+      if (items.length > 0) {
+        const listItems = items
+          .map((item) => `<li>${escapeHtml(item)}</li>`)
+          .join("")
+        blocks.push(`<ul>${listItems}</ul>`)
+      }
+      continue
+    }
+
+    let paragraph = line
+    i += 1
+    while (i < lines.length && lines[i]) {
+      paragraph = `${paragraph} ${lines[i]}`
+      i += 1
+    }
+
+    blocks.push(`<p>${escapeHtml(paragraph)}</p>`)
+  }
+
+  return blocks.join("\n")
+}
+
 function mapLessonImageSrc(src: string) {
   if (!src) return ""
   const fileName = src.split("/").pop()?.split("?")[0]

@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from "next/server"
+import { getServerSession } from "next-auth"
 import connectMongoDB from "@/libs/mongodb"
 import Lesson from "@/models/Lesson"
+import { authOptions } from "@/lib/auth"
+import { findUserById } from "@/lib/user"
+import { hasActivePlan } from "@/lib/access"
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const categorie = searchParams.get("categorie")
+
+    const session = await getServerSession(authOptions)
+    const user = session?.user?.id ? await findUserById(session.user.id) : null
+    const activePlan = hasActivePlan(user?.plan)
 
     await connectMongoDB()
 
@@ -23,6 +31,17 @@ export async function GET(req: NextRequest) {
 
       if (lessons.length === 0) {
         return NextResponse.json({ error: "Geen lessen gevonden." }, { status: 404 })
+      }
+
+      if (!activePlan) {
+        const firstLessonId = lessons[0]?._id?.toString()
+        const lockedLessons = lessons.map((lesson: any) => ({
+          ...lesson,
+          content: lesson._id?.toString() === firstLessonId ? lesson.content : "",
+          isLocked: lesson._id?.toString() !== firstLessonId,
+        }))
+
+        return NextResponse.json(lockedLessons)
       }
 
       return NextResponse.json(lessons)
