@@ -364,113 +364,145 @@ export default function StartExamPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden">
-      <div className="max-w-6xl mx-auto p-4 md:p-8 flex flex-col min-h-screen">
-        <header className="rounded-3xl border border-slate-100 bg-white p-6 md:p-8 shadow-sm mb-10">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div className="space-y-3">
-              <div className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
-                Vraag {current + 1} / {questions.length}
-              </div>
-              <h1 className="text-3xl md:text-4xl font-extrabold text-foreground leading-tight">
-                <HighlightableText text={q.question_text} />
-              </h1>
-              <div className="text-sm text-muted-foreground font-semibold">
-                Resterende tijd: {minutes}:{seconds}
-              </div>
-              <Progress value={(timeLeft / 1800) * 100} className="h-2 bg-slate-100" />
+    <div className="fixed inset-0 top-[65px] bg-slate-100/50 flex items-center justify-center font-sans overflow-hidden z-20">
+      
+      <div className="w-full max-w-4xl h-[88%] bg-white shadow-2xl overflow-hidden flex flex-col border border-slate-200">
+        
+        {/* Header - Compact */}
+        <header className="h-12 border-b border-slate-100 flex items-center justify-between px-6 bg-white shrink-0 z-10">
+            <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                    <span className="bg-blue-600 text-white text-[10px] md:text-sm font-bold px-2 py-1 rounded shadow-sm">
+                        {current + 1} / {questions.length}
+                    </span>
+                    <span className="text-xs font-bold text-slate-400 hidden sm:inline-block">
+                        Vraag {current + 1}
+                    </span>
+                </div>
+                
+                {/* Timer Mini */}
+                <div className="flex items-center gap-2 text-xs font-extrabold text-blue-600 bg-blue-50 px-3 py-1 rounded-md border border-blue-100">
+                    <Timer size={14} className="text-blue-500" />
+                    <span className="tabular-nums">{minutes}:{seconds}</span>
+                </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4">
-              <div className="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-full border border-slate-200">
-                <span className="text-xs font-bold uppercase tracking-widest text-slate-500">Timer</span>
-                <button
-                  onClick={() => setTimerEnabled(!timerEnabled)}
-                  className={`w-10 h-5 rounded-full relative transition-colors cursor-pointer ${timerEnabled ? "bg-emerald-500" : "bg-slate-300"}`}
-                >
-                  <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${timerEnabled ? "left-6" : "left-1"}`} />
-                </button>
-              </div>
-              <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full border border-slate-200 text-xs font-bold uppercase tracking-widest text-slate-500">
-                <Timer size={14} />
-                {questionTime}s
-              </div>
-              <button
-                onClick={() => router.push("/oefenexamens")}
-                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 bg-slate-50 px-4 py-2 rounded-full border border-slate-200 hover:text-rose-600 transition-colors cursor-pointer"
-              >
-                <X size={14} />
-                Stoppen
-              </button>
+            <div className="flex items-center gap-4">
+                 <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider hidden sm:inline-block">Timer</span>
+                     <button
+                      onClick={() => setTimerEnabled(!timerEnabled)}
+                      className={`w-8 h-4 rounded-full relative transition-colors cursor-pointer ${timerEnabled ? "bg-blue-600" : "bg-slate-200"}`}
+                    >
+                      <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all shadow-sm ${timerEnabled ? "left-4.5" : "left-0.5"}`} />
+                    </button>
+                 </div>
+                 
+                 <div className="h-4 w-px bg-slate-200 mx-1" />
+
+                 <button
+                    onClick={() => router.push("/oefenexamens")}
+                    className="flex items-center gap-2 text-slate-400 hover:text-rose-600 transition-colors font-bold text-[10px] md:text-xs cursor-pointer"
+                  >
+                    <X size={14} />
+                    <span className="hidden sm:inline">Stoppen</span>
+                  </button>
             </div>
-          </div>
         </header>
 
-        <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 flex-1 content-start items-start">
-          <div className="lg:col-span-7 aspect-video relative rounded-3xl overflow-hidden border border-slate-100 shadow-lg bg-white">
-            {q.image && (
-              <img
-                src={q.image}
-                alt="Situatieschets"
-                className="absolute inset-0 w-full h-full object-contain"
-              />
-            )}
-            {!q.image && (
-              <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-semibold bg-slate-50">
-                Geen afbeelding voor deze vraag
-              </div>
-            )}
-          </div>
+        {/* Main Content - Split Layout */}
+        <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+             
+             {/* Left: Question & Image */}
+             <div className="flex-1 flex flex-col min-w-0 bg-white relative">
+                 <div className="p-6 md:p-8 pb-4">
+                     <h1 className="text-xl md:text-3xl font-extrabold text-slate-900 leading-tight">
+                        <HighlightableText text={q.question_text} />
+                     </h1>
+                 </div>
 
-          <div className="lg:col-span-5 flex flex-col gap-4">
-            {options.map((opt: string, idx: number) => (
-              <button
-                key={idx}
-                onClick={() => selectAnswer(idx)}
-                className={`group flex items-center p-5 bg-white rounded-2xl shadow-sm border transition-all text-left w-full hover:shadow-md cursor-pointer ${
-                  answers[current] === idx ? "border-blue-600 ring-2 ring-blue-500/10" : "border-slate-100 hover:border-blue-200"
-                }`}
-              >
-                <div className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-lg mr-4 shrink-0 transition-all ${
-                  answers[current] === idx ? "bg-blue-600 text-white" : "bg-slate-50 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600"
-                }`}>
-                  {['A', 'B', 'C', 'D'][idx]}
+                 <div className="flex-1 p-6 pt-0 min-h-0 overflow-hidden flex items-start justify-start">
+                    {q.image ? (
+                      <div className="relative w-full h-full">
+                        <img
+                          src={q.image}
+                          alt="Situatieschets"
+                          className="w-[80%] h-full object-contain object-left-top rounded-none"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center text-slate-300 bg-slate-50/50 rounded-none w-[80%] h-[80%] border-2 border-dashed border-slate-100">
+                         <span className="text-xs font-bold">Geen afbeelding</span>
+                      </div>
+                    )}
+                 </div>
+             </div>
+
+             {/* Right: Answers & Navigation */}
+             <div className="w-full md:w-[280px] lg:w-[320px] flex flex-col border-t md:border-t-0 md:border-l border-slate-100 bg-slate-50/30 p-4 shrink-0 overflow-y-auto">
+                <div className="flex-1 flex flex-col gap-2 justify-start">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 px-1 text-center md:text-left">
+                        Kies een antwoord
+                    </div>
+                    {options.map((opt: string, idx: number) => {
+                        const isSelected = answers[current] === idx;
+                        const letters = ['A', 'B', 'C', 'D'];
+                        
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => selectAnswer(idx)}
+                            className={`
+                              relative w-full p-2.5 rounded-lg border text-left transition-all duration-200 cursor-pointer flex items-center gap-3
+                              ${isSelected 
+                                 ? "border-blue-600 bg-blue-50/80 shadow-sm" 
+                                 : "border-slate-200 bg-white shadow-sm hover:border-blue-200"
+                              }
+                            `}
+                          >
+                             <div className={`
+                                w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-colors shrink-0
+                                ${isSelected ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-500"}
+                             `}>
+                                {letters[idx]}
+                             </div>
+                             <div className={`font-bold text-xs md:text-sm ${isSelected ? "text-blue-900" : "text-slate-600"}`}>
+                                {opt}
+                             </div>
+                          </button>
+                        )
+                    })}
                 </div>
-                <span className={`font-semibold text-base leading-snug transition-colors ${
-                  answers[current] === idx ? "text-foreground" : "text-slate-600 group-hover:text-foreground"
-                }`}>
-                  <HighlightableText text={opt} />
-                </span>
-              </button>
-            ))}
-          </div>
-        </main>
 
-        <footer className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 pb-10">
-          <button
-            onClick={prevQuestion}
-            disabled={current === 0}
-            className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all cursor-pointer border ${
-              current === 0
-                ? "bg-slate-100 text-slate-400 border-slate-100 cursor-not-allowed"
-                : "bg-white text-slate-600 border-slate-200 hover:border-blue-200 hover:text-blue-600"
-            }`}
-          >
-            Vorige vraag
-          </button>
-          <button
-            onClick={nextQuestion}
-            disabled={answers[current] === -1}
-            className={`flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-base transition-all cursor-pointer shadow-sm ${
-              answers[current] === -1
-                ? "bg-slate-200 text-slate-400 cursor-not-allowed"
-                : "bg-blue-600 text-white hover:bg-blue-700"
-            }`}
-          >
-            {current === questions.length - 1 ? "Examen afronden" : "Volgende vraag"}
-            <ArrowRight size={20} className={answers[current] === -1 ? "opacity-30" : ""} />
-          </button>
-        </footer>
+                <div className="mt-4 pt-4 border-t border-slate-100">
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={prevQuestion}
+                            disabled={current === 0}
+                            className="h-10 w-10 flex items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
+                            title="Vorige vraag"
+                        >
+                           <ArrowRight size={16} className="rotate-180" />
+                        </button>
+
+                        <button
+                            onClick={nextQuestion}
+                            disabled={answers[current] === -1}
+                            className={`
+                               flex-1 h-10 flex items-center justify-center gap-2 px-4 rounded-lg font-bold text-[10px] md:text-xs transition-all cursor-pointer
+                               ${answers[current] === -1 
+                                  ? "bg-slate-200 text-slate-400 cursor-not-allowed" 
+                                  : "bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-200"
+                               }
+                            `}
+                        >
+                           <span>{current === questions.length - 1 ? "Afronden" : "Volgende vraag"}</span>
+                           <ArrowRight size={16} className={answers[current] === -1 ? "opacity-0" : "opacity-100"} />
+                        </button>
+                    </div>
+                </div>
+             </div>
+        </div>
       </div>
     </div>
   )

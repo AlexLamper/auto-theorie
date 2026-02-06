@@ -74,6 +74,25 @@ function LesPaginaContent() {
   const lesIndexParam = searchParams.get("les")
   const lesVolgorde = parseInt(lesIndexParam || "1", 10)
 
+  // Tone styles for personality
+  const toneStyles: Record<string, { bg: string; text: string; border: string }> = {
+    milieu: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
+    verkeersborden: { bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200" },
+    verkeersregels: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
+    veiligheid: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
+    voorrang: { bg: "bg-pink-50", text: "text-pink-700", border: "border-pink-200" },
+    weggebruikers: { bg: "bg-indigo-50", text: "text-indigo-700", border: "border-indigo-200" },
+    voertuig: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" },
+    verkeerswetten: { bg: "bg-slate-50", text: "text-slate-700", border: "border-slate-200" },
+    default: { bg: "bg-slate-50", text: "text-slate-700", border: "border-slate-200" },
+  }
+
+  // Get current category tone
+  const currentToneKey = Object.keys(toneStyles).find((k) => 
+    (actieveGroep || "").toLowerCase().includes(k)
+  ) || "default"
+  const tone = toneStyles[currentToneKey]
+
   // Sync state with URL when it changes
   useEffect(() => {
     if (categorie) {
@@ -232,231 +251,241 @@ function LesPaginaContent() {
   const isLessonLocked = lessonLockedByPlan || Boolean(actieveLes?.isLocked)
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-slate-50/50 flex flex-col">
       {/* Mobile Header */}
-      <div className="lg:hidden bg-white border-b border-border px-4 py-4 sticky top-0 z-30 flex items-center justify-between">
-        <div className="flex items-center gap-2 overflow-hidden">
-          <Menu className="h-5 w-5 text-muted-foreground flex-shrink-0 cursor-pointer" onClick={() => setMobileMenuOpen(true)} />
-          <span className="font-bold text-foreground truncate">
+      <div className="lg:hidden bg-white border-b border-border px-4 py-3 sticky top-0 z-30 flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-3 overflow-hidden">
+          <button 
+            onClick={() => setMobileMenuOpen(true)}
+            className="p-2 -ml-2 rounded-lg hover:bg-slate-100"
+          >
+            <Menu className="h-5 w-5 text-slate-600" />
+          </button>
+          <span className="font-bold text-slate-800 truncate text-sm">
             {actieveLes?.titel || "Laden..."}
           </span>
         </div>
-        <Link href="/leren" className="text-blue-600 font-medium text-sm cursor-pointer">Overzicht</Link>
+        <Link href="/leren" className="text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-900">Sluiten</Link>
       </div>
 
-      <main className="flex-1 flex overflow-hidden">
+      <main className="flex-1">
         {/* Mobile Backdrop */}
         {mobileMenuOpen && (
           <div 
-            className="fixed inset-0 bg-black/40 z-40 lg:hidden" 
+            className="fixed inset-0 bg-black/40 z-40 lg:hidden backdrop-blur-sm" 
             onClick={() => setMobileMenuOpen(false)}
           />
         )}
 
-        {/* Sidebar Navigation */}
-        <aside className={clsx(
-          "fixed top-0 left-0 bottom-0 z-50 w-[85%] max-w-[320px] lg:relative lg:z-auto lg:translate-x-0 transition-transform duration-300 ease-in-out lg:w-80 bg-white border-r border-border flex flex-col",
-          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        )}>
-          <div className="p-4 border-b border-border flex items-center justify-between lg:hidden">
-            <span className="font-bold text-foreground">Inhoudsopgave</span>
-            <button 
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-1 hover:bg-slate-100 rounded-lg transition-colors"
-            >
-              <X className="h-6 w-6 text-muted-foreground cursor-pointer" />
-            </button>
-          </div>
+        <div className="mx-auto max-w-[1600px] px-4 py-6 md:py-10">
+          <div className="grid gap-8 lg:grid-cols-[300px_minmax(0,1fr)] items-start">
+            
+            {/* Sidebar Navigation - LEFT SIDE */}
+            <aside className={clsx(
+              "lg:sticky lg:top-8 h-[calc(100vh-4rem)] overflow-y-auto custom-scrollbar",
+              "fixed top-0 left-0 bottom-0 z-50 w-[85%] max-w-[320px] bg-white lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none lg:bg-transparent",
+              mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+            )}>
+               <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden h-full flex flex-col">
+                  {/* Sidebar Header */}
+                  <div className={`p-5 border-b border-slate-100 flex items-center justify-between ${tone.bg}`}>
+                    <div>
+                      <div className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${tone.text}`}>Cursus</div>
+                      <span className="font-bold text-slate-900 block leading-tight">{huidigeGroep?.titel}</span>
+                    </div>
+                    <button 
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="p-2 hover:bg-white/50 rounded-lg transition-colors lg:hidden"
+                    >
+                      <X className="h-5 w-5 text-slate-500" />
+                    </button>
+                  </div>
 
-          <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-            <div className="space-y-6">
-              {groepen.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-10 text-sm text-muted-foreground">
-                  <LoadingSpinner className="h-8 w-8" />
-                  <span className="mt-3">Inhoud laden...</span>
-                </div>
-              ) : (
-                groepen.map((groep, index) => {
-                  const isOpgeklapt = actieveGroep === groep.categorie
-                  return (
-                    <div key={groep.categorie} className="space-y-2">
-                      <button
-                        onClick={() => {
-                          router.push(`/leren/${groep.categorie}?les=1`)
-                        }}
-                        className={clsx(
-                          "w-full text-left flex items-center justify-between p-2 rounded-lg transition-colors cursor-pointer",
-                          isOpgeklapt ? "bg-blue-50 text-blue-700 font-bold" : "hover:bg-muted text-muted-foreground font-medium"
-                        )}
-                      >
-                        <span className="truncate mr-2">{index + 1}. {groep.titel}</span>
-                        {isOpgeklapt ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                      </button>
-
-                      {isOpgeklapt && (
-                        <div className="ml-4 space-y-1 mt-1 border-l-2 border-blue-100 pl-4">
-                          {groep.sublessen.map((subles) => {
-                            const isLocked = !hasPlanAccess && subles.volgorde > 1
-                            if (isLocked) {
-                              return (
-                                <Link
-                                  key={subles.volgorde}
-                                  href="/prijzen"
-                                  className="block py-2 text-sm text-muted-foreground hover:text-blue-600 transition-colors cursor-pointer"
-                                >
-                                  <span className="flex items-center gap-2">
-                                    <Lock className="h-3.5 w-3.5" />
-                                    {subles.titel}
-                                  </span>
-                                </Link>
-                              )
-                            }
-
-                            return (
-                              <Link
-                                key={subles.volgorde}
-                                href={`/leren/${groep.categorie}?les=${subles.volgorde}`}
+                  {/* Scrollable List */}
+                  <div className="flex-1 overflow-y-auto p-3 space-y-4">
+                    {groepen.length === 0 ? (
+                      <div className="flex flex-col items-center justify-center py-8 text-sm text-slate-400">
+                        <LoadingSpinner className="h-6 w-6 mb-2" />
+                        <span>Laden...</span>
+                      </div>
+                    ) : (
+                      groepen.map((groep, index) => {
+                        const isActiveGroup = actieveGroep === groep.categorie
+                        return (
+                          <div key={groep.categorie} className="space-y-1">
+                            {/* Group Header */}
+                            {groepen.length > 1 && (
+                              <button
+                                onClick={() => router.push(`/leren/${groep.categorie}?les=1`)}
                                 className={clsx(
-                                  "block py-2 text-sm transition-colors cursor-pointer",
-                                  actieveGroep === groep.categorie && lesVolgorde === subles.volgorde
-                                    ? "text-blue-600 font-bold"
-                                    : "text-muted-foreground hover:text-foreground"
+                                  "w-full text-left px-3 py-2 rounded-xl transition-all text-xs font-bold uppercase tracking-wider flex items-center justify-between",
+                                  isActiveGroup ? "bg-slate-100 text-slate-900" : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
                                 )}
                               >
-                                {subles.titel}
-                              </Link>
-                            )
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  )
-                })
-              )}
-            </div>
-          </div>
-        </aside>
+                                {groep.titel}
+                                {isActiveGroup && <ChevronDown className="h-3 w-3" />}
+                              </button>
+                            )}
 
-        {/* Main Content */}
-        <section className="flex-1 overflow-y-auto bg-background">
-          <div className="lg:max-w-[75%] md:max-w-[90%] sm:max-w-[95%] max-w-[95%] mx-auto px-4 sm:px-8 py-8 sm:py-12">
-            <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 mb-8">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Lesmodule</p>
-                  <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-2">
-                    {huidigeGroep?.titel || "Les"}
-                  </h1>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Volg de lessen stap voor stap en navigeer eenvoudig via de inhoudsopgave.
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-background border border-border px-4 py-3 text-sm text-muted-foreground shadow-sm">
-                  {huidigeGroep?.sublessen.length || 0} lessen in deze categorie
-                </div>
+                            {/* Lessons List */}
+                            {(isActiveGroup || groepen.length === 1) && (
+                              <div className="space-y-0.5 mt-1">
+                                {groep.sublessen.map((subles) => {
+                                  const isLocked = !hasPlanAccess && subles.volgorde > 1
+                                  const isActive = isActiveGroup && lesVolgorde === subles.volgorde
+
+                                  if (isLocked) {
+                                    return (
+                                      <Link
+                                        key={subles.volgorde}
+                                        href="/prijzen"
+                                        className="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-colors"
+                                      >
+                                        <Lock className="h-3.5 w-3.5 shrink-0" />
+                                        <span className="truncate">{subles.titel}</span>
+                                      </Link>
+                                    )
+                                  }
+
+                                  return (
+                                    <Link
+                                      key={subles.volgorde}
+                                      href={`/leren/${groep.categorie}?les=${subles.volgorde}`}
+                                      className={clsx(
+                                        "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all",
+                                        isActive
+                                          ? `${tone.bg} ${tone.text} font-bold shadow-sm ring-1 ring-inset ${tone.border}`
+                                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium"
+                                      )}
+                                    >
+                                      <span className={clsx(
+                                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold border",
+                                        isActive ? "bg-white border-transparent" : "bg-slate-100 border-slate-200 text-slate-500"
+                                      )}>
+                                        {subles.volgorde}
+                                      </span>
+                                      <span className="truncate">{subles.titel}</span>
+                                    </Link>
+                                  )
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        )
+                      })
+                    )}
+                  </div>
+               </div>
+            </aside>
+
+            {/* Main Content - RIGHT SIDE */}
+            <section className="min-w-0">
+               {/* Header Breadcrumbs & Title */}
+              <div className="mb-6">
+                <Breadcrumb className="mb-4 hidden lg:flex">
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink href="/" className="text-slate-400 hover:text-slate-600">Home</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="text-slate-300" />
+                    <BreadcrumbItem>
+                      <BreadcrumbLink href="/leren" className="text-slate-400 hover:text-slate-600">Auto Theorie</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="text-slate-300" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage className="text-slate-900 font-medium">{huidigeGroep?.titel}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+                
+                <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    {actieveLes?.titel || "Laden..."}
+                </h1>
               </div>
-            </div>
-
-            <Breadcrumb className="mb-8 hidden lg:flex">
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/" className="text-muted-foreground hover:text-blue-600 cursor-pointer">Home</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="text-slate-400" />
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/leren" className="text-muted-foreground hover:text-blue-600 cursor-pointer">Auto Theorie</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="text-slate-400" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="text-foreground font-medium">{huidigeGroep?.titel}</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
 
             {loading ? (
-              <div className="flex flex-col items-center justify-center h-64 space-y-4">
+              <div className="flex flex-col items-center justify-center h-64 space-y-4 bg-white rounded-3xl border border-slate-200">
                 <LoadingSpinner className="h-10 w-10" />
-                <p className="text-muted-foreground animate-pulse font-medium">Les ophalen...</p>
+                <p className="text-slate-400 animate-pulse font-medium">Les ophalen...</p>
               </div>
             ) : isLessonLocked ? (
-              <div className="rounded-3xl border border-blue-100 bg-blue-50/50 p-8 text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-blue-600 shadow-sm">
-                  <Lock className="h-6 w-6" />
+              <div className="rounded-3xl border border-blue-100 bg-white p-12 text-center shadow-lg shadow-blue-50/50">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-6">
+                  <Lock className="h-8 w-8" />
                 </div>
-                <h2 className="mt-5 text-2xl font-bold text-foreground">Deze les is onderdeel van Premium</h2>
-                <p className="mt-2 text-sm text-muted-foreground max-w-xl mx-auto">
-                  Je ziet nu de gratis eerste les. Activeer Premium om alle lessen en oefenexamens te ontgrendelen.
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Premium content</h2>
+                <p className="text-slate-500 max-w-lg mx-auto mb-8">
+                  Deze les is exclusief voor Premium leden. Upgrade je account om direct toegang te krijgen tot alle lessen en oefenexamens.
                 </p>
-                <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+                <div className="flex flex-col sm:flex-row justify-center gap-3">
                   <Link
                     href="/prijzen"
-                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 transition-colors"
+                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all transform hover:-translate-y-0.5"
                   >
-                    Bekijk Premium pakketten
+                    Bekijk Premium
                   </Link>
                   <Link
                     href="/oefenexamens"
-                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-8 py-4 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
                   >
-                    Gratis oefenexamen starten
+                    Gratis oefenexamen
                   </Link>
                 </div>
               </div>
             ) : actieveLes ? (
-              <article className="prose prose-slate prose-blue max-w-none">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-8 border-b border-border">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground m-0 tracking-tight">
-                      {actieveLes.titel}
-                    </h1>
-                    <div className="text-muted-foreground text-sm font-medium">
-                      Onderwerp: {huidigeGroep?.titel} • Les {lesVolgorde} van {huidigeGroep?.sublessen.length}
-                    </div>
+              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                {/* Visual Header / Banner */}
+                <div className={`h-2 ${tone.bg}`} />
+                
+                <div className="p-6 md:p-10">
+                  <div className="flex items-center justify-end mb-8">
+                    <TextToSpeechButton text={plainText} />
                   </div>
-                  <TextToSpeechButton text={plainText} />
-                </div>
 
-                <div className="lesson-content-wrapper min-h-[400px]">
-                  {/* Als inhoud een string is (onze HTML), renderen we die direct met parse() */}
-                  {typeof actieveLes.inhoud === 'string' ? (
-                    <div className="theory-html-content">
-                      {parse(formatLessonContent(actieveLes.inhoud))}
-                    </div>
-                  ) : (
-                    /* Fallback voor als je toch nog blokken gebruikt */
-                    <LessonContent inhoud={actieveLes.inhoud} />
-                  )}
-                </div>
-
-                <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-6">
-                  <button
-                    onClick={gaNaarVorige}
-                    disabled={huidigeGroepIndex === 0 && lesVolgorde === 1}
-                    className="w-full sm:w-auto flex items-center justify-center px-6 py-3 rounded-xl font-bold bg-card border-2 border-border text-muted-foreground hover:border-blue-600 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
-                  >
-                    <ChevronRight className="h-5 w-5 mr-2 rotate-180" />
-                    Vorige les
-                  </button>
-
-                  <button
-                    onClick={gaNaarVolgende}
-                    className="w-full sm:w-auto flex items-center justify-center px-8 py-3 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all border-2 border-blue-600 cursor-pointer"
-                  >
-                    {isLaatsteLesInGroep && huidigeGroepIndex === groepen.length - 1 ? (
-                      "Afronden"
+                  <div className="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-600">
+                    {/* Als inhoud een string is (onze HTML), renderen we die direct met parse() */}
+                    {typeof actieveLes.inhoud === 'string' ? (
+                      <div className="theory-html-content">
+                        {parse(formatLessonContent(actieveLes.inhoud))}
+                      </div>
                     ) : (
-                      <>
-                        Volgende les
-                        <ChevronRight className="h-5 w-5 ml-2" />
-                      </>
+                      /* Fallback voor als je toch nog blokken gebruikt */
+                      <LessonContent inhoud={actieveLes.inhoud} />
                     )}
-                  </button>
+                  </div>
+
+                  <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <button
+                      onClick={gaNaarVorige}
+                      disabled={huidigeGroepIndex === 0 && lesVolgorde === 1}
+                      className="w-full sm:w-auto flex items-center justify-center px-6 py-3.5 rounded-xl font-bold text-slate-500 hover:text-slate-900 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
+                    >
+                      <ChevronRight className="h-5 w-5 mr-2 rotate-180" />
+                      Vorige
+                    </button>
+
+                    <button
+                      onClick={gaNaarVolgende}
+                      className={`w-full sm:w-auto flex items-center justify-center px-8 py-3.5 rounded-xl font-bold text-white shadow-lg shadow-blue-200 transition-all border-b-4 active:border-b-0 active:translate-y-1 cursor-pointer ${
+                          isLaatsteLesInGroep && huidigeGroepIndex === groepen.length - 1 ? "bg-emerald-500 border-emerald-700 hover:bg-emerald-600" : "bg-blue-600 border-blue-800 hover:bg-blue-700"
+                      }`}
+                    >
+                      {isLaatsteLesInGroep && huidigeGroepIndex === groepen.length - 1 ? (
+                        "Cursus afronden"
+                      ) : (
+                        <>
+                          Volgende les
+                          <ChevronRight className="h-5 w-5 ml-2" />
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
-              </article>
+              </div>
             ) : null}
-            
+            </section>
           </div>
-        </section>
+        </div>
       </main>
       <Footer />
     </div>

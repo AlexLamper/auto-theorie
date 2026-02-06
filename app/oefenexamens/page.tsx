@@ -33,112 +33,132 @@ export default async function ExamsPage() {
 
   const isLockedAll = !session?.user?.id || attemptsUsed >= examLimit
 
+  const cardTones = [
+    "bg-gradient-to-br from-sky-500/20 to-sky-100",
+    "bg-gradient-to-br from-emerald-500/20 to-emerald-100",
+    "bg-gradient-to-br from-indigo-500/20 to-indigo-100",
+    "bg-gradient-to-br from-amber-500/20 to-amber-100",
+    "bg-gradient-to-br from-rose-500/20 to-rose-100",
+    "bg-gradient-to-br from-slate-500/15 to-slate-100",
+  ]
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
       <div className="flex-1">
-        <section className="relative overflow-hidden bg-white">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
-          <div className="container mx-auto px-4 py-16 relative">
-            <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center max-w-6xl mx-auto">
-              <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
-                  <Trophy className="h-4 w-4" />
-                  Proefexamens
-                </div>
-                <h1 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
-                  Oefen zoals het echte CBR-examen
-                </h1>
-                <p className="text-lg text-muted-foreground max-w-2xl">
-                  Test je kennis met volledige proefexamens voor het B rijbewijs die identiek zijn aan het echte CBR theorie-examen.
-                </p>
-                <div className="grid grid-cols-3 gap-4 max-w-md">
-                  <div className="rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-sm">
-                    <p className="text-2xl font-bold text-slate-900">{exams.length}</p>
-                    <p className="text-xs uppercase tracking-wide text-slate-500">Examens</p>
+        <section className="pt-8 pb-12">
+          <div className="container mx-auto px-4 max-w-7xl">
+            {/* Header Section matching screenshot structure */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+               <div>
+                  <h1 className="text-3xl font-bold text-slate-900 mb-2">
+                    Oefenexamens
+                  </h1>
+                  {/* Keep only essential subtitles if needed, user said 'stats' */}
+                  <div className="flex items-center gap-4 text-sm font-medium pt-2">
+                    {/* User requested stats */}
+                    {!session?.user?.id ? (
+                      <span className="text-slate-500">Log in voor statistieken</span>
+                    ) : (
+                      <span className="text-slate-600">
+                        Pogingen: <span className="text-slate-900 font-bold">{attemptsUsed}</span> van <span className="text-slate-900 font-bold">{examLimit}</span>
+                      </span>
+                    )}
                   </div>
-                  <div className="rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-sm">
-                    <p className="text-2xl font-bold text-slate-900">65</p>
-                    <p className="text-xs uppercase tracking-wide text-slate-500">Vragen</p>
-                  </div>
-                  <div className="rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-sm">
-                    <p className="text-2xl font-bold text-slate-900">30 min</p>
-                    <p className="text-xs uppercase tracking-wide text-slate-500">Tijd</p>
-                  </div>
-                </div>
-              </div>
-              <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-lg">
-                <div className="text-sm font-semibold text-slate-700">Wat je kunt verwachten</div>
-                <ul className="mt-4 space-y-3 text-sm text-slate-600">
-                  <li className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-blue-600" /> Realistische CBR-stijl vragen</li>
-                  <li className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-blue-600" /> Direct inzicht in je score</li>
-                  <li className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-blue-600" /> Onbeperkt opnieuw oefenen</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
+               </div>
 
-        <section className="container mx-auto px-4 py-12">
-          <div className="max-w-7xl mx-auto">
-            {!session?.user?.id && (
-              <div className="mb-8 rounded-2xl border border-blue-100 bg-blue-50 px-6 py-4 text-sm text-blue-700 font-medium">
-                Log in om je gratis examen te starten en je voortgang te bewaren.
-              </div>
-            )}
-            {session?.user?.id && (
-              <div className="mb-8 rounded-2xl border border-slate-200 bg-white px-6 py-4 text-sm text-slate-600 font-medium">
-                Pogingen gebruikt: {attemptsUsed} / {examLimit}
-              </div>
-            )}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+               {/* Right side navigation/toggle from screenshot */}
+               <div className="flex items-center justify-between border-b border-slate-200 pb-2 md:pb-0 md:border-0">
+                  <div className="flex items-center gap-6 text-sm font-medium">
+                     <button className="text-slate-900 border-b-2 border-slate-900 pb-2 md:pb-0 px-1">
+                       Alle examens
+                     </button>
+                  </div>
+               </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {exams.length > 0 ? (
-                exams.map((exam: any) => (
-                  <Card key={exam.slug} className="border-slate-100 bg-white shadow-sm hover:shadow-xl transition-all duration-300 rounded-3xl overflow-hidden group">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-md uppercase tracking-wider">Auto Theorie</span>
-                        <span className="text-xs text-slate-400 font-bold"># {exam.exam_id}</span>
-                      </div>
-                      <CardTitle className="text-xl font-bold text-foreground group-hover:text-blue-600 transition-colors">
-                        {exam.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6 font-bold">
-                        <div>65 Vragen</div>
-                        <div className="w-1 h-1 bg-slate-300 rounded-full" />
-                        <div>30 Min</div>
-                      </div>
-                      {isLockedAll ? (
-                        <Button
-                          asChild
-                          className="w-full bg-blue-600 hover:bg-blue-700 text-white transition-all h-11 text-sm font-bold rounded-xl cursor-pointer"
-                        >
-                          <Link href={session?.user?.id ? "/prijzen" : "/inloggen"}>
-                            <span className="flex items-center justify-center gap-2">
-                              <Lock className="h-4 w-4" />
-                              {session?.user?.id ? "Premium nodig" : "Log in om te starten"}
-                            </span>
-                          </Link>
-                        </Button>
-                      ) : (
-                        <Button
-                          asChild
-                          className="w-full bg-slate-900 hover:bg-blue-600 text-white transition-all h-11 text-sm font-bold rounded-xl cursor-pointer"
-                        >
-                          <Link href={`/oefenexamens/start?slug=${exam.slug}`}>
-                            Start Examen
-                          </Link>
-                        </Button>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))
+                exams.map((exam: any, index: number) => {
+                  // Locked if:
+                  // 1. Not the first exam AND user has no active plan (Content Lock)
+                  // 2. User has reached their attempt limit (Usage Lock)
+                  const isExamLocked = (!active && index !== 0) || (attemptsUsed >= examLimit);
+
+                  return (
+                  <div key={exam.slug} className="group relative">
+                     {/* Card as the visual element */}
+                     <Link href={!isExamLocked ? `/oefenexamens/start?slug=${exam.slug}` : "/prijzen"} className="block relative aspect-video rounded-lg overflow-hidden shadow-sm transition-all duration-300 group-hover:shadow-md cursor-pointer">
+                        {/* Background: Use image if available, otherwise gradient */}
+                        <div className={`absolute inset-0 ${cardTones[index % cardTones.length]} transition-transform duration-500 group-hover:scale-105`}>
+                           {/* Simulating image overlay effect */}
+                           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+                        </div>
+
+                        {/* Top Right: Lock Icon */}
+                        <div className="absolute top-3 right-3">
+                           {isExamLocked ? (
+                              <div className="bg-black/20 p-1.5 rounded-full backdrop-blur-sm text-white/90">
+                                 <Lock className="h-3 w-3" />
+                              </div>
+                           ) : (
+                              <div className="bg-green-500/20 p-1.5 rounded-full backdrop-blur-sm text-green-700">
+                                 <span className="block w-2 h-2 rounded-full bg-green-500" />
+                              </div>
+                           )}
+                        </div>
+
+                        {/* Content Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent pt-12">
+                           {/* Optional Badge for first item */}
+                           {index === 0 && (
+                             <span className="inline-block bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded mb-2 uppercase tracking-wide">
+                               Probeer gratis
+                             </span>
+                           )}
+                           
+                           {/* Title */}
+                           <h3 className="text-white font-bold text-lg drop-shadow-sm">
+                             {exam.title}
+                           </h3>
+                           
+                           {/* Hover Action / Progress */}
+                           <div className="mt-2 h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all overflow-hidden duration-300">
+                             {!isExamLocked ? (
+                               <div 
+                                 className="inline-flex items-center gap-2 text-xs font-bold text-white/90 hover:text-white"
+                               >
+                                 <div className="bg-white/20 p-1 rounded-full">
+                                    <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                 </div>
+                                 Start nu
+                               </div>
+                             ) : (
+                               <span className="text-xs font-bold text-white/80 hover:text-white">
+                                 Premium nodig
+                               </span>
+                             )}
+                           </div>
+                        </div>
+                     </Link>
+
+                     {/* Text Below Card */}
+                     <div className="mt-2 px-1 flex justify-between items-start">
+                        <span className="text-sm font-medium text-slate-500">
+                           Examen {index + 1}
+                        </span>
+                        {/* Fake duration or stats */}
+                        <span className="text-xs text-slate-400 font-mono">
+                           30m
+                        </span>
+                     </div>
+                  </div>
+                )})
               ) : (
-                <div className="col-span-full text-center py-12 bg-white rounded-2xl border border-slate-100 shadow-sm">
-                  <AlertCircle className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-foreground mb-1">Geen examens gevonden</h3>
-                  <p className="text-muted-foreground font-medium">We zijn momenteel bezig met het toevoegen van nieuwe oefenexamens.</p>
+                <div className="col-span-full text-center py-12">
+                  <div className="inline-block p-4 rounded-full bg-slate-100 mb-4">
+                     <AlertCircle className="h-6 w-6 text-slate-400" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">Geen examens gevonden</h3>
                 </div>
               )}
             </div>
