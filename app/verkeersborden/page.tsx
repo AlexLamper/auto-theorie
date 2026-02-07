@@ -110,7 +110,7 @@ export default function TrafficSignsPage() {
       <div className="flex-1 pb-20">
         
         {/* Header Section */}
-        <div className="bg-slate-900 text-white pt-12 pb-24">
+        <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
           <div className="container mx-auto px-4 max-w-7xl">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Verkeersborden</h1>
             <p className="text-slate-400 max-w-2xl text-lg">
@@ -120,10 +120,10 @@ export default function TrafficSignsPage() {
         </div>
 
         {/* Content Section */}
-        <div className="container mx-auto px-4 max-w-7xl -mt-12">
+        <div className="container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
           
           {/* Controls Bar */}
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 h-auto md:h-20 p-4 md:p-0 md:px-6 mb-10 flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="relative w-full md:max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <Input 
@@ -168,51 +168,42 @@ export default function TrafficSignsPage() {
               <Button onClick={() => {setSearchTerm(""); setSelectedType("all")}} variant="ghost" className="text-blue-600 font-bold">Herstel filters</Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredSigns.map((sign) => {
                 const signId = typeof sign._id === 'string' ? sign._id : sign._id?.$oid;
                 const displayType = sign.type || (Array.isArray(sign.category) ? sign.category[0] : sign.category);
                 
                 return (
-                  <div key={signId} className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all flex flex-col h-full transform hover:-translate-y-1 duration-300">
-                    {/* Image Container */}
-                    <div className="aspect-square bg-slate-50 relative flex items-center justify-center p-8 transition-colors group-hover:bg-blue-50/20">
+                  <div key={signId} className="group bg-white rounded-xl border border-slate-200 p-4 hover:shadow-md hover:border-blue-300 transition-all flex items-center gap-4">
+                    {/* Compact Card Design */}
+                    <div className="w-20 h-20 bg-slate-50 rounded-lg flex-shrink-0 flex items-center justify-center p-2 group-hover:bg-blue-50 transition-colors">
                       <FallbackImage 
                         src={sign.image} 
                         fallbackSrc="/images/traffic-signs/placeholder.png"
                         alt={sign.name}
-                        className="max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-300"
+                        className="max-h-full max-w-full object-contain filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300"
                       />
-                      <Badge className="absolute top-3 right-3 bg-white/80 backdrop-blur-sm text-slate-600 border-slate-100 font-bold text-[10px] uppercase">
-                        {sign.name}
-                      </Badge>
                     </div>
 
-                    {/* Info Container */}
-                    <div className="p-5 flex flex-col flex-1">
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                         <h3 className="font-bold text-slate-900 text-lg leading-tight group-hover:text-blue-600 transition-colors">
-                           {sign.meaning}
-                         </h3>
-                         <TextToSpeechButton 
-                            text={sign.name + ". Betekenis: " + sign.meaning + ". " + sign.description} 
-                            className="h-8 w-8 text-slate-400 hover:text-blue-500 flex-shrink-0" 
-                         />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <Badge variant="outline" className="text-[9px] uppercase tracking-tighter h-4 px-1 text-slate-400 border-slate-100">
+                           {displayType}
+                        </Badge>
+                        <TextToSpeechButton 
+                          text={sign.name + ". Betekenis: " + sign.meaning} 
+                          className="h-7 w-7 text-slate-300 hover:text-blue-600 hover:bg-transparent border-0" 
+                          minimal={true}
+                        />
                       </div>
                       
-                      <p className="text-slate-500 text-sm line-clamp-2 mb-4 flex-1 font-medium leading-relaxed">
-                        {sign.description || "Geen beschrijving beschikbaar voor dit verkeersbord."}
+                      <h3 className="font-bold text-slate-900 text-base leading-tight truncate mb-1 group-hover:text-blue-600 transition-colors">
+                         {sign.name}
+                      </h3>
+                      
+                      <p className="text-slate-500 text-xs leading-normal line-clamp-2">
+                         {sign.meaning}
                       </p>
-
-                      <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
-                         <div className="flex items-center gap-1.5 text-blue-600 text-xs font-bold uppercase tracking-wider">
-                            <Info className="h-3.5 w-3.5" />
-                            <span>{displayType}</span>
-                         </div>
-                         <div className="text-slate-300">
-                           <Award className="h-4 w-4" />
-                         </div>
-                      </div>
                     </div>
                   </div>
                 );

@@ -28,22 +28,28 @@ export default function InfoPageLayout({
   children,
 }: InfoPageLayoutProps) {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <div className="flex-1">
-        <section className="bg-white border-b border-slate-100">
-          <div className="container mx-auto px-4 py-14 max-w-6xl">
-            <Breadcrumb className="mb-6">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
+        <div className="container mx-auto px-4 max-w-6xl">
+           <h1 className="text-3xl md:text-4xl font-bold mb-4">{title}</h1>
+           <p className="text-lg text-slate-400 max-w-2xl">{intro}</p>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 max-w-6xl -mt-16 relative z-10 flex-1 mb-12">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 sm:p-12">
+            <Breadcrumb className="mb-8 border-b border-slate-100 pb-6">
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink href="/" className="text-slate-500 hover:text-blue-600">Home</BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator className="text-slate-400" />
+                <BreadcrumbSeparator className="text-slate-300" />
                 {includeParentLink && (
                   <>
                     <BreadcrumbItem>
                       <BreadcrumbLink href="/informatie" className="text-slate-500 hover:text-blue-600">Informatie</BreadcrumbLink>
                     </BreadcrumbItem>
-                    <BreadcrumbSeparator className="text-slate-400" />
+                    <BreadcrumbSeparator className="text-slate-300" />
                   </>
                 )}
                 <BreadcrumbItem>
@@ -51,36 +57,13 @@ export default function InfoPageLayout({
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-
-            <div className="flex items-center gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
-                <Info className="h-4 w-4" />
-                Informatie
-              </div>
+            
+            <div className="prose prose-slate max-w-none prose-headings:text-slate-900 prose-headings:font-bold prose-p:text-slate-600 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900">
+               {children}
             </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mt-6">
-              {title}
-            </h1>
-            <p className="text-lg text-muted-foreground mt-4 max-w-3xl">
-              {intro}
-            </p>
-          </div>
-        </section>
-
-        <section className="container mx-auto px-4 py-12 max-w-6xl">
-          <div className="grid gap-10 lg:grid-cols-[320px_1fr]">
-            <div className="space-y-6">
-              <InfoSidebar />
-            </div>
-            <div>
-              <div className="rounded-2xl border border-border bg-card p-6 shadow-sm prose prose-slate max-w-none prose-a:text-blue-600 prose-a:font-semibold hover:prose-a:text-blue-700">
-                {children}
-              </div>
-              <MoreInfoLinks />
-            </div>
-          </div>
-        </section>
+        </div>
       </div>
+      
       <Footer />
     </div>
   )

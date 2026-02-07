@@ -44,38 +44,39 @@ export default async function ExamsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
-      <div className="flex-1">
-        <section className="pt-8 pb-12">
-          <div className="container mx-auto px-4 max-w-7xl">
-            {/* Header Section matching screenshot structure */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col pb-20">
+      <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
+        <div className="container mx-auto px-4 max-w-7xl">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                <div>
-                  <h1 className="text-3xl font-bold text-slate-900 mb-2">
+                  <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                     Oefenexamens
                   </h1>
-                  {/* Keep only essential subtitles if needed, user said 'stats' */}
-                  <div className="flex items-center gap-4 text-sm font-medium pt-2">
-                    {/* User requested stats */}
+                  <p className="text-slate-400 max-w-2xl text-lg mb-2">
+                    Bereid je voor met realistische oefenexamens.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm font-medium">
                     {!session?.user?.id ? (
-                      <span className="text-slate-500">Log in voor statistieken</span>
+                      <span className="text-slate-400">Log in voor statistieken</span>
                     ) : (
-                      <span className="text-slate-600">
-                        Pogingen: <span className="text-slate-900 font-bold">{attemptsUsed}</span> van <span className="text-slate-900 font-bold">{examLimit}</span>
+                      <span className="text-slate-400">
+                        Pogingen: <span className="text-white font-bold">{attemptsUsed}</span> van <span className="text-white font-bold">{examLimit}</span>
                       </span>
                     )}
                   </div>
                </div>
-
-               {/* Right side navigation/toggle from screenshot */}
-               <div className="flex items-center justify-between border-b border-slate-200 pb-2 md:pb-0 md:border-0">
-                  <div className="flex items-center gap-6 text-sm font-medium">
-                     <button className="text-slate-900 border-b-2 border-slate-900 pb-2 md:pb-0 px-1">
-                       Alle examens
-                     </button>
-                  </div>
-               </div>
             </div>
+        </div>
+      </div>
+
+      <div className="flex-1 container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 h-16 flex items-center px-6 mb-10">
+              <div className="flex items-center gap-8 text-sm font-medium h-full">
+                 <button className="text-blue-600 border-b-2 border-blue-600 h-full px-1 font-bold flex items-center">
+                   Alle examens
+                 </button>
+              </div>
+          </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {exams.length > 0 ? (
@@ -117,7 +118,7 @@ export default async function ExamsPage() {
                         {/* Content Overlay */}
                         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent pt-12">
                            {/* Optional Badge for first item */}
-                           {index === 0 && (
+                           {index === 0 && (!session?.user?.plan) && (
                              <span className="inline-block bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded mb-2 uppercase tracking-wide">
                                Probeer gratis
                              </span>
@@ -135,7 +136,7 @@ export default async function ExamsPage() {
                                  className="inline-flex items-center gap-2 text-xs font-bold text-white/90 hover:text-white"
                                >
                                  <div className="bg-white/20 p-1 rounded-full">
-                                    <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                  </div>
                                  Start nu
                                </div>
@@ -169,8 +170,6 @@ export default async function ExamsPage() {
                 </div>
               )}
             </div>
-          </div>
-        </section>
       </div>
       <Footer />
     </div>

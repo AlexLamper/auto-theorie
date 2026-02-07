@@ -25,9 +25,21 @@ export default function Navbar() {
   const isHomePage = pathname === "/"
 
   const getPageTitle = () => {
+    if (pathname === "/") return null
     if (pathname.startsWith("/practice")) return "Oefenen"
     if (pathname.startsWith("/oefenexamens")) return "Examens"
     if (pathname.startsWith("/verkeersborden")) return "Verkeersborden"
+    if (pathname.startsWith("/leren")) return "Auto Theorie"
+    if (pathname.startsWith("/informatie")) return "Informatie"
+    if (pathname.startsWith("/account")) return "Account"
+    if (pathname.startsWith("/prijzen")) return "Prijzen"
+    if (pathname.startsWith("/contact")) return "Contact"
+    if (pathname.startsWith("/over-ons")) return "Over ons"
+    if (pathname.startsWith("/veelgestelde-vragen")) return "FAQ"
+    if (pathname.startsWith("/privacy-policy")) return "Privacy"
+    if (pathname.startsWith("/terms-of-service")) return "Voorwaarden"
+    if (pathname.startsWith("/inloggen")) return "Inloggen"
+    if (pathname.startsWith("/aanmelden")) return "Aanmelden"
     if (pathname === "/dashboard") return "Dashboard"
     return null
   }
@@ -52,7 +64,7 @@ export default function Navbar() {
       )
     : null
 
-  const isAppPage = ["/dashboard", "/account", "/leren", "/oefenexamens", "/betaling"].some(path => pathname.startsWith(path))
+  const isAppPage = pathname !== "/" && !pathname.startsWith("/auth")
 
   return (
     <header className={`border-b sticky top-0 z-[100] transition-colors duration-200 ${isAppPage ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-100'}`}>

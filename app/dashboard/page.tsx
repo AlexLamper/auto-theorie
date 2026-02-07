@@ -112,7 +112,7 @@ export default async function DashboardPage() {
                <BookOpen className="h-4 w-4 text-slate-400" />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold">{stats.completedLessons}</div>
+               <div className="text-2xl font-bold text-slate-950">{stats.completedLessons}</div>
                <p className="text-xs text-slate-400">Van de ~25 hoofdstukken</p>
              </CardContent>
            </Card>
@@ -123,7 +123,7 @@ export default async function DashboardPage() {
                <AwardIcon score={stats.averageScore} />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold">{stats.averageScore}%</div>
+               <div className="text-2xl font-bold text-slate-950">{stats.averageScore}%</div>
                <Progress value={stats.averageScore} className="h-1.5 mt-2 bg-slate-100" indicatorClassName={stats.averageScore > 80 ? "bg-emerald-500" : "bg-blue-600"} />
              </CardContent>
            </Card>
@@ -134,7 +134,7 @@ export default async function DashboardPage() {
                <CheckCircle className="h-4 w-4 text-slate-400" />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold">{stats.totalAttempts}</div>
+               <div className="text-2xl font-bold text-slate-950">{stats.totalAttempts}</div>
                <p className="text-xs text-slate-400">Oefening baart kunst</p>
              </CardContent>
            </Card>
@@ -145,7 +145,7 @@ export default async function DashboardPage() {
                <Trophy className="h-4 w-4 text-emerald-500" />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold text-emerald-600">{stats.passedExams}</div>
+               <div className="text-2xl font-bold text-emerald-700">{stats.passedExams}</div>
                <p className="text-xs text-slate-400">Blijf oefenen voor 100%</p>
              </CardContent>
            </Card>
@@ -193,8 +193,8 @@ export default async function DashboardPage() {
                         {exams.map((exam: any) => (
                            <CarouselItem key={exam.exam_id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                               <Link href={`/oefenexamens/start?slug=${exam.slug}`} className="group block h-full">
-                                <div className="bg-white rounded-xl border border-slate-200 p-4 h-full hover:shadow-md transition-all hover:border-blue-300 group-hover:-translate-y-1">
-                                   <div className="aspect-video rounded-lg bg-slate-100 mb-4 relative overflow-hidden">
+                                <div className="bg-white rounded-xl border border-slate-200 h-full hover:shadow-md transition-all hover:border-blue-300 group-hover:-translate-y-1 overflow-hidden flex flex-col">
+                                   <div className="aspect-video bg-slate-100 relative overflow-hidden w-full m-0 p-0">
                                       <FallbackImage 
                                         src={`/images/oefenexamens/exam-${((exam.exam_id - 1) % 3) + 1}.png`} 
                                         fallbackSrc="/images/exams/exam-default.jpg"
@@ -203,16 +203,18 @@ export default async function DashboardPage() {
                                       />
                                       <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity">
                                          <div className="bg-white/90 rounded-full p-2 backdrop-blur-sm shadow-sm">
-                                            <Play className="fill-blue-600 text-blue-600 w-4 h-4 ml-0.5" />
+                                            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                          </div>
                                       </div>
                                    </div>
-                                   <h3 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
-                                      {exam.title}
-                                   </h3>
-                                   <p className="text-xs text-slate-500 mt-1">
-                                     65 Vragen • 45 Minuten
-                                   </p>
+                                   <div className="p-4 flex flex-col flex-1">
+                                      <h3 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
+                                         {exam.title}
+                                      </h3>
+                                      <p className="text-xs text-slate-500 mt-1">
+                                        65 Vragen • 45 Minuten
+                                      </p>
+                                   </div>
                                 </div>
                               </Link>
                            </CarouselItem>
@@ -307,5 +309,5 @@ export default async function DashboardPage() {
 
 function AwardIcon({ score }: { score: number }) {
   if (score >= 80) return <Trophy className="h-4 w-4 text-emerald-500" />
-  return <Trophy className="h-4 w-4 text-slate-300" />
+  return <Trophy className="h-4 w-4 text-slate-400" />
 }

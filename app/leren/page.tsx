@@ -39,7 +39,7 @@ export default function LerenStartPage() {
   const [completedCategories, setCompletedCategories] = useState<string[]>([])
   const [lessonsSummary, setLessonsSummary] = useState({ total: 0, completed: 0 })
 
-  const { status } = useSession()
+  const { data: session, status } = useSession()
 
   const categorieIconen: Record<string, React.ReactNode> = {
     "milieu": <Leaf className="h-6 w-6 text-green-600" />,
@@ -132,15 +132,15 @@ export default function LerenStartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="pt-8 pb-12">
+    <div className="min-h-screen bg-slate-50 text-slate-900 pb-20">
+      <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                 Theorie Leren
               </h1>
-              <p className="text-lg text-slate-500">
+              <p className="text-lg text-slate-400 max-w-2xl">
                 Werk in je eigen tempo door de theorie.
               </p>
             </div>
@@ -148,36 +148,39 @@ export default function LerenStartPage() {
             <div className="flex items-center gap-6">
                {status === "authenticated" ? (
                 <div className="flex flex-col items-end">
-                   <div className="text-sm font-semibold text-slate-900">
+                   <div className="text-sm font-semibold text-slate-200">
                      {lessonsSummary.completed} van {lessonsSummary.total} lessen voltooid
                    </div>
                    <div className="flex items-center gap-3 mt-1">
-                     <div className="w-32 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                     <div className="w-32 h-1.5 bg-slate-700 rounded-full overflow-hidden">
                        <div 
-                         className="h-full bg-blue-600 rounded-full" 
+                         className="h-full bg-blue-500 rounded-full" 
                          style={{ width: `${progressPercent}%` }}
                        />
                      </div>
-                     <span className="text-sm font-bold text-blue-600">{progressPercent}%</span>
+                     <span className="text-sm font-bold text-blue-400">{progressPercent}%</span>
                    </div>
                 </div>
                ) : (
-                 <div className="text-sm font-medium text-slate-500">
+                 <div className="text-sm font-medium text-slate-400">
                    Log in voor voortgang
                  </div>
                )}
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="flex items-center justify-between mb-8 border-b border-slate-200 pb-4">
-             <div className="flex items-center gap-6 text-sm font-medium">
-                <button className="text-slate-900 border-b-2 border-slate-900 pb-4 -mb-4 px-1">
+      <div className="container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 h-16 flex items-center px-6 mb-12">
+              <div className="flex items-center gap-8 text-sm font-medium h-full">
+                <button className="text-blue-600 border-b-2 border-blue-600 h-full px-1 font-bold flex items-center">
                   Alle onderwerpen
                 </button>
-                <button className="text-slate-500 hover:text-slate-700 pb-4 -mb-4 px-1">
+                <button className="text-slate-500 hover:text-slate-800 h-full px-1 transition-colors flex items-center">
                   Nog niet bekeken
                 </button>
-             </div>
+              </div>
           </div>
 
           {loading ? (
@@ -224,7 +227,8 @@ export default function LerenStartPage() {
 
                           {/* Content Bottom */}
                           <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-black/10 to-transparent">
-                             {index === 0 && (
+                             {/* Only show "Start hier" if NOT premium/authenticated with plan? User asked to remove 'Probeer gratis' - assuming 'Start hier' is that text, or I add logic */}
+                             {index === 0 && (!session?.user?.plan) && (
                                 <span className="inline-block bg-yellow-400 text-yellow-900 text-[10px] uppercase font-bold px-1.5 py-0.5 rounded mb-2">
                                   Start hier
                                 </span>
@@ -236,7 +240,7 @@ export default function LerenStartPage() {
                              {/* Progress/Duration Line */}
                              <div className="flex items-center gap-3">
                                <button className="bg-slate-900 text-white rounded-full p-1.5 hover:bg-blue-600 transition-colors">
-                                 <svg className="w-3 h-3 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                 <svg className="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                </button>
                                <div className="flex-1 h-1 bg-slate-900/10 rounded-full overflow-hidden">
                                   <div className={`h-full bg-slate-900/50 w-0 group-hover:w-full transition-all duration-700`} />
@@ -262,8 +266,7 @@ export default function LerenStartPage() {
               })}
             </div>
           )}
-        </div>
-      </section>
+      </div>
     </div>
   )
 }
