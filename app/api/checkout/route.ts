@@ -1,13 +1,23 @@
 import { NextResponse } from "next/server"
 import { stripe } from "@/lib/stripe"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 
 const planToPriceId: Record<string, string | undefined> = {
-  "auto-dag": process.env.STRIPE_PRICE_AUTO_DAG,
-  "auto-week": process.env.STRIPE_PRICE_AUTO_WEEK,
-  "auto-maand": process.env.STRIPE_PRICE_AUTO_MAAND,
+  "plan_basic": process.env.STRIPE_PRICE_BASIC,
+  "plan_pro": process.env.STRIPE_PRICE_PRO,
+  "plan_premium": process.env.STRIPE_PRICE_PREMIUM,
 }
 
 export async function POST(request: Request) {
+  const session = await getServerSession(authOptions)
+
+  if (!session?.user?.id) {
+    // Redirect to login if not authenticated
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+    return NextResponse.redirect(`${baseUrl}/inloggen?callbackUrl=/prijzen`, 303)
+  }
+
   const contentType = request.headers.get("content-type") || ""
   let plan: string | null = null
 
@@ -29,8 +39,10 @@ export async function POST(request: Request) {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
 
   try {
-    const session = await stripe.checkout.sessions.create({
+    const checkoutSession = await stripe.checkout.sessions.create({
       mode: "payment",
+      customer_email: session.user.email || undefined,
+      client_reference_id: session.user.id,
       line_items: [
         {
           price: planToPriceId[plan],
@@ -41,10 +53,11 @@ export async function POST(request: Request) {
       cancel_url: `${baseUrl}/betaling/geannuleerd`,
       metadata: {
         plan,
+        userId: session.user.id
       },
     })
 
-    return NextResponse.redirect(session.url || baseUrl, 303)
+    return NextResponse.redirect(checkoutSession.url || baseUrl, 303)
   } catch (error) {
     return NextResponse.json(
       { message: "Kon checkout niet starten. Controleer Stripe configuratie." },

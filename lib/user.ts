@@ -11,9 +11,9 @@ const PLAN_DEFINITIONS: Record<
     durationDays: number
   }
 > = {
-  "auto-dag": { label: "Premium Dag", durationDays: 1 },
-  "auto-week": { label: "Premium 7 Dagen", durationDays: 7 },
-  "auto-maand": { label: "Premium 31 Dagen", durationDays: 31 },
+  "plan_basic": { label: "Basic", durationDays: 1 },
+  "plan_pro": { label: "Pro", durationDays: 7 },
+  "plan_premium": { label: "Premium", durationDays: 31 },
 }
 
 let removalIndexEnsured = false

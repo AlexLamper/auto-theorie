@@ -22,7 +22,7 @@
     "cheerio": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "html-react-parser": "^5.2.5",
     "lucide-react": "^0.525.0",
     "mongodb": "^6.12.0",
