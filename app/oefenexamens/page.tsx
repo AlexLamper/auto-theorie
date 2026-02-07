@@ -10,6 +10,7 @@ import { findUserById } from "@/lib/user"
 import { getExamLimit, hasActivePlan } from "@/lib/access"
 import connectMongoDB from "@/libs/mongodb"
 import UserExamAttempt from "@/models/UserExamAttempt"
+import { FallbackImage } from "@/components/ui/fallback-image"
 
 export default async function ExamsPage() {
   const exams = await getExams()
@@ -88,10 +89,16 @@ export default async function ExamsPage() {
                   <div key={exam.slug} className="group relative">
                      {/* Card as the visual element */}
                      <Link href={!isExamLocked ? `/oefenexamens/start?slug=${exam.slug}` : "/prijzen"} className="block relative aspect-video rounded-lg overflow-hidden shadow-sm transition-all duration-300 group-hover:shadow-md cursor-pointer">
-                        {/* Background: Use image if available, otherwise gradient */}
-                        <div className={`absolute inset-0 ${cardTones[index % cardTones.length]} transition-transform duration-500 group-hover:scale-105`}>
-                           {/* Simulating image overlay effect */}
-                           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+                        {/* Background Image */}
+                        <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+                           <FallbackImage 
+                             src={`/images/oefenexamens/exam-${((exam.exam_id - 1) % 3) + 1}.png`} 
+                             fallbackSrc="/images/exams/exam-default.jpg"
+                             alt={exam.title}
+                             className="object-cover w-full h-full"
+                           />
+                           {/* Overlay */}
+                           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
                         </div>
 
                         {/* Top Right: Lock Icon */}

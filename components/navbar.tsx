@@ -15,26 +15,34 @@ export default function Navbar() {
 
   const { data: session, status } = useSession()
   const isAuthenticated = status === "authenticated"
+  
+  // Calculate if user has active plan
+  const hasPlan = !!(
+    session?.user?.plan?.expiresAt && 
+    new Date(session.user.plan.expiresAt) > new Date()
+  )
+
   const isHomePage = pathname === "/"
 
   const getPageTitle = () => {
     if (pathname.startsWith("/practice")) return "Oefenen"
     if (pathname.startsWith("/oefenexamens")) return "Examens"
     if (pathname.startsWith("/verkeersborden")) return "Verkeersborden"
+    if (pathname === "/dashboard") return "Dashboard"
     return null
   }
 
 
   const navigationItems = [
-    { href: "/", label: "Home" },
+    { href: hasPlan ? "/dashboard" : "/", label: hasPlan ? "Dashboard" : "Home" },
     { href: "/leren", label: "Auto Theorie" },
     { href: "/oefenexamens", label: "Proefexamens" },
     { href: "/verkeersborden", label: "Verkeersborden" },
-    { href: "/prijzen", label: "Prijzen" },
+    { href: "/prijzen", label: "Prijzen", hidden: hasPlan }, // Start hiding pricing
     { href: "/informatie", label: "Informatie" },
   ]
 
-  const navItems = navigationItems
+  const navItems = navigationItems.filter(item => !item.hidden)
 
   const userName = session?.user?.name || session?.user?.email || "Gebruiker"
   const planLabel = session?.user?.plan?.label
@@ -44,19 +52,21 @@ export default function Navbar() {
       )
     : null
 
+  const isAppPage = ["/dashboard", "/account", "/leren", "/oefenexamens", "/betaling"].some(path => pathname.startsWith(path))
+
   return (
-    <header className="border-b border-slate-100 bg-white sticky top-0 z-50 shadow-sm">
+    <header className={`border-b sticky top-0 z-[100] transition-colors duration-200 ${isAppPage ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-100'}`}>
       <div className="container mx-auto px-4 py-4 max-w-[1600px]">
         <div className="flex items-center justify-between">
           {/* Left side - Logo and Page title */}
           <div className="flex items-center space-x-4">
-            <Link href="/" className="flex items-center space-x-2 group cursor-pointer">
+            <Link href={hasPlan ? "/dashboard" : "/"} className="flex items-center space-x-2 group cursor-pointer">
               <img
                 src="/logo/transparent/logo-transparent.png"
                 alt="Logo"
-                className="h-8 w-8 object-contain"
+                className={`h-8 w-8 object-contain ${isAppPage ? 'brightness-0 invert' : ''}`}
               />
-              <span className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+              <span className={`text-xl font-bold transition-colors ${isAppPage ? 'text-white group-hover:text-blue-400' : 'text-slate-900 group-hover:text-blue-600'}`}>
                 Auto Theorie
               </span>
             </Link>
@@ -64,8 +74,8 @@ export default function Navbar() {
             {/* Page title for non-home pages */}
             {getPageTitle() && (
               <>
-                <div className="hidden sm:block w-px h-6 bg-slate-200" />
-                <h2 className="hidden sm:block text-lg font-medium text-slate-600">
+                <div className={`hidden sm:block w-px h-6 ${isAppPage ? 'bg-slate-700' : 'bg-slate-200'}`} />
+                <h2 className={`hidden sm:block text-lg font-medium ${isAppPage ? 'text-slate-300' : 'text-slate-600'}`}>
                   {getPageTitle()}
                 </h2>
               </>
@@ -80,18 +90,24 @@ export default function Navbar() {
                 href={item.href}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
                   pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
-                    ? "bg-blue-50 text-blue-700"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                    ? isAppPage 
+                         ? "bg-slate-800 text-blue-400" 
+                         : "bg-blue-50 text-blue-700"
+                    : isAppPage 
+                        ? "text-slate-400 hover:text-white hover:bg-slate-800" 
+                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
                 {item.label}
               </Link>
             ))}
-            <ThemeToggle />
+            <div className={isAppPage ? "brightness-0 invert opacity-70" : ""}>
+               <ThemeToggle />
+            </div>
             {isAuthenticated ? (
               <div className="ml-2 flex items-center gap-2">
-                <Link href="/account" className="flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 pl-1 pr-4 py-1 text-sm hover:bg-slate-100 transition-colors cursor-pointer">
-                  <div className="relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-full bg-slate-200">
+                <Link href="/account" className={`flex items-center gap-3 rounded-full border pl-1 pr-4 py-1 text-sm transition-colors cursor-pointer ${isAppPage ? 'border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700' : 'border-slate-200 bg-slate-50 hover:bg-slate-100'}`}>
+                  <div className={`relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-full ${isAppPage ? 'bg-slate-700' : 'bg-slate-200'}`}>
                     {session.user?.image ? (
                       <Image
                         src={session.user.image}

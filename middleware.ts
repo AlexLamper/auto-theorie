@@ -1,20 +1,50 @@
+import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const blockedRoutes: string[] = [];
+export async function middleware(req: NextRequest) {
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  
+  // Check if user has an active plan
+  const hasPlan = 
+    token?.plan && 
+    (token.plan as any).expiresAt && 
+    new Date((token.plan as any).expiresAt) > new Date();
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname } = req.nextUrl;
 
-  if (blockedRoutes.includes(pathname)) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/app/not-found";
-    return NextResponse.redirect(url);
+  // 1. World for Users WITH a Plan
+  if (hasPlan) {
+    // Redirect public sales pages to dashboard
+    if (pathname === "/" || pathname === "/prijzen" || pathname === "/aanmelden" || pathname === "/inloggen") {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+  } 
+  
+  // 2. World for Users WITHOUT a Plan (or not logged in)
+  else {
+    // Redirect dashboard to pricing
+    if (pathname.startsWith("/dashboard")) {
+      return NextResponse.redirect(new URL("/prijzen", req.url));
+    }
+    
+    // Optional: Protect deep content routes if they shouldn't be accessible without a plan
+    // For now we assume strict specific redirects as requested
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/leren/:path*"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder files
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|images|logo|robots.txt|sitemap).*)',
+  ],
 };

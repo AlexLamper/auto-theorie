@@ -12,9 +12,10 @@ interface TextToSpeechButtonProps {
   text: string
   label?: string
   minimal?: boolean
+  className?: string
 }
 
-export function TextToSpeechButton({ text, label = "Voorlezen", minimal = false }: TextToSpeechButtonProps) {
+export function TextToSpeechButton({ text, label = "Voorlezen", minimal = false, className }: TextToSpeechButtonProps) {
   const { isSpeaking, isLoading, speak, stop, currentText } = useSpeech()
   
   const cleanText = React.useMemo(() => cleanForSpeech(text), [text])
@@ -48,7 +49,8 @@ export function TextToSpeechButton({ text, label = "Voorlezen", minimal = false 
         minimal 
           ? "h-8 w-8 rounded-full border-slate-200 text-slate-500 hover:text-blue-600 hover:bg-blue-50"
           : "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100",
-        isThisSpeaking && !minimal && "bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-100 animate-pulse"
+        isThisSpeaking && !minimal && "bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-100 animate-pulse",
+        className
       )}
     >
       {isLoading && !isThisSpeaking ? (
