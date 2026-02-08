@@ -120,16 +120,18 @@ export default function LerenStartPage() {
     : 0;
 
   const toneStyles: Record<string, { banner: string; iconBg: string; accent: string }> = {
-    milieu: { banner: "bg-gradient-to-br from-emerald-100 to-emerald-50", iconBg: "bg-emerald-100", accent: "text-emerald-700" },
-    verkeersborden: { banner: "bg-gradient-to-br from-rose-100 to-rose-50", iconBg: "bg-rose-100", accent: "text-rose-700" },
-    verkeersregels: { banner: "bg-gradient-to-br from-blue-100 to-blue-50", iconBg: "bg-blue-100", accent: "text-blue-700" },
-    veiligheid: { banner: "bg-gradient-to-br from-amber-100 to-amber-50", iconBg: "bg-amber-100", accent: "text-amber-700" },
-    voorrang: { banner: "bg-gradient-to-br from-pink-100 to-pink-50", iconBg: "bg-pink-100", accent: "text-pink-700" },
-    weggebruikers: { banner: "bg-gradient-to-br from-indigo-100 to-indigo-50", iconBg: "bg-indigo-100", accent: "text-indigo-700" },
-    voertuig: { banner: "bg-gradient-to-br from-orange-100 to-orange-50", iconBg: "bg-orange-100", accent: "text-orange-700" },
-    verkeerswetten: { banner: "bg-gradient-to-br from-slate-100 to-slate-50", iconBg: "bg-slate-100", accent: "text-slate-700" },
-    default: { banner: "bg-gradient-to-br from-slate-100 to-white", iconBg: "bg-slate-100", accent: "text-slate-700" },
+    milieu: { banner: "bg-gradient-to-br from-emerald-200/40 to-emerald-50/20", iconBg: "bg-emerald-100", accent: "text-emerald-700" },
+    verkeersborden: { banner: "bg-gradient-to-br from-rose-200/40 to-rose-50/20", iconBg: "bg-rose-100", accent: "text-rose-700" },
+    verkeersregels: { banner: "bg-gradient-to-br from-blue-200/40 to-blue-50/20", iconBg: "bg-blue-100", accent: "text-blue-700" },
+    veiligheid: { banner: "bg-gradient-to-br from-amber-200/40 to-amber-50/20", iconBg: "bg-amber-100", accent: "text-amber-700" },
+    voorrang: { banner: "bg-gradient-to-br from-pink-200/40 to-pink-50/20", iconBg: "bg-pink-100", accent: "text-pink-700" },
+    weggebruikers: { banner: "bg-gradient-to-br from-indigo-200/40 to-indigo-50/20", iconBg: "bg-indigo-100", accent: "text-indigo-700" },
+    voertuig: { banner: "bg-gradient-to-br from-orange-200/40 to-orange-50/20", iconBg: "bg-orange-100", accent: "text-orange-700" },
+    verkeerswetten: { banner: "bg-gradient-to-br from-slate-200/40 to-slate-50/20", iconBg: "bg-slate-100", accent: "text-slate-700" },
+    default: { banner: "bg-gradient-to-br from-blue-100/40 to-slate-50/20", iconBg: "bg-slate-100", accent: "text-slate-700" },
   }
+
+  const hasPlan = !!(session?.user?.plan?.expiresAt && new Date(session.user.plan.expiresAt) > new Date())
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-20">
@@ -148,18 +150,18 @@ export default function LerenStartPage() {
             <div className="flex items-center gap-6">
                {status === "authenticated" ? (
                 <div className="flex flex-col items-end">
-                   <div className="text-sm font-semibold text-slate-200">
-                     {lessonsSummary.completed} van {lessonsSummary.total} lessen voltooid
-                   </div>
-                   <div className="flex items-center gap-3 mt-1">
-                     <div className="w-32 h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                       <div 
-                         className="h-full bg-blue-500 rounded-full" 
-                         style={{ width: `${progressPercent}%` }}
-                       />
-                     </div>
-                     <span className="text-sm font-bold text-blue-400">{progressPercent}%</span>
-                   </div>
+                  <div className="text-sm font-semibold text-slate-200">
+                    {lessonsSummary.completed} van {lessonsSummary.total} lessen voltooid
+                  </div>
+                  <div className="flex items-center gap-3 mt-1">
+                    <div className="w-32 h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-blue-500 rounded-full" 
+                        style={{ width: `${progressPercent}%` }}
+                      />
+                    </div>
+                    <span className="text-sm font-bold text-blue-400">{progressPercent}%</span>
+                  </div>
                 </div>
                ) : (
                  <div className="text-sm font-medium text-slate-400">
@@ -196,6 +198,7 @@ export default function LerenStartPage() {
                 // const CatIcon = categorieIconen[iconKey] // Icon not used in new card design in the same way? Screenshot uses numbers.
                 const tone = toneStyles[iconKey] || toneStyles.default
                 const isCompleted = completedCategories.includes(cat.slug)
+                const isLocked = !hasPlan && index !== 0
 
                 return (
                   <div key={cat.slug} className="group">
@@ -203,7 +206,7 @@ export default function LerenStartPage() {
                        {/* Card Visual Area */}
                        <div className={`
                          relative aspect-video rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-[1.02] shadow-sm
-                         ${tone.banner}
+                         ${tone.banner} border border-slate-200/50
                        `}>
                           {/* Overlay Gradient for consistency if needed, but tone.banner handles it */}
                           
@@ -213,16 +216,15 @@ export default function LerenStartPage() {
                                {cat.order.toString().padStart(2, "0")}
                              </span>
                              {/* Lock or Status Icon */}
-                             {!isCompleted ? (
-                               <div className="bg-black/10 p-1 rounded-full backdrop-blur-sm">
-                                  {/* Using a subtle lock or styling for non-completed implies 'todo' */}
-                                  <svg className="w-3 h-3 text-slate-900/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                             {isLocked ? (
+                               <div className="bg-black/10 p-1.5 rounded-full backdrop-blur-sm">
+                                  <svg className="w-3.5 h-3.5 text-slate-900/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                                </div>
-                             ) : (
-                               <div className="bg-green-500/20 p-1 rounded-full backdrop-blur-sm text-green-700">
-                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                             ) : isCompleted ? (
+                               <div className="bg-green-500/20 p-1.5 rounded-full backdrop-blur-sm text-green-700">
+                                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                                </div>
-                             )}
+                             ) : null}
                           </div>
 
                           {/* Content Bottom */}

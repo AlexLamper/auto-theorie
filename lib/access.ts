@@ -1,7 +1,7 @@
 export const PLAN_EXAM_LIMITS: Record<string, number> = {
-  "auto-dag": 3,
-  "auto-week": 5,
-  "auto-maand": 10,
+  "plan_basic": 100,
+  "plan_pro": 200,
+  "plan_premium": 500,
 }
 
 export function hasActivePlan(plan?: { expiresAt?: string | Date | null }): boolean {
@@ -13,5 +13,5 @@ export function hasActivePlan(plan?: { expiresAt?: string | Date | null }): bool
 export function getExamLimit(planName?: string, hasPlan = false): number {
   if (!hasPlan) return 1
   if (!planName) return 1
-  return PLAN_EXAM_LIMITS[planName] ?? 1
+  return PLAN_EXAM_LIMITS[planName] ?? 100
 }

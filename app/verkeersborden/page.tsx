@@ -123,26 +123,26 @@ export default function TrafficSignsPage() {
         <div className="container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
           
           {/* Controls Bar */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 h-auto md:h-20 p-4 md:p-0 md:px-6 mb-10 flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="relative w-full md:max-w-md">
+          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-auto p-6 mb-10 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
+            <div className="relative w-full lg:max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <Input 
                 placeholder="Zoek verkeersbord..." 
-                className="pl-10 h-11 border-slate-100 bg-slate-50/50 focus-visible:ring-blue-500 rounded-xl"
+                className="pl-10 h-11 border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus-visible:ring-blue-500 rounded-xl"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
 
-            <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-hide">
+            <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto">
               {typeCounts.filter(t => t.count > 0 || t.id === "all").map((type) => (
                 <button
                   key={type.id}
                   onClick={() => setSelectedType(type.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all whitespace-nowrap border ${
                     selectedType === type.id 
-                      ? "bg-blue-600 text-white shadow-md shadow-blue-200" 
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-200 dark:shadow-none" 
+                      : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-100 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"
                   }`}
                 >
                   {type.label} ({type.count})
@@ -152,56 +152,56 @@ export default function TrafficSignsPage() {
           </div>
 
           {loading ? (
-            <div className="py-20 flex flex-col items-center justify-center bg-white rounded-3xl border border-slate-200 shadow-sm">
+            <div className="py-20 flex flex-col items-center justify-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
               <LoadingSpinner className="h-10 w-10 text-blue-600" />
               <p className="mt-4 text-slate-500 font-medium animate-pulse">Verkeersborden laden...</p>
             </div>
           ) : error ? (
-            <div className="py-20 text-center bg-white rounded-3xl border border-red-100 shadow-sm px-6">
+            <div className="py-20 text-center bg-white dark:bg-slate-900 rounded-3xl border border-red-100 dark:border-red-900/30 shadow-sm px-6">
               <p className="text-red-500 font-medium mb-4">{error}</p>
               <Button onClick={fetchSigns} variant="outline" className="font-bold">Probeer opnieuw</Button>
             </div>
           ) : filteredSigns.length === 0 ? (
-            <div className="py-20 text-center bg-white rounded-3xl border border-slate-100 shadow-sm px-6">
+            <div className="py-20 text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm px-6">
               <Search className="h-12 w-12 text-slate-300 mx-auto mb-4" />
               <p className="text-slate-500 font-medium mb-4">Geen verkeersborden gevonden voor deze zoekopdracht.</p>
               <Button onClick={() => {setSearchTerm(""); setSelectedType("all")}} variant="ghost" className="text-blue-600 font-bold">Herstel filters</Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredSigns.map((sign) => {
                 const signId = typeof sign._id === 'string' ? sign._id : sign._id?.$oid;
                 const displayType = sign.type || (Array.isArray(sign.category) ? sign.category[0] : sign.category);
                 
                 return (
-                  <div key={signId} className="group bg-white rounded-xl border border-slate-200 p-4 hover:shadow-md hover:border-blue-300 transition-all flex items-center gap-4">
-                    {/* Compact Card Design */}
-                    <div className="w-20 h-20 bg-slate-50 rounded-lg flex-shrink-0 flex items-center justify-center p-2 group-hover:bg-blue-50 transition-colors">
+                  <div key={signId} className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-xl hover:border-blue-400 dark:hover:border-blue-500 transition-all flex items-start gap-5">
+                    {/* Bigger Card Design */}
+                    <div className="w-28 h-28 bg-slate-50 dark:bg-slate-800 rounded-xl flex-shrink-0 flex items-center justify-center p-3 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors shadow-inner">
                       <FallbackImage 
                         src={sign.image} 
                         fallbackSrc="/images/traffic-signs/placeholder.png"
                         alt={sign.name}
-                        className="max-h-full max-w-full object-contain filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300"
+                        className="max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-500 ease-out"
                       />
                     </div>
 
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <Badge variant="outline" className="text-[9px] uppercase tracking-tighter h-4 px-1 text-slate-400 border-slate-100">
+                    <div className="flex-1 min-w-0 pt-1">
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-tight h-5 px-2 text-slate-400 dark:text-slate-500 border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
                            {displayType}
                         </Badge>
                         <TextToSpeechButton 
                           text={sign.name + ". Betekenis: " + sign.meaning} 
-                          className="h-7 w-7 text-slate-300 hover:text-blue-600 hover:bg-transparent border-0" 
+                          className="h-8 w-8 text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 border-0 rounded-full" 
                           minimal={true}
                         />
                       </div>
                       
-                      <h3 className="font-bold text-slate-900 text-base leading-tight truncate mb-1 group-hover:text-blue-600 transition-colors">
+                      <h3 className="font-bold text-slate-900 dark:text-white text-lg leading-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                          {sign.name}
                       </h3>
                       
-                      <p className="text-slate-500 text-xs leading-normal line-clamp-2">
+                      <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-3">
                          {sign.meaning}
                       </p>
                     </div>

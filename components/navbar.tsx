@@ -135,9 +135,9 @@ export default function Navbar() {
                     )}
                   </div>
                   <div className="text-left hidden lg:block">
-                    <p className="text-sm font-semibold text-slate-900 leading-tight">{userName}</p>
+                    <p className={`text-sm font-bold leading-tight ${isAppPage ? 'text-white' : 'text-slate-900'}`}>{userName}</p>
                     {planLabel && (
-                      <p className="text-xs text-slate-500 leading-tight">{planLabel}</p>
+                      <p className={`text-[10px] font-medium leading-tight mt-0.5 ${isAppPage ? 'text-blue-400' : 'text-slate-500'}`}>{planLabel}</p>
                     )}
                   </div>
                 </Link>
@@ -187,10 +187,10 @@ export default function Navbar() {
                 </Link>
               ))}
               {isAuthenticated && (
-                <div className="border-t border-slate-100 pt-3">
-                  <p className="text-sm font-semibold text-slate-900">{userName}</p>
+                <div className={`border-t pt-3 ${isAppPage ? 'border-slate-800' : 'border-slate-100'}`}>
+                  <p className={`text-sm font-bold ${isAppPage ? 'text-white' : 'text-slate-900'}`}>{userName}</p>
                   {planLabel && (
-                    <p className="text-xs text-slate-500">
+                    <p className={`text-xs ${isAppPage ? 'text-blue-400' : 'text-slate-500'}`}>
                       {planLabel}
                       {planExpiry ? ` • geldig tot ${planExpiry}` : ""}
                     </p>
@@ -198,7 +198,7 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="mt-2 text-slate-500"
+                    className={`mt-2 ${isAppPage ? 'text-slate-400 hover:text-white hover:bg-slate-800' : 'text-slate-500'}`}
                     onClick={() => {
                       signOut({ callbackUrl: "/" })
                       setMobileMenuOpen(false)

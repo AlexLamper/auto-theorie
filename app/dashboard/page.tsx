@@ -220,8 +220,8 @@ export default async function DashboardPage() {
                            </CarouselItem>
                         ))}
                       </CarouselContent>
-                      <CarouselPrevious className="hidden md:flex -left-4" />
-                      <CarouselNext className="hidden md:flex -right-4" />
+                      <CarouselPrevious className="hidden md:flex -left-4 bg-white/90 dark:bg-slate-800 opacity-100 shadow-md border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-900 dark:text-white" />
+                      <CarouselNext className="hidden md:flex -right-4 bg-white/90 dark:bg-slate-800 opacity-100 shadow-md border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-900 dark:text-white" />
                     </Carousel>
                  </div>
               </section>
