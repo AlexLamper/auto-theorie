@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useSession } from "next-auth/react"
 import LoadingSpinner from "@/components/LoadingSpinner"
+import { FallbackImage } from "@/components/ui/fallback-image"
 
 interface CategorieInfo {
   slug: string
@@ -200,55 +201,67 @@ export default function LerenStartPage() {
                 const isCompleted = completedCategories.includes(cat.slug)
                 const isLocked = !hasPlan && index !== 0
 
+                // Map slugs to cover images
+                const coverImage = `/images/leren-covers/${cat.slug.replace(/-/g, '_')}.png`
+
                 return (
                   <div key={cat.slug} className="group">
                     <Link href={`/leren/${cat.slug}`} className="block relative">
                        {/* Card Visual Area */}
                        <div className={`
                          relative aspect-video rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-[1.02] shadow-sm
-                         ${tone.banner} border border-slate-200/50 dark:border-slate-700/50
+                         border border-slate-200/50 dark:border-slate-700/50
                        `}>
-                          {/* Overlay Gradient for consistency if needed, but tone.banner handles it */}
+                          {/* Cover Image Background */}
+                          <div className="absolute inset-0">
+                             <FallbackImage 
+                               src={coverImage}
+                               fallbackSrc="/images/exams/exam-default.jpg"
+                               alt={cat.title}
+                               className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+                             />
+                             {/* Overlay Gradient for readability */}
+                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+                          </div>
                           
                           {/* Top Row */}
-                          <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
-                             <span className="text-xs font-mono opacity-60 font-semibold text-slate-900 dark:text-slate-200">
+                          <div className="absolute top-3 left-3 right-3 flex justify-between items-start z-10">
+                             <span className="text-xs font-mono font-bold text-white opacity-90">
                                {cat.order.toString().padStart(2, "0")}
                              </span>
                              {/* Lock or Status Icon */}
                              {isLocked ? (
-                               <div className="bg-black/10 dark:bg-white/10 p-1.5 rounded-full backdrop-blur-sm">
-                                  <svg className="w-3.5 h-3.5 text-slate-900/60 dark:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                               <div className="bg-black/40 p-1.5 rounded-full backdrop-blur-md border border-white/10">
+                                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                                </div>
                              ) : isCompleted ? (
-                               <div className="bg-green-500/20 p-1.5 rounded-full backdrop-blur-sm text-green-700 dark:text-green-400">
+                               <div className="bg-green-500/40 p-1.5 rounded-full backdrop-blur-md border border-green-400/20 text-green-300">
                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                                </div>
                              ) : null}
                           </div>
 
                           {/* Content Bottom */}
-                          <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-black/10 to-transparent">
-                             {/* Only show "Start hier" if NOT premium/authenticated with plan? User asked to remove 'Probeer gratis' - assuming 'Start hier' is that text, or I add logic */}
+                          <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 z-10">
+                             {/* Only show "Start hier" if NOT premium/authenticated with plan? */}
                              {index === 0 && (!session?.user?.plan) && (
-                                <span className="inline-block bg-yellow-400 text-yellow-900 text-[10px] uppercase font-bold px-1.5 py-0.5 rounded mb-2">
+                                <span className="inline-block bg-yellow-400 text-yellow-900 text-[10px] uppercase font-bold px-1.5 py-0.5 rounded mb-2 shadow-sm">
                                   Start hier
                                 </span>
                              )}
-                             <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-3">
+                             <h3 className="text-lg font-bold text-white leading-tight mb-3 drop-shadow-md">
                                {cat.title}
                              </h3>
                              
                              {/* Progress/Duration Line */}
                              <div className="flex items-center gap-3">
-                               <button className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full p-1.5 hover:bg-blue-600 dark:hover:bg-blue-400 transition-colors">
+                               <button className="bg-white text-slate-900 rounded-full p-1.5 hover:bg-blue-600 hover:text-white transition-colors shadow-sm">
                                  <svg className="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                </button>
-                               <div className="flex-1 h-1 bg-slate-900/10 dark:bg-white/10 rounded-full overflow-hidden">
-                                  <div className={`h-full bg-slate-900/50 dark:bg-white/50 w-0 group-hover:w-full transition-all duration-700`} />
+                               <div className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
+                                  <div className={`h-full bg-white/70 w-0 group-hover:w-full transition-all duration-700`} />
                                </div>
-                               <span className="text-[10px] font-mono font-medium text-slate-700 dark:text-slate-300">
-                                 {/* Mock duration or lesson count */}
+                               <span className="text-[10px] font-mono font-bold text-white/90">
                                  ~15m
                                </span>
                              </div>
