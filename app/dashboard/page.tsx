@@ -143,8 +143,14 @@ export default async function DashboardPage() {
                <BookOpen className="h-4 w-4 text-slate-400" />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold text-slate-950 dark:text-white">{stats.completedLessons}</div>
-               <p className="text-xs text-slate-400 dark:text-slate-500">Van de ~25 hoofdstukken</p>
+               <div className="text-2xl font-bold text-slate-950 dark:text-white mb-2">{stats.completedLessons}</div>
+               <div className="space-y-1">
+                  <div className="flex justify-between text-[10px] font-medium text-slate-500">
+                    <span>Hoofdstuk {Math.min(stats.completedLessons + 1, 13)}/13</span>
+                    <span>{Math.round((stats.completedLessons / 13) * 100)}%</span>
+                  </div>
+                  <Progress value={(stats.completedLessons / 13) * 100} className="h-1 bg-slate-100 dark:bg-slate-800" />
+               </div>
              </CardContent>
            </Card>
            
@@ -165,8 +171,14 @@ export default async function DashboardPage() {
                <CheckCircle className="h-4 w-4 text-slate-400" />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold text-slate-950 dark:text-white">{stats.totalAttempts}</div>
-               <p className="text-xs text-slate-400 dark:text-slate-500">Oefening baart kunst</p>
+               <div className="text-2xl font-bold text-slate-950 dark:text-white mb-2">{stats.totalAttempts}</div>
+               <div className="space-y-1">
+                  <div className="flex justify-between text-[10px] font-medium text-slate-500">
+                    <span>Examen {stats.totalAttempts}/10</span>
+                    <span>{Math.min(Math.round((stats.totalAttempts / 10) * 100), 100)}%</span>
+                  </div>
+                  <Progress value={(stats.totalAttempts / 10) * 100} className="h-1 bg-slate-100 dark:bg-slate-800" />
+               </div>
              </CardContent>
            </Card>
 

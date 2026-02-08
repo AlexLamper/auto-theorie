@@ -44,10 +44,11 @@ export default async function ExamsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white flex flex-col pb-20">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white flex flex-col">
+      {/* Header Section */}
       <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
         <div className="container mx-auto px-4 max-w-7xl">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                <div>
                   <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                     Oefenexamens
@@ -69,7 +70,7 @@ export default async function ExamsPage() {
         </div>
       </div>
 
-      <div className="flex-1 container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
+      <div className="flex-1 container mx-auto px-4 max-w-7xl -mt-8 relative z-10 pb-20">
           <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-16 flex items-center px-6 mb-10">
               <div className="flex items-center gap-8 text-sm font-medium h-full">
                  <button className="text-blue-600 border-b-2 border-blue-600 h-full px-1 font-bold flex items-center">
