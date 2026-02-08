@@ -271,37 +271,22 @@ export default async function DashboardPage() {
                  </div>
               </section>
 
-              {/* Theory Cursus Section */}
-              <section className="space-y-6">
-                 <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm relative overflow-hidden">
-                     <div className="absolute top-0 right-0 p-6 opacity-5 dark:opacity-10">
-                        <BookOpen size={120} className="text-slate-900 dark:text-white" />
-                     </div>
-                     <div className="relative z-10 max-w-lg">
-                        <Badge variant="secondary" className="mb-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50">Theorie Cursus</Badge>
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Master de theorie</h2>
-                        <p className="text-slate-600 dark:text-slate-400 mb-6">
-                           Bereid je voor met onze complete theoriecursus. Van verkeersregels tot inzicht.
-                           Leer op je eigen tempo.
-                        </p>
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white pl-6 pr-6 shadow-lg shadow-blue-200 dark:shadow-none hover:cursor-pointer transition-all hover:translate-x-1" size="lg" asChild>
-                           <Link href="/leren">
-                              <ArrowRight className="w-4 h-4 mr-2" />
-                              Verder met leren
-                           </Link>
-                        </Button>
-                     </div>
+              {/* Theory Hoofdstukken Section */}
+              <section className="space-y-4">
+                 <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                       <BookOpen className="h-6 w-6 text-blue-600" />
+                       Theorie Hoofdstukken
+                    </h3>
+                    <Button variant="ghost" size="sm" asChild className="text-blue-600 hover:text-blue-700 font-bold">
+                       <Link href="/leren" className="flex items-center gap-1">
+                          Alle lessen
+                          <ArrowRight className="h-4 w-4" />
+                       </Link>
+                    </Button>
                  </div>
-
-                 {/* Theory Carousel */}
+                 
                  <div className="w-full">
-                    <div className="flex items-center justify-between mb-4">
-                       <h3 className="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                          <BookOpen className="h-5 w-5 text-blue-500" />
-                          Theorie Hoofdstukken
-                       </h3>
-                    </div>
-                    
                     <Carousel
                        opts={{
                          align: "start",
@@ -341,7 +326,7 @@ export default async function DashboardPage() {
                        </CarouselContent>
                        <CarouselPrevious className="hidden md:flex -left-4 bg-white/95 dark:bg-slate-800 shadow-lg border-slate-200 dark:border-slate-700 hover:cursor-pointer" />
                        <CarouselNext className="hidden md:flex -right-4 bg-white/95 dark:bg-slate-800 shadow-lg border-slate-200 dark:border-slate-700 hover:cursor-pointer" />
-                     </Carousel>
+                    </Carousel>
                  </div>
               </section>
 
