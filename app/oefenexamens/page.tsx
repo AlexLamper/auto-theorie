@@ -17,7 +17,7 @@ export default async function ExamsPage() {
   const session = await getServerSession(authOptions)
   const user = session?.user?.id ? await findUserById(session.user.id) : null
   const active = hasActivePlan(user?.plan)
-  const examLimit = getExamLimit(user?.plan?.name, active)
+  const examLimit = getExamLimit(user?.plan?.name, active, user?.examLimit || 0)
 
   let attemptsUsed = 0
   if (session?.user?.id) {
@@ -83,14 +83,14 @@ export default async function ExamsPage() {
               {exams.length > 0 ? (
                 exams.map((exam: any, index: number) => {
                   // Locked if:
-                  // 1. Not the first exam AND user has no active plan (Content Lock)
-                  // 2. User has reached their attempt limit (Usage Lock)
-                  const isExamLocked = (!active && index !== 0) || (attemptsUsed >= examLimit);
+                  // 1. First exam (oefenexamen-auto-1) is ALWAYS available for everyone.
+                  // 2. Others are locked if: No active plan OR attempt limit reached.
+                  const isExamLocked = index === 0 ? false : (!active || attemptsUsed >= examLimit);
 
                   return (
-                  <div key={exam.slug} className="group relative">
+                  <div key={exam.slug} className={`group relative ${isExamLocked ? "cursor-not-allowed opacity-75 grayscale" : ""}`}>
                      {/* Card as the visual element */}
-                     <Link href={!isExamLocked ? `/oefenexamens/start?slug=${exam.slug}` : "/prijzen"} className="block relative aspect-video rounded-lg overflow-hidden shadow-sm transition-all duration-300 group-hover:shadow-md cursor-pointer">
+                     <Link href={!isExamLocked ? `/oefenexamens/start?slug=${exam.slug}` : "/prijzen"} className={`block relative aspect-video rounded-lg overflow-hidden shadow-sm transition-all duration-300 ${isExamLocked ? "" : "group-hover:shadow-md cursor-pointer"}`}>
                         {/* Background Image */}
                         <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
                            <FallbackImage 
@@ -102,14 +102,14 @@ export default async function ExamsPage() {
                              className="object-cover"
                            />
                            {/* Overlay */}
-                           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                           <div className={`absolute inset-0 transition-colors ${isExamLocked ? "bg-black/60" : "bg-black/20 group-hover:bg-black/30"}`} />
                         </div>
 
                         {/* Top Right: Lock Icon */}
                         <div className="absolute top-3 right-3">
                            {isExamLocked ? (
-                              <div className="bg-black/20 p-1.5 rounded-full backdrop-blur-sm text-white/90">
-                                 <Lock className="h-3 w-3" />
+                              <div className="bg-black/40 p-2 rounded-full backdrop-blur-md text-white border border-white/20 shadow-xl">
+                                 <Lock className="h-4 w-4" />
                               </div>
                            ) : (
                               <div className="bg-green-500/20 p-1.5 rounded-full backdrop-blur-sm text-green-700">
@@ -119,16 +119,22 @@ export default async function ExamsPage() {
                         </div>
 
                         {/* Content Overlay */}
-                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent pt-12">
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent pt-12">
                            {/* Optional Badge for first item */}
-                           {index === 0 && (!session?.user?.plan) && (
-                             <span className="inline-block bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded mb-2 uppercase tracking-wide">
-                               Probeer gratis
+                           {index === 0 && (
+                             <span className="inline-block bg-emerald-500 text-white text-[10px] font-black px-2.5 py-1 rounded mb-2 uppercase tracking-widest shadow-lg border border-emerald-400/50">
+                               Gratis Demo
                              </span>
+                           )}
+
+                           {isExamLocked && (
+                              <span className="inline-block bg-slate-800 text-slate-400 text-[9px] font-bold px-2 py-0.5 rounded mb-2 uppercase tracking-wide border border-slate-700">
+                                Alleen Premium
+                              </span>
                            )}
                            
                            {/* Title */}
-                           <h3 className="text-white font-bold text-lg drop-shadow-sm">
+                           <h3 className="text-white font-bold text-lg drop-shadow-sm line-clamp-1">
                              {exam.title}
                            </h3>
                            

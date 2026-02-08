@@ -204,9 +204,9 @@ export default function LerenStartPage() {
                   <Link 
                     key={cat.slug} 
                     href={isLocked ? "/prijzen" : `/leren/${cat.slug}`}
-                    className="group"
+                    className={`group ${isLocked ? "cursor-pointer" : ""}`}
                   >
-                    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all h-full group-hover:-translate-y-1 flex flex-col">
+                    <div className={`bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all h-full flex flex-col ${isLocked ? "grayscale opacity-75" : "group-hover:-translate-y-1"}`}>
                        {/* Card Image Area */}
                        <div className="aspect-video relative overflow-hidden bg-slate-50 dark:bg-slate-800">
                           <FallbackImage 
@@ -215,7 +215,7 @@ export default function LerenStartPage() {
                              alt={cat.title}
                              fill
                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                             className="object-cover opacity-90 group-hover:opacity-100 transition-opacity grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 duration-500"
+                             className={`object-cover opacity-90 group-hover:opacity-100 transition-opacity ${isLocked ? "grayscale" : "grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105"} duration-500`}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
                           
@@ -225,8 +225,8 @@ export default function LerenStartPage() {
                                 <p className="text-[10px] font-bold text-white uppercase tracking-wider">Hoofdstuk {cat.order}</p>
                              </div>
                              {isLocked ? (
-                               <div className="bg-black/40 p-1.5 rounded-full backdrop-blur-md border border-white/10 text-white">
-                                  <Lock className="w-3.5 h-3.5" />
+                               <div className="bg-black/60 p-2 rounded-full backdrop-blur-md border border-white/20 text-white shadow-xl">
+                                  <Lock className="w-4 h-4" />
                                </div>
                              ) : isCompleted ? (
                                <div className="bg-green-500/80 p-1.5 rounded-full backdrop-blur-md border border-green-400 text-white shadow-sm">
@@ -238,9 +238,9 @@ export default function LerenStartPage() {
                           {/* Title inside image */}
                           <div className="absolute bottom-3 left-3 right-3 text-white">
                              <h4 className="font-bold text-lg leading-tight line-clamp-2 drop-shadow-md group-hover:text-blue-200 transition-colors">{cat.title}</h4>
-                             {index === 0 && (!session?.user?.plan) && (
-                                <span className="inline-block bg-yellow-400 text-yellow-900 text-[9px] uppercase px-1.5 py-0.5 rounded mt-2 shadow-sm font-black tracking-wide">
-                                   Gratis lessen
+                             {index === 0 && (!hasPlan) && (
+                                <span className="inline-block bg-blue-500 text-white text-[9px] uppercase px-2 py-0.5 rounded mt-2 shadow-lg font-black tracking-widest border border-blue-400/50">
+                                   3 Proef lessen
                                 </span>
                              )}
                           </div>
@@ -249,15 +249,23 @@ export default function LerenStartPage() {
                        {/* Card Footer */}
                        <div className="p-4 flex items-center justify-between mt-auto">
                           <div className="flex flex-col gap-0.5">
-                             <span className="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-tight">Beginnen</span>
+                             <span className="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-tight">
+                               {isLocked ? "Alleen Premium" : "Beginnen"}
+                             </span>
                              <div className="flex items-center gap-1.5">
-                                <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                <div className={`h-1.5 w-1.5 rounded-full ${isLocked ? "bg-slate-300" : "bg-blue-500"}`} />
                                 <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">~15 Minuten</span>
                              </div>
                           </div>
-                          <div className="bg-blue-50 dark:bg-slate-800 p-2 rounded-full group-hover:bg-blue-600 transition-all text-blue-600 dark:text-blue-400 group-hover:text-white shadow-sm">
-                             <ArrowRight className="w-4 h-4" />
-                          </div>
+                          {isLocked ? (
+                            <div className="bg-slate-100 dark:bg-slate-800 p-2 rounded-full text-slate-400">
+                               <Lock className="w-4 h-4" />
+                            </div>
+                          ) : (
+                            <div className="bg-blue-50 dark:bg-slate-800 p-2 rounded-full group-hover:bg-blue-600 transition-all text-blue-600 dark:text-blue-400 group-hover:text-white shadow-sm">
+                               <ArrowRight className="w-4 h-4" />
+                            </div>
+                          )}
                        </div>
                     </div>
                   </Link>

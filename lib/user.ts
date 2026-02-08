@@ -187,13 +187,23 @@ export async function updateAndGetStreak(userId: string): Promise<number> {
   }
 
   if (shouldUpdate) {
-    await collection.updateOne(query, {
-      $set: {
-        streak: newStreak,
-        lastStreakUpdate: now
-      }
-    })
+    await collection.updateOne(query, { $set: { streak: newStreak, lastStreakUpdate: now } })
   }
 
   return newStreak
 }
+
+export async function addExams(userId: string, amount: number) {
+  const collection = await getUsersCollection()
+  let query: any = { _id: userId }
+  try {
+    if (ObjectId.isValid(userId)) {
+      query = { _id: new ObjectId(userId) }
+    }
+  } catch (e) {}
+
+  await collection.updateOne(query, { 
+    $inc: { examLimit: amount },
+  }, { upsert: false })
+}
+

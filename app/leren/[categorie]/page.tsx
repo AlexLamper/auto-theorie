@@ -33,6 +33,7 @@ interface LesData {
 interface Subles {
   titel: string
   volgorde: number
+  isLocked: boolean
 }
 
 interface CategorieGroep {
@@ -120,6 +121,7 @@ function LesPaginaContent() {
             sublessen: lessen.map((l: any) => ({
               titel: l.title,
               volgorde: typeof l.order === "number" ? l.order : parseInt(l.order ?? "1", 10),
+              isLocked: Boolean(l.isLocked),
             })),
           })
         }
@@ -247,8 +249,7 @@ function LesPaginaContent() {
 
   const plainText = actieveLes ? cleanForSpeech(stripHtml(typeof actieveLes.inhoud === 'string' ? actieveLes.inhoud : '')) : ""
   const hasPlanAccess = accessInfo?.hasActivePlan ?? false
-  const lessonLockedByPlan = accessInfo ? !hasPlanAccess && lesVolgorde > 1 : false
-  const isLessonLocked = lessonLockedByPlan || Boolean(actieveLes?.isLocked)
+  const isLessonLocked = Boolean(actieveLes?.isLocked)
 
   return (
     <div className="min-h-screen bg-slate-50/50 dark:bg-slate-950 flex flex-col">
@@ -331,7 +332,7 @@ function LesPaginaContent() {
                             {(isActiveGroup || groepen.length === 1) && (
                               <div className="space-y-0.5 mt-1">
                                 {groep.sublessen.map((subles) => {
-                                  const isLocked = !hasPlanAccess && subles.volgorde > 1
+                                  const isLocked = subles.isLocked
                                   const isActive = isActiveGroup && lesVolgorde === subles.volgorde
 
                                   if (isLocked) {

@@ -8,6 +8,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import ThemeToggle from "@/components/theme-toggle"
 import { signOut, useSession } from "next-auth/react"
+import { useEffect } from "react"
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -64,6 +65,14 @@ export default function Navbar() {
       )
     : null
 
+  const [access, setAccess] = useState<any>(null)
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetch("/api/access").then(res => res.json()).then(data => setAccess(data))
+    }
+  }, [isAuthenticated])
+
   const isAppPage = pathname !== "/" && !pathname.startsWith("/auth") && !pathname.startsWith("/inloggen") && !pathname.startsWith("/aanmelden")
 
   return (
@@ -116,6 +125,14 @@ export default function Navbar() {
             </div>
             {isAuthenticated ? (
               <div className="ml-2 flex items-center gap-2">
+                 {/* Exams Punch Card Badge */}
+                {access && (
+                  <Link href="/prijzen" className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30 text-[10px] font-black transition-transform hover:scale-105">
+                     <span className="uppercase tracking-widest opacity-60">Examens</span>
+                     <span className="bg-blue-600 text-white px-1.5 py-0.5 rounded-md ml-1">{access.examAttemptsUsed} / {access.examAttemptsLimit}</span>
+                  </Link>
+                )}
+
                 <Link href="/account" className={`flex items-center gap-3 rounded-full border pl-1 pr-4 py-1 text-sm transition-colors cursor-pointer border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800`}>
                   <div className={`relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700`}>
                     {session.user?.image ? (
@@ -187,12 +204,20 @@ export default function Navbar() {
               {isAuthenticated && (
                 <div className={`border-t pt-3 border-slate-100 dark:border-slate-800`}>
                   <p className={`text-sm font-bold text-slate-900 dark:text-white`}>{userName}</p>
-                  {planLabel && (
-                    <p className={`text-xs text-slate-500 dark:text-slate-400`}>
-                      {planLabel}
-                      {planExpiry ? ` • geldig tot ${planExpiry}` : ""}
-                    </p>
-                  )}
+                  <div className="flex items-center gap-2 mt-1">
+                    {planLabel && (
+                      <p className={`text-xs text-slate-500 dark:text-slate-400 font-medium`}>
+                        {planLabel}
+                        {planExpiry ? ` • tot ${planExpiry}` : ""}
+                      </p>
+                    )}
+                    {access && (
+                      <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30 text-[9px] font-black">
+                        <span className="uppercase tracking-widest opacity-60">Examens</span>
+                        <span>{access.examAttemptsUsed} / {access.examAttemptsLimit}</span>
+                      </div>
+                    )}
+                  </div>
                   <Button
                     variant="ghost"
                     size="sm"

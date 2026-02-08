@@ -1,7 +1,7 @@
 export const PLAN_EXAM_LIMITS: Record<string, number> = {
-  "plan_basic": 100,
-  "plan_pro": 200,
-  "plan_premium": 500,
+  "plan_basic": 1,
+  "plan_pro": 3,
+  "plan_premium": 7,
 }
 
 export function hasActivePlan(plan?: { expiresAt?: string | Date | null }): boolean {
@@ -10,8 +10,9 @@ export function hasActivePlan(plan?: { expiresAt?: string | Date | null }): bool
   return expires.getTime() > Date.now()
 }
 
-export function getExamLimit(planName?: string, hasPlan = false): number {
-  if (!hasPlan) return 1
-  if (!planName) return 1
-  return PLAN_EXAM_LIMITS[planName] ?? 100
+export function getExamLimit(planName?: string, hasPlan = false, userLimit = 0): number {
+  const planLimit = (hasPlan && planName) ? (PLAN_EXAM_LIMITS[planName] ?? 0) : 0;
+  // Everyone gets at least 1 free exam attempt.
+  // Otherwise, it's the sum of their plan allowance and extra purchased attempts.
+  return Math.max(1, planLimit + userLimit);
 }

@@ -6,6 +6,7 @@ declare module "next-auth" {
     user: DefaultSession["user"] & {
       id: string
       plan?: StoredPlan
+      credits?: number
     }
   }
 
@@ -14,5 +15,6 @@ declare module "next-auth" {
     removalAt?: Date
     streak?: number
     lastStreakUpdate?: Date
+    credits?: number
   }
 }

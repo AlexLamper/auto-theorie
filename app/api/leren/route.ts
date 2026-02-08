@@ -34,14 +34,26 @@ export async function GET(req: NextRequest) {
       }
 
       if (!activePlan) {
-        const firstLessonId = lessons[0]?._id?.toString()
-        const lockedLessons = lessons.map((lesson: any) => ({
-          ...lesson,
-          content: lesson._id?.toString() === firstLessonId ? lesson.content : "",
-          isLocked: lesson._id?.toString() !== firstLessonId,
-        }))
+        // Find the first category by order to see if this is it
+        const categories = await Lesson.aggregate([
+          { $group: { _id: "$category", order: { $first: "$categoryOrder" } } },
+          { $sort: { order: 1 } },
+          { $limit: 1 }
+        ]);
+        const firstCategorySlug = categories[0]?._id;
+        const isFirstCategory = categorie === firstCategorySlug;
 
-        return NextResponse.json(lockedLessons)
+        const updatedLessons = lessons.map((lesson: any) => {
+          // Only unlock first 3 lessons of the first category
+          const isUnlocked = isFirstCategory && lesson.order <= 3;
+          return {
+            ...lesson,
+            content: isUnlocked ? lesson.content : "",
+            isLocked: !isUnlocked,
+          };
+        });
+
+        return NextResponse.json(updatedLessons)
       }
 
       return NextResponse.json(lessons)

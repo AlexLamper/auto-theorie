@@ -21,7 +21,7 @@ export async function GET() {
   const user = await findUserById(session.user.id)
   const plan = user?.plan
   const active = hasActivePlan(plan)
-  const examLimit = getExamLimit(plan?.name, active)
+  const examLimit = getExamLimit(plan?.name, active, user?.examLimit || 0)
 
   await connectMongoDB()
 
@@ -42,6 +42,7 @@ export async function GET() {
     planExpiresAt: plan?.expiresAt ?? null,
     examAttemptsUsed: attempts,
     examAttemptsLimit: examLimit,
+    remainingExams: Math.max(0, examLimit - attempts),
     lessonAccessMaxOrder: active ? null : 1,
   })
 }

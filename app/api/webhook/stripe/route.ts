@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server"
 import { stripe } from "@/lib/stripe"
-import { updateUserPlan } from "@/lib/user"
+import { updateUserPlan, addExams } from "@/lib/user"
 import { headers } from "next/headers"
+import { EXAM_BUNDLES, ExamBundleId } from "@/lib/credits"
 
 export async function POST(req: Request) {
   const body = await req.text()
@@ -28,7 +29,19 @@ export async function POST(req: Request) {
 
     if (planId && userId) {
       console.log(`✅ Payment received for user ${userId}, plan ${planId}`)
-      await updateUserPlan(userId, planId, session)
+
+      // Check if it's an exam bundle
+      const isExamBundle = Object.values(EXAM_BUNDLES).some(b => b.id === planId);
+
+      if (isExamBundle) {
+        const bundle = Object.values(EXAM_BUNDLES).find(b => b.id === planId);
+        if (bundle) {
+          await addExams(userId, bundle.amount);
+          console.log(`✅ Added ${bundle.amount} exams to user ${userId}`);
+        }
+      } else {
+        await updateUserPlan(userId, planId, session)
+      }
     } else {
       console.error("❌ Missing userId or planId in session metadata/client_reference_id")
     }

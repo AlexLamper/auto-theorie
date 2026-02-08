@@ -7,6 +7,9 @@ const planToPriceId: Record<string, string | undefined> = {
   "plan_basic": process.env.STRIPE_PRICE_BASIC,
   "plan_pro": process.env.STRIPE_PRICE_PRO,
   "plan_premium": process.env.STRIPE_PRICE_PREMIUM,
+  "bundle_5": process.env.STRIPE_PRICE_BUNDLE_5,
+  "bundle_10": process.env.STRIPE_PRICE_BUNDLE_10,
+  "bundle_20": process.env.STRIPE_PRICE_BUNDLE_20,
 }
 
 export async function POST(request: Request) {

@@ -17,30 +17,43 @@ export async function GET(
 
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
-      return NextResponse.json({ message: "Log in om een examen te starten." }, { status: 401 });
-    }
+    const userId = session?.user?.id;
+    
+    // Allow the first exam for everyone
+    if (slug !== "oefenexamen-auto-1") {
+      if (!userId) {
+        return NextResponse.json({ message: "Log in om een examen te starten." }, { status: 401 });
+      }
 
-    const user = await findUserById(session.user.id);
-    const active = hasActivePlan(user?.plan);
-    const examLimit = getExamLimit(user?.plan?.name, active);
+      const user = await findUserById(userId);
+      const active = hasActivePlan(user?.plan);
+      
+      if (!active) {
+         return NextResponse.json(
+           { message: "Kies een pakket om toegang te krijgen tot alle examens." },
+           { status: 403 }
+         );
+      }
 
-    await connectMongoDB();
+      const examLimit = getExamLimit(user?.plan?.name, active, user?.examLimit || 0)
 
-    const attemptQuery: Record<string, any> = { userId: session.user.id };
-    if (active && user?.plan?.startedAt && user?.plan?.expiresAt) {
-      attemptQuery.createdAt = {
-        $gte: new Date(user.plan.startedAt),
-        $lte: new Date(user.plan.expiresAt),
-      };
-    }
+      await connectMongoDB();
 
-    const attemptCount = await UserExamAttempt.countDocuments(attemptQuery);
-    if (attemptCount >= examLimit) {
-      return NextResponse.json(
-        { message: "Je examencode is op. Kies een pakket om verder te oefenen." },
-        { status: 402 }
-      );
+      const attemptQuery: Record<string, any> = { userId };
+      if (active && user?.plan?.startedAt && user?.plan?.expiresAt) {
+        attemptQuery.createdAt = {
+          $gte: new Date(user.plan.startedAt),
+          $lte: new Date(user.plan.expiresAt),
+        };
+      }
+
+      const attemptCount = await UserExamAttempt.countDocuments(attemptQuery);
+      if (attemptCount >= examLimit) {
+        return NextResponse.json(
+          { message: "Je examens zijn op. Koop extra pogingen om verder te gaan." },
+          { status: 402 }
+        );
+      }
     }
 
     // Check local fallback FIRST for instant loading

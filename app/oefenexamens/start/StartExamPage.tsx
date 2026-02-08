@@ -32,10 +32,47 @@ export default function StartExamPage() {
     hasActivePlan: boolean
     examAttemptsUsed: number
     examAttemptsLimit: number
+    credits: number
   } | null>(null)
   const [attemptLogged, setAttemptLogged] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const startCreditExam = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch("/api/oefenexamens/generate", { method: "POST" })
+      if (!res.ok) {
+         const data = await res.json()
+         throw new Error(data.message || "Kon examen niet starten")
+      }
+      const data = await res.json()
+      
+      // Refresh credits locally if possible
+      try {
+        const accessRes = await fetch("/api/access")
+        if (accessRes.ok) {
+           const accessData = await accessRes.json()
+           setAccessInfo(prev => prev ? ({ ...prev, credits: accessData.credits }) : null)
+        }
+      } catch(e) {}
+      
+      setExam(data.exam)
+      setQuestions(data.exam.questions)
+      setAnswers(new Array(data.exam.questions.length).fill(-1))
+      setLoading(false)
+    } catch (err: any) {
+       setError(err.message)
+       setLoading(false)
+    }
+  }
 
   useEffect(() => {
+    if (searchParams.get("mode") === "credit") {
+      setLoading(false)
+      return
+    }
+
     if (slug) {
       fetch(`/api/oefenexamens/${slug}`)
         .then(async res => {
@@ -72,6 +109,7 @@ export default function StartExamPage() {
           hasActivePlan: Boolean(data.hasActivePlan),
           examAttemptsUsed: data.examAttemptsUsed || 0,
           examAttemptsLimit: data.examAttemptsLimit || 1,
+          credits: data.credits || 0,
         })
       } catch (err) {
         console.error("Error loading access:", err)
@@ -211,6 +249,65 @@ export default function StartExamPage() {
               <Link href="/oefenexamens">Terug naar Overzicht</Link>
             </Button>
           </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (searchParams.get("mode") === "credit" && !exam) {
+    const used = accessInfo?.examAttemptsUsed || 0
+    const limit = accessInfo?.examAttemptsLimit || 1
+    const remaining = limit - used
+
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4">
+        <div className="max-w-xl w-full rounded-[2.5rem] border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-10 text-center shadow-2xl">
+           <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30 mb-8">
+             <Trophy className="h-10 w-10" />
+           </div>
+           
+           <h1 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-4">Start Nieuw Examen</h1>
+           <p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed mb-8">
+             Dit examen stelt een uniek examen samen uit 65 willekeurige vragen uit onze database. Dit telt als één poging op je account.
+           </p>
+
+           <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-100 dark:border-slate-800">
+              <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Jouw Status</p>
+              <div className="flex items-center justify-center gap-3">
+                 <span className={`text-4xl font-black ${remaining > 0 ? "text-slate-900 dark:text-white" : "text-rose-500"}`}>{used} / {limit}</span>
+                 <span className="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest bg-white dark:bg-slate-950 px-3 py-1 rounded-full shadow-sm">Gebruikt</span>
+              </div>
+           </div>
+
+           {error && (
+             <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 text-sm font-bold border border-rose-100 dark:border-rose-900/30">
+               {error}
+             </div>
+           )}
+
+           <div className="flex flex-col gap-3">
+             {remaining > 0 ? (
+               <Button 
+                 onClick={startCreditExam}
+                 disabled={loading}
+                 className="h-14 rounded-2xl text-lg font-black bg-blue-600 hover:bg-blue-700 text-white shadow-xl shadow-blue-500/20 transition-all cursor-pointer hover:scale-[1.02] active:scale-95"
+               >
+                 {loading ? <LoadingSpinner className="w-6 h-6" /> : "Start Examen"}
+               </Button>
+             ) : (
+               <Button asChild className="h-14 rounded-2xl text-lg font-black bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-500/20 transition-all cursor-pointer hover:scale-[1.02] active:scale-95">
+                 <Link href="/prijzen">Extra Examens Kopen</Link>
+               </Button>
+             )}
+             
+             <Button 
+               asChild 
+               variant="ghost" 
+               className="h-12 rounded-2xl font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white cursor-pointer"
+             >
+               <Link href="/oefenexamens">Annuleren</Link>
+             </Button>
+           </div>
         </div>
       </div>
     )

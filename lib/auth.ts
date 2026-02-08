@@ -32,9 +32,11 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id
         token.plan = (user as any).plan
+        token.credits = (user as any).credits
       }
-      if (trigger === "update" && session?.plan) {
-        token.plan = session.plan
+      if (trigger === "update") {
+        if (session?.plan) token.plan = session.plan
+        if (session?.credits !== undefined) token.credits = session.credits
       }
       return token
     },
@@ -42,6 +44,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         session.user.id = token.id as string
         session.user.plan = token.plan as any
+        session.user.credits = (token.credits as number) || 0
       }
       return session
     },
