@@ -12,5 +12,7 @@ declare module "next-auth" {
   interface User extends DefaultUser {
     plan?: StoredPlan
     removalAt?: Date
+    streak?: number
+    lastStreakUpdate?: Date
   }
 }

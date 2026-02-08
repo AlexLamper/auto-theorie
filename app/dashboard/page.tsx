@@ -4,14 +4,16 @@ import { redirect } from "next/navigation"
 import connectMongoDB from "@/libs/mongodb"
 import UserExamAttempt from "@/models/UserExamAttempt"
 import UserProgress from "@/models/UserProgress"
+import Lesson from "@/models/Lesson"
 import { getExams } from "@/lib/exams"
+import { updateAndGetStreak } from "@/lib/user"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { Badge } from "@/components/ui/badge"
-import { BookOpen, CheckCircle, GraduationCap, Play, Trophy, XCircle, BarChart3 } from "lucide-react"
+import { BookOpen, CheckCircle, GraduationCap, ArrowRight, Trophy, XCircle, BarChart3, Flame } from "lucide-react"
 import { RecentScoresChart } from "@/components/dashboard-chart"
 import { FallbackImage } from "@/components/ui/fallback-image"
 
@@ -19,10 +21,32 @@ async function getDashboardData(userId: string) {
   await connectMongoDB()
   
   // Fetch stats concurrently
-  const [examAttempts, completedLessonsCount, exams] = await Promise.all([
+  const [examAttempts, completedLessonsCount, exams, streak, categories] = await Promise.all([
     UserExamAttempt.find({ userId }).sort({ createdAt: -1 }).limit(10).lean(),
     UserProgress.countDocuments({ userId, completed: true }),
     getExams(),
+    updateAndGetStreak(userId),
+    Lesson.aggregate([
+      { $sort: { categoryOrder: 1, order: 1 } },
+      {
+        $group: {
+          _id: "$category",
+          title: { $first: "$categoryTitle" },
+          order: { $first: "$categoryOrder" },
+          image: { $first: "$image" }
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          slug: "$_id",
+          title: 1,
+          order: 1,
+          image: 1
+        },
+      },
+      { $sort: { order: 1, title: 1 } },
+    ])
   ])
 
   // Calculate stats
@@ -38,9 +62,11 @@ async function getDashboardData(userId: string) {
       passedExams,
       totalAttempts,
       averageScore,
-      completedLessons: completedLessonsCount
+      completedLessons: completedLessonsCount,
+      streak
     },
-    exams
+    exams,
+    categories
   }
 }
 
@@ -57,7 +83,7 @@ export default async function DashboardPage() {
     redirect("/prijzen")
   }
 
-  const { examAttempts, stats, exams } = await getDashboardData(session.user.id)
+  const { examAttempts, stats, exams, categories } = await getDashboardData(session.user.id)
   const userPlan = session.user.plan!
 
   // Format expiry date
@@ -83,19 +109,19 @@ export default async function DashboardPage() {
                </p>
             </div>
             
-            <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 backdrop-blur-sm flex items-center gap-4">
-               <div className="bg-blue-600/20 p-2.5 rounded-lg">
+            <div className="bg-slate-700/40 p-4 rounded-xl border border-slate-600/50 backdrop-blur-sm flex items-center gap-4 shadow-xl shadow-black/20">
+               <div className="bg-blue-600/30 p-2.5 rounded-lg border border-blue-500/20">
                  <GraduationCap className="text-blue-400 h-6 w-6" />
                </div>
                <div>
-                  <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Huidig Pakket</p>
+                  <p className="text-xs text-slate-300 font-medium uppercase tracking-wider">Huidig Pakket</p>
                   <div className="flex items-center gap-2">
-                     <span className="font-bold">{userPlan.label || "Premium"}</span>
-                     <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] h-5">
+                     <span className="font-bold text-white tracking-tight">{userPlan.label || "Premium"}</span>
+                     <Badge variant="outline" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-[10px] h-5 font-bold">
                         Actief
                      </Badge>
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">Nog {daysLeft} dagen • Tot {expiryDate}</p>
+                  <p className="text-xs text-slate-400 mt-1 font-medium">{daysLeft} dagen over • Tot {expiryDate}</p>
                </div>
             </div>
           </div>
@@ -106,7 +132,7 @@ export default async function DashboardPage() {
         
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-           <Card className="shadow-lg border-0 bg-white">
+           <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                <CardTitle className="text-sm font-medium text-slate-500">Voltooide Lessen</CardTitle>
                <BookOpen className="h-4 w-4 text-slate-400" />
@@ -117,7 +143,7 @@ export default async function DashboardPage() {
              </CardContent>
            </Card>
            
-           <Card className="shadow-lg border-0 bg-white">
+           <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                <CardTitle className="text-sm font-medium text-slate-500">Gemiddelde Score</CardTitle>
                <AwardIcon score={stats.averageScore} />
@@ -128,7 +154,7 @@ export default async function DashboardPage() {
              </CardContent>
            </Card>
 
-           <Card className="shadow-lg border-0 bg-white">
+           <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                <CardTitle className="text-sm font-medium text-slate-500">Examens Gemaakt</CardTitle>
                <CheckCircle className="h-4 w-4 text-slate-400" />
@@ -139,7 +165,7 @@ export default async function DashboardPage() {
              </CardContent>
            </Card>
 
-           <Card className="shadow-lg border-0 bg-white">
+           <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                <CardTitle className="text-sm font-medium text-slate-500">Examens Geslaagd</CardTitle>
                <Trophy className="h-4 w-4 text-emerald-500" />
@@ -155,7 +181,7 @@ export default async function DashboardPage() {
         <div className="grid lg:grid-cols-3 gap-8">
            
            {/* Left: Content */}
-           <div className="lg:col-span-2 space-y-8">
+           <div className="lg:col-span-2 space-y-12">
               
               {/* Progress Chart */}
               {examAttempts.length > 0 && (
@@ -173,11 +199,11 @@ export default async function DashboardPage() {
               {/* Oefenexamens Carousel */}
               <section>
                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 tracking-tight">
                        <GraduationCap className="h-5 w-5 text-blue-600" />
                        Oefenexamens
                     </h2>
-                    <Button variant="ghost" size="sm" asChild className="text-blue-600 hover:text-blue-700">
+                    <Button variant="ghost" size="sm" asChild className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 hover:cursor-pointer transition-colors">
                       <Link href="/oefenexamens">Alles bekijken</Link>
                     </Button>
                  </div>
@@ -192,8 +218,8 @@ export default async function DashboardPage() {
                       <CarouselContent className="-ml-2 md:-ml-4">
                         {exams.map((exam: any) => (
                            <CarouselItem key={exam.exam_id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                              <Link href={`/oefenexamens/start?slug=${exam.slug}`} className="group block h-full">
-                                <div className="bg-white rounded-xl border border-slate-200 h-full hover:shadow-md transition-all hover:border-blue-300 group-hover:-translate-y-1 overflow-hidden flex flex-col">
+                              <Link href={`/oefenexamens/start?slug=${exam.slug}`} className="group block h-full hover:cursor-pointer">
+                                <div className="bg-white rounded-xl border border-slate-200 h-full hover:shadow-lg transition-all hover:border-blue-400 group-hover:-translate-y-1 overflow-hidden flex flex-col">
                                    <div className="aspect-video bg-slate-100 relative overflow-hidden w-full m-0 p-0">
                                       <FallbackImage 
                                         src={`/images/oefenexamens/exam-${((exam.exam_id - 1) % 3) + 1}.png`} 
@@ -202,8 +228,8 @@ export default async function DashboardPage() {
                                         className="object-cover w-full h-full opacity-90 group-hover:opacity-100 transition-opacity"
                                       />
                                       <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                                         <div className="bg-white/90 rounded-full p-2 backdrop-blur-sm shadow-sm">
-                                            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                         <div className="bg-blue-600/90 rounded-full p-2.5 backdrop-blur-sm shadow-lg scale-90 group-hover:scale-100 transition-transform">
+                                            <ArrowRight className="w-4 h-4 text-white" />
                                          </div>
                                       </div>
                                    </div>
@@ -220,37 +246,112 @@ export default async function DashboardPage() {
                            </CarouselItem>
                         ))}
                       </CarouselContent>
-                      <CarouselPrevious className="hidden md:flex -left-4 bg-white/90 dark:bg-slate-800 opacity-100 shadow-md border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-900 dark:text-white" />
-                      <CarouselNext className="hidden md:flex -right-4 bg-white/90 dark:bg-slate-800 opacity-100 shadow-md border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-900 dark:text-white" />
+                      <CarouselPrevious className="hidden md:flex -left-4 bg-white/95 dark:bg-slate-800 opacity-100 shadow-lg border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-900 dark:text-white hover:cursor-pointer" />
+                      <CarouselNext className="hidden md:flex -right-4 bg-white/95 dark:bg-slate-800 opacity-100 shadow-lg border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-900 dark:text-white hover:cursor-pointer" />
                     </Carousel>
                  </div>
               </section>
 
-              {/* Continue Learning */}
-              <section className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm relative overflow-hidden">
-                  <div className="absolute top-0 right-0 p-8 opacity-5">
-                     <BookOpen size={180} />
-                  </div>
-                  <div className="relative z-10 max-w-lg">
-                     <Badge variant="secondary" className="mb-3 bg-blue-50 text-blue-700 hover:bg-blue-100">Theorie Cursus</Badge>
-                     <h2 className="text-2xl font-bold text-slate-900 mb-2">Master de theorie</h2>
-                     <p className="text-slate-600 mb-6">
-                        Bereid je voor met onze complete theoriecursus. Van verkeersregels tot inzicht.
-                        Leer op je eigen tempo.
-                     </p>
-                     <Button className="bg-blue-600 hover:bg-blue-700 text-white pl-6 pr-6 shadow-lg shadow-blue-200" size="lg" asChild>
-                        <Link href="/leren">
-                           <Play className="w-4 h-4 mr-2 fill-current" />
-                           Verder met leren
-                        </Link>
-                     </Button>
-                  </div>
+              {/* Theory Cursus Section */}
+              <section className="space-y-6">
+                 <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm relative overflow-hidden">
+                     <div className="absolute top-0 right-0 p-6 opacity-5">
+                        <BookOpen size={120} />
+                     </div>
+                     <div className="relative z-10 max-w-lg">
+                        <Badge variant="secondary" className="mb-3 bg-blue-50 text-blue-700 hover:bg-blue-100">Theorie Cursus</Badge>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-2">Master de theorie</h2>
+                        <p className="text-slate-600 mb-6">
+                           Bereid je voor met onze complete theoriecursus. Van verkeersregels tot inzicht.
+                           Leer op je eigen tempo.
+                        </p>
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white pl-6 pr-6 shadow-lg shadow-blue-200 hover:cursor-pointer transition-all hover:translate-x-1" size="lg" asChild>
+                           <Link href="/leren">
+                              <ArrowRight className="w-4 h-4 mr-2" />
+                              Verder met leren
+                           </Link>
+                        </Button>
+                     </div>
+                 </div>
+
+                 {/* Theory Carousel */}
+                 <div className="w-full">
+                    <div className="flex items-center justify-between mb-4">
+                       <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                          <BookOpen className="h-5 w-5 text-blue-500" />
+                          Theorie Hoofdstukken
+                       </h3>
+                    </div>
+                    
+                    <Carousel
+                       opts={{
+                         align: "start",
+                       }}
+                       className="w-full"
+                     >
+                       <CarouselContent className="-ml-2 md:-ml-4">
+                         {categories.map((category: any, i: number) => (
+                            <CarouselItem key={category.slug} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                               <Link href={`/leren/${category.slug}`} className="group block h-full hover:cursor-pointer">
+                                 <div className="bg-white rounded-xl border border-slate-200 h-full hover:shadow-lg transition-all hover:border-blue-400 group-hover:-translate-y-1 overflow-hidden flex flex-col">
+                                    <div className="aspect-video bg-slate-50 relative overflow-hidden w-full m-0 p-0">
+                                       <FallbackImage 
+                                         src={category.image || `/images/leren/cat-${(i % 5) + 1}.png`} 
+                                         fallbackSrc="/images/exams/exam-default.jpg"
+                                         alt={category.title}
+                                         className="object-cover w-full h-full opacity-90 group-hover:opacity-100 transition-opacity"
+                                       />
+                                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                                       <div className="absolute bottom-3 left-3 right-3 text-white">
+                                          <p className="text-[10px] font-bold uppercase tracking-wider opacity-80">Hoofdstuk {i + 1}</p>
+                                          <h4 className="font-bold text-sm line-clamp-1">{category.title}</h4>
+                                       </div>
+                                    </div>
+                                    <div className="p-3 flex items-center justify-between">
+                                       <span className="text-xs text-slate-500 font-medium">Starten</span>
+                                       <div className="bg-blue-50 p-1.5 rounded-full group-hover:bg-blue-600 transition-colors">
+                                          <ArrowRight className="w-3 h-3 text-blue-600 group-hover:text-white" />
+                                       </div>
+                                    </div>
+                                 </div>
+                               </Link>
+                            </CarouselItem>
+                         ))}
+                       </CarouselContent>
+                       <CarouselPrevious className="hidden md:flex -left-4 bg-white/95 shadow-lg border-slate-200 hover:cursor-pointer" />
+                       <CarouselNext className="hidden md:flex -right-4 bg-white/95 shadow-lg border-slate-200 hover:cursor-pointer" />
+                     </Carousel>
+                 </div>
               </section>
 
            </div>
 
            {/* Right: Sidebar Activity */}
            <div className="space-y-6">
+              {/* Streak Card */}
+              <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm overflow-hidden relative">
+                 <div className="absolute -top-2 -right-2 p-3 opacity-10">
+                    <Flame size={80} className="text-orange-500" />
+                 </div>
+                 <div className="relative z-10">
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2">Jouw Progressie</p>
+                    <div className="flex items-center gap-3">
+                       <div className="bg-orange-50 p-2 rounded-lg border border-orange-100">
+                          <Flame className="h-5 w-5 text-orange-600" />
+                       </div>
+                       <div>
+                          <p className="text-2xl font-bold text-slate-900 leading-none">{stats.streak} {stats.streak === 1 ? 'Dag' : 'Dagen'}</p>
+                          <p className="text-xs text-slate-500 mt-1">Study Streak</p>
+                       </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-slate-100">
+                       <p className="text-xs text-slate-600 leading-relaxed">
+                          Je bent al <strong>{stats.streak} {stats.streak === 1 ? 'dag' : 'dagen'}</strong> op dreef. Blijf elke dag oefenen om je kennis op peil te houden!
+                       </p>
+                    </div>
+                 </div>
+              </div>
+
               <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                  <h3 className="font-bold text-slate-800 mb-4 flex items-center justify-between">
                     Recente Resultaten
@@ -284,18 +385,21 @@ export default async function DashboardPage() {
                     </div>
                  )}
                  
-                 <Button variant="outline" className="w-full mt-4 text-xs h-8" asChild>
+                 <Button variant="outline" className="w-full mt-4 text-xs h-8 hover:cursor-pointer hover:bg-slate-50 transition-colors" asChild>
                     <Link href="/account">Bekijk historie</Link>
                  </Button>
               </div>
 
               {/* Promotion / Tip */}
-              <div className="bg-blue-600 text-white rounded-xl p-5 shadow-lg shadow-blue-200">
-                 <h3 className="font-bold mb-2 text-lg">Wist je dat? 💡</h3>
-                 <p className="text-blue-100 text-sm mb-4">
+              <div className="bg-blue-600 text-white rounded-xl p-5 shadow-lg shadow-blue-200 group relative overflow-hidden">
+                 <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform">
+                    <Trophy size={100} />
+                 </div>
+                 <h3 className="font-bold mb-2 text-lg relative z-10">Wist je dat? 💡</h3>
+                 <p className="text-blue-100 text-sm mb-4 relative z-10">
                     De meeste leerlingen slagen sneller als ze elke dag 1 hoofdstuk en 1 examen doen.
                  </p>
-                 <Link href="/tips" className="text-xs font-bold underline decoration-blue-400 underline-offset-4 hover:text-white">
+                 <Link href="/informatie/theorie-examen-tips" className="text-xs font-bold underline decoration-blue-400 underline-offset-4 hover:text-white hover:cursor-pointer relative z-10">
                     Bekijk meer tips
                  </Link>
               </div>

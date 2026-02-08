@@ -142,3 +142,58 @@ export async function findUserById(userId: string) {
 
   return collection.findOne(query)
 }
+
+export async function updateAndGetStreak(userId: string): Promise<number> {
+  const collection = await getUsersCollection()
+  
+  let query: any = { _id: userId }
+  try {
+    if (ObjectId.isValid(userId)) {
+      query = { _id: new ObjectId(userId) }
+    }
+  } catch (e) {}
+
+  const user = await collection.findOne(query)
+  if (!user) return 0
+
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()) // Midnight 00:00:00
+  
+  const lastUpdate = user.lastStreakUpdate ? new Date(user.lastStreakUpdate) : null
+  const lastDate = lastUpdate ? new Date(lastUpdate.getFullYear(), lastUpdate.getMonth(), lastUpdate.getDate()) : null
+  
+  let newStreak = user.streak || 0
+  let shouldUpdate = false;
+
+  if (!lastDate) {
+    // First time
+    newStreak = 1
+    shouldUpdate = true
+  } else {
+    const diffTime = today.getTime() - lastDate.getTime()
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24))
+
+    if (diffDays === 0) {
+      // Same day, do nothing
+    } else if (diffDays === 1) {
+      // Consecutive day
+      newStreak += 1
+      shouldUpdate = true
+    } else {
+      // Missed a day or more
+      newStreak = 1
+      shouldUpdate = true
+    }
+  }
+
+  if (shouldUpdate) {
+    await collection.updateOne(query, {
+      $set: {
+        streak: newStreak,
+        lastStreakUpdate: now
+      }
+    })
+  }
+
+  return newStreak
+}
