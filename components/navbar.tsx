@@ -73,12 +73,14 @@ export default function Navbar() {
           {/* Left side - Logo and Page title */}
           <div className="flex items-center space-x-4">
             <Link href={hasPlan ? "/dashboard" : "/"} className="flex items-center space-x-2 group cursor-pointer">
-              <img
+              <Image
                 src="/logo/transparent/logo-transparent.png"
                 alt="Logo"
-                className={`h-8 w-8 object-contain dark:brightness-0 dark:invert`}
+                width={32}
+                height={32}
+                className="object-contain dark:brightness-0 dark:invert"
               />
-              <span className={`text-xl font-bold transition-colors text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400`}>
+              <span className="text-xl font-bold transition-colors text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
                 Auto Theorie
               </span>
             </Link>

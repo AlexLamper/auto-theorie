@@ -97,7 +97,9 @@ export default async function ExamsPage() {
                              src={`/images/oefenexamens/exam-${((exam.exam_id - 1) % 3) + 1}.png`} 
                              fallbackSrc="/images/exams/exam-default.jpg"
                              alt={exam.title}
-                             className="object-cover w-full h-full"
+                             fill
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                             className="object-cover"
                            />
                            {/* Overlay */}
                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />

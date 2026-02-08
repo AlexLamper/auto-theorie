@@ -9,10 +9,12 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-12">
           <div>
             <div className="flex items-center space-x-3 mb-6">
-              <img
+              <Image
                 src="/logo/transparent/logo-transparent.png"
                 alt="Logo"
-                className="h-8 w-8 object-contain brightness-0 invert"
+                width={32}
+                height={32}
+                className="object-contain brightness-0 invert"
               />
               <span className="text-xl font-bold text-white">Auto Theorie</span>
             </div>

@@ -218,7 +218,9 @@ export default function LerenStartPage() {
                                src={coverImage}
                                fallbackSrc="/images/exams/exam-default.jpg"
                                alt={cat.title}
-                               className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+                               fill
+                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                               className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                              />
                              {/* Overlay Gradient for readability */}
                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />

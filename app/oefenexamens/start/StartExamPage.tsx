@@ -10,6 +10,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/compon
 import { HighlightableText } from "@/components/HighlightableText"
 import { X, ArrowRight, Timer, Trophy, AlertCircle, Lock } from "lucide-react"
 import LoadingSpinner from "@/components/LoadingSpinner"
+import { FallbackImage } from "@/components/ui/fallback-image"
 
 export default function StartExamPage() {
   const router = useRouter()
@@ -423,11 +424,14 @@ export default function StartExamPage() {
 
                  <div className="flex-1 p-6 pt-0 min-h-0 overflow-hidden flex items-start justify-start">
                     {q.image ? (
-                      <div className="relative w-full h-full">
-                        <img
+                      <div className="relative w-[80%] aspect-video">
+                        <FallbackImage
                           src={q.image}
+                          fallbackSrc="/images/exams/placeholder.jpg"
                           alt="Situatieschets"
-                          className="w-[80%] h-full object-contain object-left-top rounded-none"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 80vw"
+                          className="object-contain object-left-top rounded-none"
                         />
                       </div>
                     ) : (

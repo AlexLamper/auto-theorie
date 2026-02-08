@@ -242,7 +242,9 @@ export default async function DashboardPage() {
                                         src={`/images/oefenexamens/exam-${((exam.exam_id - 1) % 3) + 1}.png`} 
                                         fallbackSrc="/images/exams/exam-default.jpg"
                                         alt={exam.title}
-                                        className="object-cover w-full h-full opacity-90 group-hover:opacity-100 transition-opacity"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                                        className="object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                                       />
                                       <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity">
                                          <div className="bg-blue-600/90 rounded-full p-2.5 backdrop-blur-sm shadow-lg scale-90 group-hover:scale-100 transition-transform">
@@ -313,10 +315,12 @@ export default async function DashboardPage() {
                                  <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 h-full hover:shadow-lg transition-all hover:border-blue-400 group-hover:-translate-y-1 overflow-hidden flex flex-col">
                                     <div className="aspect-video bg-slate-50 dark:bg-slate-800 relative overflow-hidden w-full m-0 p-0">
                                        <FallbackImage 
-                                         src={category.image || `/images/leren/cat-${(i % 5) + 1}.png`} 
+                                         src={category.image || `/images/leren-covers/${category.slug.replace(/-/g, '_')}.png`} 
                                          fallbackSrc="/images/exams/exam-default.jpg"
                                          alt={category.title}
-                                         className="object-cover w-full h-full opacity-90 group-hover:opacity-100 transition-opacity"
+                                         fill
+                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                                         className="object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                                        />
                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                                        <div className="absolute bottom-3 left-3 right-3 text-white">

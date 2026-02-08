@@ -176,12 +176,14 @@ export default function TrafficSignsPage() {
                 return (
                   <div key={signId} className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-xl hover:border-blue-400 dark:hover:border-blue-500 transition-all flex items-start gap-5">
                     {/* Bigger Card Design */}
-                    <div className="w-28 h-28 bg-slate-50 dark:bg-slate-800 rounded-xl flex-shrink-0 flex items-center justify-center p-3 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors shadow-inner">
+                    <div className="w-28 h-28 relative bg-slate-50 dark:bg-slate-800 rounded-xl flex-shrink-0 flex items-center justify-center p-3 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors shadow-inner overflow-hidden">
                       <FallbackImage 
                         src={sign.image} 
                         fallbackSrc="/images/traffic-signs/placeholder.png"
                         alt={sign.name}
-                        className="max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-500 ease-out"
+                        fill
+                        sizes="112px"
+                        className="object-contain p-2 filter drop-shadow-md group-hover:scale-110 transition-transform duration-500 ease-out"
                       />
                     </div>
 

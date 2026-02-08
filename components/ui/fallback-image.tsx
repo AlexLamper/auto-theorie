@@ -1,9 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image, { ImageProps } from "next/image"
 import { cn } from "@/lib/utils"
 
-interface FallbackImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+interface FallbackImageProps extends Omit<ImageProps, "src"> {
+  src: string | any
   fallbackSrc: string
 }
 
@@ -15,13 +17,15 @@ export function FallbackImage({ src, fallbackSrc, className, alt, ...props }: Fa
   }, [src])
 
   return (
-    <img
+    <Image
       {...props}
       src={imgSrc}
-      alt={alt}
-      className={className}
+      alt={alt || "Afbeelding"}
+      className={cn("transition-opacity duration-300", className)}
       onError={() => {
-        setImgSrc(fallbackSrc)
+        if (imgSrc !== fallbackSrc) {
+          setImgSrc(fallbackSrc)
+        }
       }}
     />
   )

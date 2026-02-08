@@ -15,6 +15,7 @@ import { useParams } from "next/navigation"
 import Footer from "@/components/footer"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import DonationPrompt from "@/components/DonationPrompt"
+import { FallbackImage } from "@/components/ui/fallback-image"
 
 interface TrafficSign {
   _id: string
@@ -411,13 +412,14 @@ export default function CategoryTrafficSignsPage() {
                     >
                       <CardContent className="p-5">
                         {/* Sign Image */}
-                        <div className="bg-muted border border-border rounded-xl p-6 mb-4 text-center group-hover:bg-card transition-colors">
-                          <img
-                            src={imageErrors.has(sign._id) ? createPlaceholderSVG(160, 160) : sign.image}
+                        <div className="relative bg-muted border border-border rounded-xl p-6 mb-4 text-center group-hover:bg-card transition-colors h-52 flex items-center justify-center overflow-hidden">
+                          <FallbackImage
+                            src={sign.image}
+                            fallbackSrc={createPlaceholderSVG(160, 160)}
                             alt={sign.name}
-                            className="w-40 h-40 mx-auto object-contain drop-shadow-sm"
-                            onError={(e) => handleImageError(sign._id, e)}
-                            loading="lazy"
+                            fill
+                            sizes="160px"
+                            className="object-contain p-4 drop-shadow-sm group-hover:scale-110 transition-transform duration-500"
                           />
                         </div>
 

@@ -1,5 +1,6 @@
 import { HighlightableText } from "./HighlightableText"
 import { cleanForSpeech } from "@/lib/utils"
+import { FallbackImage } from "@/components/ui/fallback-image"
 
 export interface InhoudBlok {
   type: "paragraaf" | "afbeelding" | "lijst"
@@ -56,17 +57,18 @@ export default function LessonContent({ inhoud }: Props) {
           case "afbeelding":
             return (
               <div key={i} className="text-center">
-                <img
-                  src={blok.bron || placeholderSvg}
-                  alt={blok.bijschrift || "Afbeelding"}
-                  className="mx-auto max-w-full rounded-2xl border border-border shadow-sm"
-                  loading="lazy"
-                  onError={(event) => {
-                    event.currentTarget.src = placeholderSvg
-                  }}
-                />
+                <div className="relative aspect-video w-full mx-auto max-w-2xl overflow-hidden rounded-2xl border border-border shadow-sm bg-slate-50 dark:bg-slate-900/50">
+                  <FallbackImage
+                    src={blok.bron || placeholderSvg}
+                    fallbackSrc={placeholderSvg}
+                    alt={blok.bijschrift || "Afbeelding"}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 800px"
+                    className="object-contain p-2"
+                  />
+                </div>
                 {blok.bijschrift && (
-                  <p className="text-sm text-muted-foreground mt-2">{blok.bijschrift}</p>
+                  <p className="text-sm text-muted-foreground mt-2 italic">{blok.bijschrift}</p>
                 )}
               </div>
             )
