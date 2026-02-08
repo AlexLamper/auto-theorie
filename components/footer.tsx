@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-white py-16 px-4">
+    <footer className="bg-slate-900 dark:bg-black text-white py-16 px-4">
       <div className="container mx-auto">
         <div className="grid md:grid-cols-4 gap-12">
           <div>
@@ -12,7 +12,7 @@ export default function Footer() {
               <img
                 src="/logo/transparent/logo-transparent.png"
                 alt="Logo"
-                className="h-8 w-8 object-contain"
+                className="h-8 w-8 object-contain brightness-0 invert"
               />
               <span className="text-xl font-bold text-white">Auto Theorie</span>
             </div>

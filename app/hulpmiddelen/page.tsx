@@ -72,14 +72,14 @@ export default async function HulpmiddelenPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 mb-6">
-            <BookOpen className="h-8 w-8 text-blue-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-900/20 mb-6">
+            <BookOpen className="h-8 w-8 text-blue-600 dark:text-blue-400" />
           </div>
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Hulpmiddelen</h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">Hulpmiddelen</h1>
+          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
             Aanbevolen theorieboeken en leermiddelen om je voor te bereiden op het examen.
           </p>
         </div>
@@ -97,9 +97,9 @@ export default async function HulpmiddelenPage() {
             const trackingUrl = `https://partner.bol.com/click/click?&${params}`
 
             return (
-              <Card key={p.subid} className="border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden flex flex-col h-full group bg-white">
+              <Card key={p.subid} className="border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-slate-900">
                 {p.imageUrl && (
-                  <div className="relative aspect-[4/3] bg-slate-50 p-6 flex items-center justify-center overflow-hidden">
+                  <div className="relative aspect-[4/3] bg-slate-50 dark:bg-slate-950/50 p-6 flex items-center justify-center overflow-hidden">
                     <Image
                       src={p.imageUrl}
                       alt={p.title}
@@ -110,15 +110,15 @@ export default async function HulpmiddelenPage() {
                   </div>
                 )}
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-lg font-bold text-slate-900 line-clamp-2 min-h-[3.5rem]">
+                  <CardTitle className="text-lg font-bold text-slate-900 dark:text-white line-clamp-2 min-h-[3.5rem]">
                     {p.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col">
-                  <CardDescription className="text-slate-600 line-clamp-3 mb-6 flex-1">
+                  <CardDescription className="text-slate-600 dark:text-slate-400 line-clamp-3 mb-6 flex-1">
                     {p.description}
                   </CardDescription>
-                  <Button asChild className="w-full bg-slate-900 hover:bg-blue-600 text-white transition-colors mt-auto">
+                  <Button asChild className="w-full bg-slate-900 dark:bg-slate-700 hover:bg-blue-600 dark:hover:bg-blue-600 text-white transition-colors mt-auto">
                     <a href={trackingUrl} target="_blank" rel="noopener noreferrer">
                       Bekijk op Bol.com
                     </a>

@@ -44,7 +44,7 @@ export default async function ExamsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col pb-20">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white flex flex-col pb-20">
       <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
         <div className="container mx-auto px-4 max-w-7xl">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -70,7 +70,7 @@ export default async function ExamsPage() {
       </div>
 
       <div className="flex-1 container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 h-16 flex items-center px-6 mb-10">
+          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-16 flex items-center px-6 mb-10">
               <div className="flex items-center gap-8 text-sm font-medium h-full">
                  <button className="text-blue-600 border-b-2 border-blue-600 h-full px-1 font-bold flex items-center">
                    Alle examens
@@ -151,7 +151,7 @@ export default async function ExamsPage() {
 
                      {/* Text Below Card */}
                      <div className="mt-2 px-1 flex justify-between items-start">
-                        <span className="text-sm font-medium text-slate-500">
+                        <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
                            Examen {index + 1}
                         </span>
                         {/* Fake duration or stats */}
@@ -163,10 +163,10 @@ export default async function ExamsPage() {
                 )})
               ) : (
                 <div className="col-span-full text-center py-12">
-                  <div className="inline-block p-4 rounded-full bg-slate-100 mb-4">
+                  <div className="inline-block p-4 rounded-full bg-slate-100 dark:bg-slate-800 mb-4">
                      <AlertCircle className="h-6 w-6 text-slate-400" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">Geen examens gevonden</h3>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">Geen examens gevonden</h3>
                 </div>
               )}
             </div>

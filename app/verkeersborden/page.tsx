@@ -106,7 +106,7 @@ export default function TrafficSignsPage() {
   if (!mounted) return null
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
       <div className="flex-1 pb-20">
         
         {/* Header Section */}

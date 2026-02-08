@@ -120,21 +120,21 @@ export default function LerenStartPage() {
     : 0;
 
   const toneStyles: Record<string, { banner: string; iconBg: string; accent: string }> = {
-    milieu: { banner: "bg-gradient-to-br from-emerald-200/40 to-emerald-50/20", iconBg: "bg-emerald-100", accent: "text-emerald-700" },
-    verkeersborden: { banner: "bg-gradient-to-br from-rose-200/40 to-rose-50/20", iconBg: "bg-rose-100", accent: "text-rose-700" },
-    verkeersregels: { banner: "bg-gradient-to-br from-blue-200/40 to-blue-50/20", iconBg: "bg-blue-100", accent: "text-blue-700" },
-    veiligheid: { banner: "bg-gradient-to-br from-amber-200/40 to-amber-50/20", iconBg: "bg-amber-100", accent: "text-amber-700" },
-    voorrang: { banner: "bg-gradient-to-br from-pink-200/40 to-pink-50/20", iconBg: "bg-pink-100", accent: "text-pink-700" },
-    weggebruikers: { banner: "bg-gradient-to-br from-indigo-200/40 to-indigo-50/20", iconBg: "bg-indigo-100", accent: "text-indigo-700" },
-    voertuig: { banner: "bg-gradient-to-br from-orange-200/40 to-orange-50/20", iconBg: "bg-orange-100", accent: "text-orange-700" },
-    verkeerswetten: { banner: "bg-gradient-to-br from-slate-200/40 to-slate-50/20", iconBg: "bg-slate-100", accent: "text-slate-700" },
-    default: { banner: "bg-gradient-to-br from-blue-100/40 to-slate-50/20", iconBg: "bg-slate-100", accent: "text-slate-700" },
+    milieu: { banner: "bg-gradient-to-br from-emerald-200/40 to-emerald-50/20 dark:from-emerald-900/40 dark:to-emerald-900/20", iconBg: "bg-emerald-100 dark:bg-emerald-900/50", accent: "text-emerald-700 dark:text-emerald-400" },
+    verkeersborden: { banner: "bg-gradient-to-br from-rose-200/40 to-rose-50/20 dark:from-rose-900/40 dark:to-rose-900/20", iconBg: "bg-rose-100 dark:bg-rose-900/50", accent: "text-rose-700 dark:text-rose-400" },
+    verkeersregels: { banner: "bg-gradient-to-br from-blue-200/40 to-blue-50/20 dark:from-blue-900/40 dark:to-blue-900/20", iconBg: "bg-blue-100 dark:bg-blue-900/50", accent: "text-blue-700 dark:text-blue-400" },
+    veiligheid: { banner: "bg-gradient-to-br from-amber-200/40 to-amber-50/20 dark:from-amber-900/40 dark:to-amber-900/20", iconBg: "bg-amber-100 dark:bg-amber-900/50", accent: "text-amber-700 dark:text-amber-400" },
+    voorrang: { banner: "bg-gradient-to-br from-pink-200/40 to-pink-50/20 dark:from-pink-900/40 dark:to-pink-900/20", iconBg: "bg-pink-100 dark:bg-pink-900/50", accent: "text-pink-700 dark:text-pink-400" },
+    weggebruikers: { banner: "bg-gradient-to-br from-indigo-200/40 to-indigo-50/20 dark:from-indigo-900/40 dark:to-indigo-900/20", iconBg: "bg-indigo-100 dark:bg-indigo-900/50", accent: "text-indigo-700 dark:text-indigo-400" },
+    voertuig: { banner: "bg-gradient-to-br from-orange-200/40 to-orange-50/20 dark:from-orange-900/40 dark:to-orange-900/20", iconBg: "bg-orange-100 dark:bg-orange-900/50", accent: "text-orange-700 dark:text-orange-400" },
+    verkeerswetten: { banner: "bg-gradient-to-br from-slate-200/40 to-slate-50/20 dark:from-slate-800/60 dark:to-slate-900/40", iconBg: "bg-slate-100 dark:bg-slate-800", accent: "text-slate-700 dark:text-slate-400" },
+    default: { banner: "bg-gradient-to-br from-blue-100/40 to-slate-50/20 dark:from-blue-900/20 dark:to-slate-900/20", iconBg: "bg-slate-100 dark:bg-slate-800", accent: "text-slate-700 dark:text-slate-400" },
   }
 
   const hasPlan = !!(session?.user?.plan?.expiresAt && new Date(session.user.plan.expiresAt) > new Date())
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 pb-20">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-20">
       <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -174,12 +174,12 @@ export default function LerenStartPage() {
       </div>
 
       <div className="container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 h-16 flex items-center px-6 mb-12">
+          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-16 flex items-center px-6 mb-12">
               <div className="flex items-center gap-8 text-sm font-medium h-full">
                 <button className="text-blue-600 border-b-2 border-blue-600 h-full px-1 font-bold flex items-center">
                   Alle onderwerpen
                 </button>
-                <button className="text-slate-500 hover:text-slate-800 h-full px-1 transition-colors flex items-center">
+                <button className="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 h-full px-1 transition-colors flex items-center">
                   Nog niet bekeken
                 </button>
               </div>
@@ -206,22 +206,22 @@ export default function LerenStartPage() {
                        {/* Card Visual Area */}
                        <div className={`
                          relative aspect-video rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-[1.02] shadow-sm
-                         ${tone.banner} border border-slate-200/50
+                         ${tone.banner} border border-slate-200/50 dark:border-slate-700/50
                        `}>
                           {/* Overlay Gradient for consistency if needed, but tone.banner handles it */}
                           
                           {/* Top Row */}
                           <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
-                             <span className="text-xs font-mono opacity-60 font-semibold text-slate-900">
+                             <span className="text-xs font-mono opacity-60 font-semibold text-slate-900 dark:text-slate-200">
                                {cat.order.toString().padStart(2, "0")}
                              </span>
                              {/* Lock or Status Icon */}
                              {isLocked ? (
-                               <div className="bg-black/10 p-1.5 rounded-full backdrop-blur-sm">
-                                  <svg className="w-3.5 h-3.5 text-slate-900/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                               <div className="bg-black/10 dark:bg-white/10 p-1.5 rounded-full backdrop-blur-sm">
+                                  <svg className="w-3.5 h-3.5 text-slate-900/60 dark:text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                                </div>
                              ) : isCompleted ? (
-                               <div className="bg-green-500/20 p-1.5 rounded-full backdrop-blur-sm text-green-700">
+                               <div className="bg-green-500/20 p-1.5 rounded-full backdrop-blur-sm text-green-700 dark:text-green-400">
                                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                                </div>
                              ) : null}
@@ -235,19 +235,19 @@ export default function LerenStartPage() {
                                   Start hier
                                 </span>
                              )}
-                             <h3 className="text-lg font-bold text-slate-900 leading-tight mb-3">
+                             <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-3">
                                {cat.title}
                              </h3>
                              
                              {/* Progress/Duration Line */}
                              <div className="flex items-center gap-3">
-                               <button className="bg-slate-900 text-white rounded-full p-1.5 hover:bg-blue-600 transition-colors">
+                               <button className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full p-1.5 hover:bg-blue-600 dark:hover:bg-blue-400 transition-colors">
                                  <svg className="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                </button>
-                               <div className="flex-1 h-1 bg-slate-900/10 rounded-full overflow-hidden">
-                                  <div className={`h-full bg-slate-900/50 w-0 group-hover:w-full transition-all duration-700`} />
+                               <div className="flex-1 h-1 bg-slate-900/10 dark:bg-white/10 rounded-full overflow-hidden">
+                                  <div className={`h-full bg-slate-900/50 dark:bg-white/50 w-0 group-hover:w-full transition-all duration-700`} />
                                </div>
-                               <span className="text-[10px] font-mono font-medium text-slate-700">
+                               <span className="text-[10px] font-mono font-medium text-slate-700 dark:text-slate-300">
                                  {/* Mock duration or lesson count */}
                                  ~15m
                                </span>
@@ -258,7 +258,7 @@ export default function LerenStartPage() {
 
                     {/* Description Outside Card */}
                     <div className="mt-3 px-1">
-                      <p className="text-sm text-slate-500 line-clamp-2 leading-relaxed">
+                      <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
                         {/* Placeholder text logic based on category, or generic description */}
                         Leer alles over {cat.title.toLowerCase()} en bereid je voor op het theorie-examen.
                       </p>

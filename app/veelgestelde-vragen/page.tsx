@@ -31,15 +31,15 @@ const faqs = [
 
 export default function FaqPage() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
       <div className="flex-1">
         <section>
           <div className="container mx-auto px-4 py-16 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 mb-6">
-            <HelpCircle className="h-8 w-8 text-blue-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-900/20 mb-6">
+            <HelpCircle className="h-8 w-8 text-blue-600 dark:text-blue-400" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">Veelgestelde vragen</h1>
-          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">Veelgestelde vragen</h1>
+          <p className="text-lg text-slate-600 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
             Alles wat je wilt weten over Auto Theorie. Staat je vraag er niet bij? Neem contact met ons op.
           </p>
         </div>
@@ -48,9 +48,9 @@ export default function FaqPage() {
         <section className="container mx-auto px-4 pb-16">
         <div className="grid gap-6 max-w-3xl mx-auto">
           {faqs.map((faq) => (
-            <div key={faq.question} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-foreground">{faq.question}</h3>
-              <p className="text-sm text-muted-foreground mt-2">{faq.answer}</p>
+            <div key={faq.question} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{faq.question}</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">{faq.answer}</p>
             </div>
           ))}
         </div>

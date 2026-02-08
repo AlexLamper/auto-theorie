@@ -17,6 +17,11 @@ import { BookOpen, CheckCircle, GraduationCap, ArrowRight, Trophy, XCircle, BarC
 import { RecentScoresChart } from "@/components/dashboard-chart"
 import { FallbackImage } from "@/components/ui/fallback-image"
 
+function AwardIcon({ score }: { score: number }) {
+  if (score >= 80) return <Trophy className="h-4 w-4 text-emerald-500" />
+  return <Trophy className="h-4 w-4 text-slate-400" />
+}
+
 async function getDashboardData(userId: string) {
   await connectMongoDB()
   
@@ -92,16 +97,16 @@ export default async function DashboardPage() {
   })
   
   // Calculate days left
-  const daysLeft = Math.ceil((new Date(userPlan.expiresAt).getTime() - new Date().getTime()) / (1000 * 3600 * 24))
+  const daysLeft = Math.ceil((new Date(userPlan.expiresAt).getTime() - new Date().getTime()) / 86400000)
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-20">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
+      <div className="bg-gradient-to-b from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white pb-24 pt-12 border-b border-slate-700/50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-               <h1 className="text-3xl md:text-4xl font-bold mb-2">
+               <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">
                  Welkom terug, {session.user.name?.split(' ')[0] || 'Student'}! 👋
                </h1>
                <p className="text-slate-400">
@@ -132,47 +137,47 @@ export default async function DashboardPage() {
         
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-           <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-shadow hover:cursor-default">
+           <Card className="shadow-lg border-0 bg-white dark:bg-slate-900 hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-               <CardTitle className="text-sm font-medium text-slate-500">Voltooide Lessen</CardTitle>
+               <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">Voltooide Lessen</CardTitle>
                <BookOpen className="h-4 w-4 text-slate-400" />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold text-slate-950">{stats.completedLessons}</div>
-               <p className="text-xs text-slate-400">Van de ~25 hoofdstukken</p>
+               <div className="text-2xl font-bold text-slate-950 dark:text-white">{stats.completedLessons}</div>
+               <p className="text-xs text-slate-400 dark:text-slate-500">Van de ~25 hoofdstukken</p>
              </CardContent>
            </Card>
            
-           <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-shadow hover:cursor-default">
+           <Card className="shadow-lg border-0 bg-white dark:bg-slate-900 hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-               <CardTitle className="text-sm font-medium text-slate-500">Gemiddelde Score</CardTitle>
+               <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">Gemiddelde Score</CardTitle>
                <AwardIcon score={stats.averageScore} />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold text-slate-950">{stats.averageScore}%</div>
-               <Progress value={stats.averageScore} className="h-1.5 mt-2 bg-slate-100" indicatorClassName={stats.averageScore > 80 ? "bg-emerald-500" : "bg-blue-600"} />
+               <div className="text-2xl font-bold text-slate-950 dark:text-white">{stats.averageScore}%</div>
+               <Progress value={stats.averageScore} className="h-1.5 mt-2 bg-slate-100 dark:bg-slate-800" indicatorClassName={stats.averageScore > 80 ? "bg-emerald-500" : "bg-blue-600"} />
              </CardContent>
            </Card>
 
-           <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-shadow hover:cursor-default">
+           <Card className="shadow-lg border-0 bg-white dark:bg-slate-900 hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-               <CardTitle className="text-sm font-medium text-slate-500">Examens Gemaakt</CardTitle>
+               <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">Examens Gemaakt</CardTitle>
                <CheckCircle className="h-4 w-4 text-slate-400" />
              </CardHeader>
              <CardContent>
-               <div className="text-2xl font-bold text-slate-950">{stats.totalAttempts}</div>
-               <p className="text-xs text-slate-400">Oefening baart kunst</p>
+               <div className="text-2xl font-bold text-slate-950 dark:text-white">{stats.totalAttempts}</div>
+               <p className="text-xs text-slate-400 dark:text-slate-500">Oefening baart kunst</p>
              </CardContent>
            </Card>
 
-           <Card className="shadow-lg border-0 bg-white hover:shadow-xl transition-shadow hover:cursor-default">
+           <Card className="shadow-lg border-0 bg-white dark:bg-slate-900 hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-               <CardTitle className="text-sm font-medium text-slate-500">Examens Geslaagd</CardTitle>
+               <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">Examens Geslaagd</CardTitle>
                <Trophy className="h-4 w-4 text-emerald-500" />
              </CardHeader>
              <CardContent>
                <div className="text-2xl font-bold text-emerald-700">{stats.passedExams}</div>
-               <p className="text-xs text-slate-400">Blijf oefenen voor 100%</p>
+               <p className="text-xs text-slate-400 dark:text-slate-500">Blijf oefenen voor 100%</p>
              </CardContent>
            </Card>
         </div>
@@ -185,9 +190,9 @@ export default async function DashboardPage() {
               
               {/* Progress Chart */}
               {examAttempts.length > 0 && (
-                  <section className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                  <section className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                       <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <h2 className="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
                            <BarChart3 className="h-5 w-5 text-blue-600" />
                            Je voortgang
                         </h2>
@@ -199,11 +204,11 @@ export default async function DashboardPage() {
               {/* Oefenexamens Carousel */}
               <section>
                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 tracking-tight">
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
                        <GraduationCap className="h-5 w-5 text-blue-600" />
                        Oefenexamens
                     </h2>
-                    <Button variant="ghost" size="sm" asChild className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 hover:cursor-pointer transition-colors">
+                    <Button variant="ghost" size="sm" asChild className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-slate-800 hover:cursor-pointer transition-colors">
                       <Link href="/oefenexamens">Alles bekijken</Link>
                     </Button>
                  </div>
@@ -219,8 +224,8 @@ export default async function DashboardPage() {
                         {exams.map((exam: any) => (
                            <CarouselItem key={exam.exam_id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                               <Link href={`/oefenexamens/start?slug=${exam.slug}`} className="group block h-full hover:cursor-pointer">
-                                <div className="bg-white rounded-xl border border-slate-200 h-full hover:shadow-lg transition-all hover:border-blue-400 group-hover:-translate-y-1 overflow-hidden flex flex-col">
-                                   <div className="aspect-video bg-slate-100 relative overflow-hidden w-full m-0 p-0">
+                                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 h-full hover:shadow-lg transition-all hover:border-blue-400 group-hover:-translate-y-1 overflow-hidden flex flex-col">
+                                   <div className="aspect-video bg-slate-100 dark:bg-slate-800 relative overflow-hidden w-full m-0 p-0">
                                       <FallbackImage 
                                         src={`/images/oefenexamens/exam-${((exam.exam_id - 1) % 3) + 1}.png`} 
                                         fallbackSrc="/images/exams/exam-default.jpg"
@@ -234,10 +239,10 @@ export default async function DashboardPage() {
                                       </div>
                                    </div>
                                    <div className="p-4 flex flex-col flex-1">
-                                      <h3 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
+                                      <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors line-clamp-1">
                                          {exam.title}
                                       </h3>
-                                      <p className="text-xs text-slate-500 mt-1">
+                                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                                         65 Vragen • 45 Minuten
                                       </p>
                                    </div>
@@ -254,18 +259,18 @@ export default async function DashboardPage() {
 
               {/* Theory Cursus Section */}
               <section className="space-y-6">
-                 <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm relative overflow-hidden">
-                     <div className="absolute top-0 right-0 p-6 opacity-5">
-                        <BookOpen size={120} />
+                 <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 shadow-sm relative overflow-hidden">
+                     <div className="absolute top-0 right-0 p-6 opacity-5 dark:opacity-10">
+                        <BookOpen size={120} className="text-slate-900 dark:text-white" />
                      </div>
                      <div className="relative z-10 max-w-lg">
-                        <Badge variant="secondary" className="mb-3 bg-blue-50 text-blue-700 hover:bg-blue-100">Theorie Cursus</Badge>
-                        <h2 className="text-2xl font-bold text-slate-900 mb-2">Master de theorie</h2>
-                        <p className="text-slate-600 mb-6">
+                        <Badge variant="secondary" className="mb-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50">Theorie Cursus</Badge>
+                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Master de theorie</h2>
+                        <p className="text-slate-600 dark:text-slate-400 mb-6">
                            Bereid je voor met onze complete theoriecursus. Van verkeersregels tot inzicht.
                            Leer op je eigen tempo.
                         </p>
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white pl-6 pr-6 shadow-lg shadow-blue-200 hover:cursor-pointer transition-all hover:translate-x-1" size="lg" asChild>
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white pl-6 pr-6 shadow-lg shadow-blue-200 dark:shadow-none hover:cursor-pointer transition-all hover:translate-x-1" size="lg" asChild>
                            <Link href="/leren">
                               <ArrowRight className="w-4 h-4 mr-2" />
                               Verder met leren
@@ -277,7 +282,7 @@ export default async function DashboardPage() {
                  {/* Theory Carousel */}
                  <div className="w-full">
                     <div className="flex items-center justify-between mb-4">
-                       <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                       <h3 className="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
                           <BookOpen className="h-5 w-5 text-blue-500" />
                           Theorie Hoofdstukken
                        </h3>
@@ -293,8 +298,8 @@ export default async function DashboardPage() {
                          {categories.map((category: any, i: number) => (
                             <CarouselItem key={category.slug} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                                <Link href={`/leren/${category.slug}`} className="group block h-full hover:cursor-pointer">
-                                 <div className="bg-white rounded-xl border border-slate-200 h-full hover:shadow-lg transition-all hover:border-blue-400 group-hover:-translate-y-1 overflow-hidden flex flex-col">
-                                    <div className="aspect-video bg-slate-50 relative overflow-hidden w-full m-0 p-0">
+                                 <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 h-full hover:shadow-lg transition-all hover:border-blue-400 group-hover:-translate-y-1 overflow-hidden flex flex-col">
+                                    <div className="aspect-video bg-slate-50 dark:bg-slate-800 relative overflow-hidden w-full m-0 p-0">
                                        <FallbackImage 
                                          src={category.image || `/images/leren/cat-${(i % 5) + 1}.png`} 
                                          fallbackSrc="/images/exams/exam-default.jpg"
@@ -308,9 +313,9 @@ export default async function DashboardPage() {
                                        </div>
                                     </div>
                                     <div className="p-3 flex items-center justify-between">
-                                       <span className="text-xs text-slate-500 font-medium">Starten</span>
-                                       <div className="bg-blue-50 p-1.5 rounded-full group-hover:bg-blue-600 transition-colors">
-                                          <ArrowRight className="w-3 h-3 text-blue-600 group-hover:text-white" />
+                                       <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Starten</span>
+                                       <div className="bg-blue-50 dark:bg-slate-800 p-1.5 rounded-full group-hover:bg-blue-600 transition-colors">
+                                          <ArrowRight className="w-3 h-3 text-blue-600 dark:text-blue-400 group-hover:text-white" />
                                        </div>
                                     </div>
                                  </div>
@@ -318,8 +323,8 @@ export default async function DashboardPage() {
                             </CarouselItem>
                          ))}
                        </CarouselContent>
-                       <CarouselPrevious className="hidden md:flex -left-4 bg-white/95 shadow-lg border-slate-200 hover:cursor-pointer" />
-                       <CarouselNext className="hidden md:flex -right-4 bg-white/95 shadow-lg border-slate-200 hover:cursor-pointer" />
+                       <CarouselPrevious className="hidden md:flex -left-4 bg-white/95 dark:bg-slate-800 shadow-lg border-slate-200 dark:border-slate-700 hover:cursor-pointer" />
+                       <CarouselNext className="hidden md:flex -right-4 bg-white/95 dark:bg-slate-800 shadow-lg border-slate-200 dark:border-slate-700 hover:cursor-pointer" />
                      </Carousel>
                  </div>
               </section>
@@ -329,37 +334,37 @@ export default async function DashboardPage() {
            {/* Right: Sidebar Activity */}
            <div className="space-y-6">
               {/* Streak Card */}
-              <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm overflow-hidden relative">
+              <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm overflow-hidden relative">
                  <div className="absolute -top-2 -right-2 p-3 opacity-10">
                     <Flame size={80} className="text-orange-500" />
                  </div>
                  <div className="relative z-10">
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-2">Jouw Progressie</p>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider mb-2">Jouw Progressie</p>
                     <div className="flex items-center gap-3">
-                       <div className="bg-orange-50 p-2 rounded-lg border border-orange-100">
-                          <Flame className="h-5 w-5 text-orange-600" />
+                       <div className="bg-orange-50 dark:bg-orange-900/20 p-2 rounded-lg border border-orange-100 dark:border-orange-900/30">
+                          <Flame className="h-5 w-5 text-orange-600 dark:text-orange-500" />
                        </div>
                        <div>
-                          <p className="text-2xl font-bold text-slate-900 leading-none">{stats.streak} {stats.streak === 1 ? 'Dag' : 'Dagen'}</p>
-                          <p className="text-xs text-slate-500 mt-1">Study Streak</p>
+                          <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{stats.streak} {stats.streak === 1 ? 'Dag' : 'Dagen'}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Study Streak</p>
                        </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-slate-100">
-                       <p className="text-xs text-slate-600 leading-relaxed">
+                    <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                       <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                           Je bent al <strong>{stats.streak} {stats.streak === 1 ? 'dag' : 'dagen'}</strong> op dreef. Blijf elke dag oefenen om je kennis op peil te houden!
                        </p>
                     </div>
                  </div>
               </div>
 
-              <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
-                 <h3 className="font-bold text-slate-800 mb-4 flex items-center justify-between">
+              <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+                 <h3 className="font-bold text-slate-800 dark:text-white mb-4 flex items-center justify-between">
                     Recente Resultaten
                  </h3>
                  
                  {examAttempts.length === 0 ? (
                     <div className="text-center py-8 text-slate-400 text-sm">
-                       <div className="bg-slate-50 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                       <div className="bg-slate-50 dark:bg-slate-800 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
                           <BookOpen className="w-5 h-5 opacity-50" />
                        </div>
                        Nog geen examens gemaakt
@@ -367,17 +372,17 @@ export default async function DashboardPage() {
                  ) : (
                     <div className="space-y-4">
                        {examAttempts.map((attempt: any, i: number) => (
-                          <div key={i} className="flex items-center justify-between pb-3 border-b border-slate-50 last:border-0 last:pb-0">
+                          <div key={i} className="flex items-center justify-between pb-3 border-b border-slate-50 dark:border-slate-800 last:border-0 last:pb-0">
                              <div className="flex items-center gap-3">
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${attempt.passed ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'}`}>
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${attempt.passed ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400' : 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'}`}>
                                    {attempt.passed ? <CheckCircle size={14} /> : <XCircle size={14} />}
                                 </div>
                                 <div>
-                                   <p className="text-xs font-bold text-slate-700 line-clamp-1">{attempt.examSlug || 'Oefenexamen'}</p>
+                                   <p className="text-xs font-bold text-slate-700 dark:text-slate-300 line-clamp-1">{attempt.examSlug || 'Oefenexamen'}</p>
                                    <p className="text-[10px] text-slate-400">{new Date(attempt.createdAt).toLocaleDateString()}</p>
                                 </div>
                              </div>
-                             <span className={`text-sm font-bold ${attempt.passed ? 'text-emerald-600' : 'text-slate-600'}`}>
+                             <span className={`text-sm font-bold ${attempt.passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-600 dark:text-slate-400'}`}>
                                 {(attempt.score / 65 * 10).toFixed(1)}
                              </span>
                           </div>
@@ -385,13 +390,13 @@ export default async function DashboardPage() {
                     </div>
                  )}
                  
-                 <Button variant="outline" className="w-full mt-4 text-xs h-8 hover:cursor-pointer hover:bg-slate-50 transition-colors" asChild>
+                 <Button variant="outline" className="w-full mt-4 text-xs h-8 hover:cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 dark:text-slate-300 dark:border-slate-700 transition-colors" asChild>
                     <Link href="/account">Bekijk historie</Link>
                  </Button>
               </div>
 
               {/* Promotion / Tip */}
-              <div className="bg-blue-600 text-white rounded-xl p-5 shadow-lg shadow-blue-200 group relative overflow-hidden">
+              <div className="bg-blue-600 text-white rounded-xl p-5 shadow-lg shadow-blue-200 dark:shadow-none group relative overflow-hidden">
                  <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 transition-transform">
                     <Trophy size={100} />
                  </div>
@@ -404,14 +409,8 @@ export default async function DashboardPage() {
                  </Link>
               </div>
            </div>
-
         </div>
       </div>
     </div>
   )
-}
-
-function AwardIcon({ score }: { score: number }) {
-  if (score >= 80) return <Trophy className="h-4 w-4 text-emerald-500" />
-  return <Trophy className="h-4 w-4 text-slate-400" />
 }

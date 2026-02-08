@@ -76,15 +76,15 @@ function LesPaginaContent() {
 
   // Tone styles for personality
   const toneStyles: Record<string, { bg: string; text: string; border: string }> = {
-    milieu: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
-    verkeersborden: { bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200" },
-    verkeersregels: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
-    veiligheid: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
-    voorrang: { bg: "bg-pink-50", text: "text-pink-700", border: "border-pink-200" },
-    weggebruikers: { bg: "bg-indigo-50", text: "text-indigo-700", border: "border-indigo-200" },
-    voertuig: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" },
-    verkeerswetten: { bg: "bg-slate-50", text: "text-slate-700", border: "border-slate-200" },
-    default: { bg: "bg-slate-50", text: "text-slate-700", border: "border-slate-200" },
+    milieu: { bg: "bg-emerald-50 dark:bg-emerald-900/20", text: "text-emerald-700 dark:text-emerald-400", border: "border-emerald-200 dark:border-emerald-800" },
+    verkeersborden: { bg: "bg-rose-50 dark:bg-rose-900/20", text: "text-rose-700 dark:text-rose-400", border: "border-rose-200 dark:border-rose-800" },
+    verkeersregels: { bg: "bg-blue-50 dark:bg-blue-900/20", text: "text-blue-700 dark:text-blue-400", border: "border-blue-200 dark:border-blue-800" },
+    veiligheid: { bg: "bg-amber-50 dark:bg-amber-900/20", text: "text-amber-700 dark:text-amber-400", border: "border-amber-200 dark:border-amber-800" },
+    voorrang: { bg: "bg-pink-50 dark:bg-pink-900/20", text: "text-pink-700 dark:text-pink-400", border: "border-pink-200 dark:border-pink-800" },
+    weggebruikers: { bg: "bg-indigo-50 dark:bg-indigo-900/20", text: "text-indigo-700 dark:text-indigo-400", border: "border-indigo-200 dark:border-indigo-800" },
+    voertuig: { bg: "bg-orange-50 dark:bg-orange-900/20", text: "text-orange-700 dark:text-orange-400", border: "border-orange-200 dark:border-orange-800" },
+    verkeerswetten: { bg: "bg-slate-50 dark:bg-slate-800", text: "text-slate-700 dark:text-slate-300", border: "border-slate-200 dark:border-slate-700" },
+    default: { bg: "bg-slate-50 dark:bg-slate-800", text: "text-slate-700 dark:text-slate-300", border: "border-slate-200 dark:border-slate-700" },
   }
 
   // Get current category tone
@@ -251,21 +251,21 @@ function LesPaginaContent() {
   const isLessonLocked = lessonLockedByPlan || Boolean(actieveLes?.isLocked)
 
   return (
-    <div className="min-h-screen bg-slate-50/50 flex flex-col">
+    <div className="min-h-screen bg-slate-50/50 dark:bg-slate-950 flex flex-col">
       {/* Mobile Header */}
-      <div className="lg:hidden bg-white border-b border-border px-4 py-3 sticky top-0 z-30 flex items-center justify-between shadow-sm">
+      <div className="lg:hidden bg-white dark:bg-slate-900 border-b border-border dark:border-slate-800 px-4 py-3 sticky top-0 z-30 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3 overflow-hidden">
           <button 
             onClick={() => setMobileMenuOpen(true)}
-            className="p-2 -ml-2 rounded-lg hover:bg-slate-100"
+            className="p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
           >
-            <Menu className="h-5 w-5 text-slate-600" />
+            <Menu className="h-5 w-5 text-slate-600 dark:text-slate-400" />
           </button>
-          <span className="font-bold text-slate-800 truncate text-sm">
+          <span className="font-bold text-slate-800 dark:text-white truncate text-sm">
             {actieveLes?.titel || "Laden..."}
           </span>
         </div>
-        <Link href="/leren" className="text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-900">Sluiten</Link>
+        <Link href="/leren" className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Sluiten</Link>
       </div>
 
       <main className="flex-1">
@@ -283,28 +283,28 @@ function LesPaginaContent() {
             {/* Sidebar Navigation - LEFT SIDE */}
             <aside className={clsx(
               "lg:sticky lg:top-8 h-[calc(100vh-4rem)] overflow-y-auto custom-scrollbar",
-              "fixed top-0 left-0 bottom-0 z-50 w-[85%] max-w-[320px] bg-white lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none lg:bg-transparent",
+              "fixed top-0 left-0 bottom-0 z-50 w-[85%] max-w-[320px] bg-white dark:bg-slate-900 lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none lg:bg-transparent",
               mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
             )}>
-               <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden h-full flex flex-col">
+               <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden h-full flex flex-col">
                   {/* Sidebar Header */}
-                  <div className={`p-5 border-b border-slate-100 flex items-center justify-between ${tone.bg}`}>
+                  <div className={`p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between ${tone.bg}`}>
                     <div>
                       <div className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${tone.text}`}>Cursus</div>
-                      <span className="font-bold text-slate-900 block leading-tight">{huidigeGroep?.titel}</span>
+                      <span className="font-bold text-slate-900 dark:text-white block leading-tight">{huidigeGroep?.titel}</span>
                     </div>
                     <button 
                       onClick={() => setMobileMenuOpen(false)}
-                      className="p-2 hover:bg-white/50 rounded-lg transition-colors lg:hidden"
+                      className="p-2 hover:bg-white/50 dark:hover:bg-slate-800/50 rounded-lg transition-colors lg:hidden"
                     >
-                      <X className="h-5 w-5 text-slate-500" />
+                      <X className="h-5 w-5 text-slate-500 dark:text-slate-400" />
                     </button>
                   </div>
 
                   {/* Scrollable List */}
                   <div className="flex-1 overflow-y-auto p-3 space-y-4">
                     {groepen.length === 0 ? (
-                      <div className="flex flex-col items-center justify-center py-8 text-sm text-slate-400">
+                      <div className="flex flex-col items-center justify-center py-8 text-sm text-slate-400 dark:text-slate-500">
                         <LoadingSpinner className="h-6 w-6 mb-2" />
                         <span>Laden...</span>
                       </div>
@@ -319,7 +319,7 @@ function LesPaginaContent() {
                                 onClick={() => router.push(`/leren/${groep.categorie}?les=1`)}
                                 className={clsx(
                                   "w-full text-left px-3 py-2 rounded-xl transition-all text-xs font-bold uppercase tracking-wider flex items-center justify-between",
-                                  isActiveGroup ? "bg-slate-100 text-slate-900" : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
+                                  isActiveGroup ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-300"
                                 )}
                               >
                                 {groep.titel}
@@ -339,7 +339,7 @@ function LesPaginaContent() {
                                       <Link
                                         key={subles.volgorde}
                                         href="/prijzen"
-                                        className="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-colors"
+                                        className="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                                       >
                                         <Lock className="h-3.5 w-3.5 shrink-0" />
                                         <span className="truncate">{subles.titel}</span>
@@ -355,12 +355,12 @@ function LesPaginaContent() {
                                         "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all",
                                         isActive
                                           ? `${tone.bg} ${tone.text} font-bold shadow-sm ring-1 ring-inset ${tone.border}`
-                                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium"
+                                          : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white font-medium"
                                       )}
                                     >
                                       <span className={clsx(
                                         "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold border",
-                                        isActive ? "bg-white border-transparent" : "bg-slate-100 border-slate-200 text-slate-500"
+                                        isActive ? "bg-white dark:bg-slate-950 border-transparent" : "bg-slate-100 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
                                       )}>
                                         {subles.volgorde}
                                       </span>
@@ -385,55 +385,55 @@ function LesPaginaContent() {
                 <Breadcrumb className="mb-4 hidden lg:flex">
                   <BreadcrumbList>
                     <BreadcrumbItem>
-                      <BreadcrumbLink href="/" className="text-slate-400 hover:text-slate-600">Home</BreadcrumbLink>
+                      <BreadcrumbLink href="/" className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300">Home</BreadcrumbLink>
                     </BreadcrumbItem>
-                    <BreadcrumbSeparator className="text-slate-300" />
+                    <BreadcrumbSeparator className="text-slate-300 dark:text-slate-600" />
                     <BreadcrumbItem>
-                      <BreadcrumbLink href="/leren" className="text-slate-400 hover:text-slate-600">Auto Theorie</BreadcrumbLink>
+                      <BreadcrumbLink href="/leren" className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300">Auto Theorie</BreadcrumbLink>
                     </BreadcrumbItem>
-                    <BreadcrumbSeparator className="text-slate-300" />
+                    <BreadcrumbSeparator className="text-slate-300 dark:text-slate-600" />
                     <BreadcrumbItem>
-                      <BreadcrumbPage className="text-slate-900 font-medium">{huidigeGroep?.titel}</BreadcrumbPage>
+                      <BreadcrumbPage className="text-slate-900 dark:text-white font-medium">{huidigeGroep?.titel}</BreadcrumbPage>
                     </BreadcrumbItem>
                   </BreadcrumbList>
                 </Breadcrumb>
                 
-                <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                     {actieveLes?.titel || "Laden..."}
                 </h1>
               </div>
 
             {loading ? (
-              <div className="flex flex-col items-center justify-center h-64 space-y-4 bg-white rounded-3xl border border-slate-200">
+              <div className="flex flex-col items-center justify-center h-64 space-y-4 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800">
                 <LoadingSpinner className="h-10 w-10" />
-                <p className="text-slate-400 animate-pulse font-medium">Les ophalen...</p>
+                <p className="text-slate-400 dark:text-slate-500 animate-pulse font-medium">Les ophalen...</p>
               </div>
             ) : isLessonLocked ? (
-              <div className="rounded-3xl border border-blue-100 bg-white p-12 text-center shadow-lg shadow-blue-50/50">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mb-6">
+              <div className="rounded-3xl border border-blue-100 dark:border-blue-900/30 bg-white dark:bg-slate-900 p-12 text-center shadow-lg shadow-blue-50/50 dark:shadow-none">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 mb-6">
                   <Lock className="h-8 w-8" />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">Premium content</h2>
-                <p className="text-slate-500 max-w-lg mx-auto mb-8">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Premium content</h2>
+                <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto mb-8">
                   Deze les is exclusief voor Premium leden. Upgrade je account om direct toegang te krijgen tot alle lessen en oefenexamens.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-3">
                   <Link
                     href="/prijzen"
-                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all transform hover:-translate-y-0.5"
+                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-blue-200 dark:shadow-none hover:bg-blue-700 transition-all transform hover:-translate-y-0.5"
                   >
                     Bekijk Premium
                   </Link>
                   <Link
                     href="/oefenexamens"
-                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-8 py-4 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                   >
                     Gratis oefenexamen
                   </Link>
                 </div>
               </div>
             ) : actieveLes ? (
-              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
                 {/* Visual Header / Banner */}
                 <div className={`h-2 ${tone.bg}`} />
                 
@@ -442,7 +442,7 @@ function LesPaginaContent() {
                     <TextToSpeechButton text={plainText} />
                   </div>
 
-                  <div className="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-600">
+                  <div className="prose prose-slate dark:prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-600 dark:prose-a:text-blue-400">
                     {/* Als inhoud een string is (onze HTML), renderen we die direct met parse() */}
                     {typeof actieveLes.inhoud === 'string' ? (
                       <div className="theory-html-content">
@@ -454,11 +454,11 @@ function LesPaginaContent() {
                     )}
                   </div>
 
-                  <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6">
                     <button
                       onClick={gaNaarVorige}
                       disabled={huidigeGroepIndex === 0 && lesVolgorde === 1}
-                      className="w-full sm:w-auto flex items-center justify-center px-6 py-3.5 rounded-xl font-bold text-slate-500 hover:text-slate-900 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
+                      className="w-full sm:w-auto flex items-center justify-center px-6 py-3.5 rounded-xl font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
                     >
                       <ChevronRight className="h-5 w-5 mr-2 rotate-180" />
                       Vorige
@@ -466,7 +466,7 @@ function LesPaginaContent() {
 
                     <button
                       onClick={gaNaarVolgende}
-                      className={`w-full sm:w-auto flex items-center justify-center px-8 py-3.5 rounded-xl font-bold text-white shadow-lg shadow-blue-200 transition-all border-b-4 active:border-b-0 active:translate-y-1 cursor-pointer ${
+                      className={`w-full sm:w-auto flex items-center justify-center px-8 py-3.5 rounded-xl font-bold text-white shadow-lg shadow-blue-200 dark:shadow-none transition-all border-b-4 active:border-b-0 active:translate-y-1 cursor-pointer ${
                           isLaatsteLesInGroep && huidigeGroepIndex === groepen.length - 1 ? "bg-emerald-500 border-emerald-700 hover:bg-emerald-600" : "bg-blue-600 border-blue-800 hover:bg-blue-700"
                       }`}
                     >
