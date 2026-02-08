@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { HighlightableText } from "@/components/HighlightableText"
-import { X, ArrowRight, Timer, Trophy, AlertCircle, Lock } from "lucide-react"
+import { X, ArrowRight, Timer, Trophy, AlertCircle, Lock, CheckCircle, XCircle, RefreshCw } from "lucide-react"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import { FallbackImage } from "@/components/ui/fallback-image"
 
@@ -173,10 +173,10 @@ export default function StartExamPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="text-center">
-          <LoadingSpinner className="h-12 w-12 mx-auto mb-4" />
-          <p className="text-slate-600 font-bold">Examen laden...</p>
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+        <div className="text-center bg-white dark:bg-slate-900 p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
+          <LoadingSpinner className="h-12 w-12 mx-auto mb-4 text-blue-600" />
+          <p className="text-slate-600 dark:text-slate-400 font-bold animate-pulse">Examen voorbereiden...</p>
         </div>
       </div>
     )
@@ -184,31 +184,32 @@ export default function StartExamPage() {
 
   if (accessMessage) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
-        <div className="max-w-2xl w-full rounded-3xl border border-blue-100 bg-white p-10 text-center shadow-sm">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
-            <Lock className="h-6 w-6" />
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4">
+        <div className="max-w-2xl w-full rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-10 text-center shadow-2xl">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30">
+            <Lock className="h-10 w-10" />
           </div>
-          <h1 className="mt-6 text-3xl font-bold text-foreground">Premium vereist</h1>
-          <p className="mt-3 text-slate-600 font-medium">{accessMessage}</p>
+          <h1 className="mt-8 text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Toegang Ontzegd</h1>
+          <p className="mt-4 text-slate-600 dark:text-slate-400 font-medium leading-relaxed">{accessMessage}</p>
           {accessInfo && (
-            <div className="mt-4 text-xs text-slate-500">
-              Pogingen gebruikt: {accessInfo.examAttemptsUsed} / {accessInfo.examAttemptsLimit}
+            <div className="mt-6 inline-block px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-full text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest border border-slate-100 dark:border-slate-700">
+              Examens gebruikt: {accessInfo.examAttemptsUsed} / {accessInfo.examAttemptsLimit}
             </div>
           )}
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/prijzen"
-              className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 transition-colors"
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              asChild
+              className="bg-blue-600 hover:bg-blue-700 text-white h-14 px-8 rounded-2xl font-bold shadow-lg shadow-blue-500/30 transition-all hover:scale-[1.02] active:scale-95"
             >
-              Bekijk Premium pakketten
-            </Link>
-            <Link
-              href="/oefenexamens"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+              <Link href="/prijzen">Bekijk Premium Pakketten</Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="h-14 px-8 rounded-2xl font-bold border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
             >
-              Terug naar examens
-            </Link>
+              <Link href="/oefenexamens">Terug naar Overzicht</Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -221,60 +222,84 @@ export default function StartExamPage() {
     const passed = result.score >= 70
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-4">
-        <div className="max-w-5xl mx-auto space-y-6">
-          <Card className="shadow-lg border border-slate-100 dark:border-slate-800 rounded-3xl overflow-hidden bg-white dark:bg-slate-900">
-            <CardContent className="p-8 md:p-10">
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-                <div className={`h-16 w-16 rounded-2xl flex items-center justify-center ${passed ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400" : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400"}`}>
-                  {passed ? <Trophy size={28} /> : <AlertCircle size={28} />}
+        <div className="max-w-5xl mx-auto space-y-8">
+          <div className="bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 rounded-[2.5rem] overflow-hidden">
+            <div className="p-8 md:p-12">
+              <div className="flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+                <div className={`h-24 w-24 rounded-3xl flex items-center justify-center shrink-0 ${passed ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/40" : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-900/40"}`}>
+                  {passed ? <Trophy size={48} className="animate-bounce" /> : <AlertCircle size={48} className="animate-pulse" />}
                 </div>
-                <div className="space-y-2">
-                  <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                    {passed ? "Gefeliciteerd, je bent geslaagd" : "Niet geslaagd, nog even oefenen"}
+                <div className="space-y-4">
+                  <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                    {passed ? "Geslaagd!" : "Gezakt..."}
                   </h1>
-                  <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
+                  <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl font-medium leading-relaxed">
                     {passed
-                      ? `Je hebt het examen afgerond met een score van ${Math.round(result.score)}%. Je bent klaar voor het echte werk.`
-                      : `Je hebt ${Math.round(result.score)}% behaald. Oefen nog even verder om de 70% te halen.`
+                      ? `Wat een fantastische prestatie! Je hebt het examen afgerond met een score van ${Math.round(result.score)}%. Je bent helemaal klaar voor het officiële CBR examen.`
+                      : `Je hebt ${Math.round(result.score)}% behaald. Dat is helaas nog niet genoeg om te slagen, maar je bent op de goede weg! Oefen nog wat meer op de foutbeantwoorde vragen.`
                     }
                   </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-              <div className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-widest">Jouw score</div>
-              <div className={`text-4xl font-black ${passed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
-                {Math.round(result.score)}%
-              </div>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-              <div className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-widest">Correcte antwoorden</div>
-              <div className="text-4xl font-black text-slate-900 dark:text-white">
-                {result.correctCount}<span className="text-2xl text-slate-400 mx-1">/</span>{result.total}
-              </div>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-              <div className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-widest">Tijd gebruikt</div>
-              <div className="text-4xl font-black text-slate-900 dark:text-white">
-                {Math.floor(result.duration / 60)}<span className="text-2xl text-slate-400 mx-1">:</span>{String(result.duration % 60).padStart(2, "0")}
-              </div>
             </div>
           </div>
 
-          <Card className="shadow-sm border border-slate-100 dark:border-slate-800 rounded-3xl overflow-hidden bg-white dark:bg-slate-900">
-            <CardContent className="p-8">
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Vraagoverzicht</h3>
-                <div className="flex gap-4 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                  <span className="flex items-center gap-2"><div className="w-3 h-3 bg-emerald-500 rounded-full" /> Goed</span>
-                  <span className="flex items-center gap-2"><div className="w-3 h-3 bg-rose-500 rounded-full" /> Fout</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="group relative bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm overflow-hidden transition-all hover:shadow-lg">
+                <div className={`absolute top-0 left-0 w-2 h-full ${passed ? "bg-emerald-500" : "bg-rose-500"}`} />
+                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Jouw Score</p>
+                <div className="flex items-end gap-1">
+                   <span className={`text-5xl font-black ${passed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>{Math.round(result.score)}</span>
+                   <span className="text-2xl font-bold text-slate-300 dark:text-slate-600 mb-1.5">%</span>
+                </div>
+                <div className="mt-4 h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                   <div className={`h-full transition-all duration-1000 ${passed ? "bg-emerald-500" : "bg-rose-500"}`} style={{ width: `${result.score}%` }} />
+                </div>
+            </div>
+            
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm transition-all hover:shadow-lg">
+                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Correcte Antwoorden</p>
+                <div className="flex items-end gap-2">
+                   <span className="text-5xl font-black text-slate-900 dark:text-white">{result.correctCount}</span>
+                   <span className="text-3xl font-bold text-slate-300 dark:text-slate-600 mb-1">/ {result.total}</span>
+                </div>
+                <div className="mt-4 flex gap-1">
+                   {[...Array(5)].map((_, i) => (
+                      <div key={i} className={`h-1.5 flex-1 rounded-full ${i < (result.correctCount / result.total * 5) ? (passed ? "bg-emerald-500" : "bg-rose-500") : "bg-slate-100 dark:bg-slate-800"}`} />
+                   ))}
+                </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm transition-all hover:shadow-lg">
+                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Tijd Gebruikt</p>
+                <div className="flex items-end gap-2">
+                   <span className="text-5xl font-black text-slate-900 dark:text-white">{Math.floor(result.duration / 60)}</span>
+                   <span className="text-3xl font-bold text-slate-300 dark:text-slate-600 mb-1">: {String(result.duration % 60).padStart(2, "0")}</span>
+                </div>
+                <div className="mt-4 text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded-lg inline-flex items-center gap-2">
+                   <Timer size={14} /> Gemiddeld {Math.round(result.duration / result.total)}s per vraag
+                </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div className="p-10">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-8 gap-4">
+                <div>
+                   <h3 className="text-3xl font-bold text-slate-900 dark:text-white">Vraagoverzicht</h3>
+                   <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium">Klik op een vraag om deze opnieuw te bekijken.</p>
+                </div>
+                <div className="flex flex-wrap gap-4 text-[10px] font-black uppercase tracking-widest">
+                  <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30">
+                    <CheckCircle className="w-3.5 h-3.5" /> {result.correctCount} Goed
+                  </span>
+                  <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-900/30">
+                    <XCircle className="w-3.5 h-3.5" /> {result.total - result.correctCount} Fout
+                  </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-3 mt-6">
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3 mt-10">
                 {questions.map((q, i) => {
                   const answer = answers[i]
                   const isCorrect = answer !== -1 && (q.correct_answer_indices[answer] === 1 || q.correct_answer_indices[answer] === "1")
@@ -283,38 +308,38 @@ export default function StartExamPage() {
                     <DropdownMenu key={i}>
                       <DropdownMenuTrigger asChild>
                         <button
-                          className={`aspect-square rounded-xl font-bold text-sm flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95 shadow-sm ${
+                          className={`aspect-square rounded-2xl font-black text-sm flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95 shadow-sm border-2 ${
                             isCorrect
-                              ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/50"
-                              : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/50"
+                              ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/50 hover:bg-emerald-100"
+                              : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-900/50 hover:bg-rose-100"
                           }`}
                         >
                           {i + 1}
                         </button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-80 p-6 z-50 bg-white dark:bg-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-none border border-slate-100 dark:border-slate-800">
+                      <DropdownMenuContent className="w-80 p-6 z-50 bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border-none outline-hidden">
                         <div className="mb-4">
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-widest mb-2 inline-block ${isCorrect ? "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400" : "bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-400"}`}>
+                          <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block ${isCorrect ? "bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400" : "bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-400"}`}>
                             Vraag {i + 1} • {isCorrect ? "Correct" : "Onjuist"}
                           </span>
-                          <p className="font-bold text-slate-900 dark:text-white leading-snug">{q.question_text}</p>
+                          <p className="font-bold text-slate-900 dark:text-white leading-tight text-lg">{q.question_text}</p>
                         </div>
 
                         <div className="space-y-3">
-                          <div className={`p-3 rounded-xl text-sm font-semibold ${isCorrect ? "bg-emerald-50/50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400" : "bg-rose-50/50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400"}`}>
-                            <span className="opacity-60 text-[10px] uppercase block mb-0.5">Jouw antwoord</span>
+                          <div className={`p-4 rounded-2xl text-sm font-bold ${isCorrect ? "bg-emerald-50/50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400" : "bg-rose-50/50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400"}`}>
+                            <span className="opacity-60 text-[10px] uppercase block mb-1 tracking-wider">Jouw antwoord</span>
                             {answer !== -1 ? (q.answers[answer] || `Optie ${answer + 1}`) : "Geen antwoord"}
                           </div>
 
                           {!isCorrect && (
                             <>
-                              <div className="p-3 rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-sm font-semibold">
-                                <span className="opacity-60 text-[10px] uppercase block mb-0.5">Correct antwoord</span>
+                              <div className="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-sm font-bold border border-emerald-100/50 dark:border-emerald-900/30">
+                                <span className="opacity-60 text-[10px] uppercase block mb-1 tracking-wider">Correct antwoord</span>
                                 {q.answers[q.correct_answer_indices.findIndex((idx: any) => idx === 1 || idx === "1")] || "Zie uitleg"}
                               </div>
                               {q.explanation && (
-                                <div className="p-4 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl text-xs text-blue-700 dark:text-blue-300 font-medium leading-relaxed border border-blue-100/50 dark:border-blue-900/30">
-                                  <span className="font-bold uppercase tracking-widest block mb-1 opacity-60">Uitleg</span>
+                                <div className="p-4 bg-blue-50/50 dark:bg-blue-900/20 rounded-2xl text-xs text-blue-700 dark:text-blue-300 font-medium leading-relaxed border border-blue-100/50 dark:border-blue-900/30">
+                                  <span className="font-extrabold uppercase tracking-widest block mb-1.5 opacity-60">Uitleg</span>
                                   {q.explanation}
                                 </div>
                               )}
@@ -331,19 +356,23 @@ export default function StartExamPage() {
                 <Button
                   onClick={() => location.reload()}
                   variant="outline"
-                  className="h-12 px-8 rounded-xl font-bold text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
+                  className="h-14 px-10 rounded-2xl font-black text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer flex items-center gap-2"
                 >
+                  <RefreshCw size={18} />
                   Opnieuw proberen
                 </Button>
                 <Button
                   asChild
-                  className="bg-slate-900 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white h-12 px-8 rounded-xl font-bold transition-all cursor-pointer shadow-lg hover:shadow-blue-500/20 dark:shadow-none"
+                  className="bg-blue-600 hover:bg-blue-700 text-white h-14 px-10 rounded-2xl font-black transition-all cursor-pointer shadow-xl shadow-blue-500/20 flex items-center gap-2"
                 >
-                  <Link href="/oefenexamens">Alle examens</Link>
+                  <Link href="/oefenexamens">
+                    Alle examens
+                    <ArrowRight size={18} />
+                  </Link>
                 </Button>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -365,88 +394,101 @@ export default function StartExamPage() {
   }
 
   return (
-    <div className="fixed inset-0 top-[65px] bg-slate-100/50 dark:bg-slate-950/80 flex items-center justify-center font-sans overflow-hidden z-20">
+    <div className="fixed inset-0 top-[65px] bg-slate-50 dark:bg-slate-950 flex items-center justify-center font-sans overflow-hidden z-20">
       
-      <div className="w-full max-w-4xl h-[88%] bg-white dark:bg-slate-900 shadow-2xl dark:shadow-none border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col">
+      <div className="w-full max-w-5xl h-[85%] bg-white dark:bg-slate-900 shadow-2xl dark:shadow-none border border-slate-200 dark:border-slate-800 rounded-[2.5rem] overflow-hidden flex flex-col mx-4">
         
-        {/* Header - Compact */}
-        <header className="h-12 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-6 bg-white dark:bg-slate-900 shrink-0 z-10">
-            <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                    <span className="bg-blue-600 text-white text-[10px] md:text-sm font-bold px-2 py-1 rounded shadow-sm">
+        {/* Header - Modern & Clean */}
+        <header className="h-16 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-8 bg-white dark:bg-slate-900 shrink-0 z-10">
+            <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3">
+                    <span className="bg-blue-600 text-white text-xs md:text-sm font-black px-3 py-1.5 rounded-xl shadow-lg shadow-blue-500/20">
                         {current + 1} / {questions.length}
                     </span>
-                    <span className="text-xs font-bold text-slate-400 dark:text-slate-500 hidden sm:inline-block">
-                        Vraag {current + 1}
-                    </span>
+                    <div className="hidden sm:block">
+                      <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">HUIDIGE VRAAG</p>
+                      <p className="text-xs font-bold text-slate-900 dark:text-white leading-none">Vraag {current + 1}</p>
+                    </div>
                 </div>
                 
-                {/* Timer Mini */}
-                <div className="flex items-center gap-2 text-xs font-extrabold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded-md border border-blue-100 dark:border-blue-900/30">
-                    <Timer size={14} className="text-blue-500 dark:text-blue-400" />
-                    <span className="tabular-nums">{minutes}:{seconds}</span>
+                <div className="h-6 w-px bg-slate-100 dark:bg-slate-800" />
+
+                {/* Timer Large */}
+                <div className="flex items-center gap-3 text-xs font-black text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 px-3 py-1.5 rounded-xl border border-blue-100 dark:border-blue-900/30">
+                    <Timer size={16} className="text-blue-500 dark:text-blue-400" />
+                    <span className="tabular-nums tracking-tight">{minutes}:{seconds}</span>
                 </div>
             </div>
 
-            <div className="flex items-center gap-4">
-                 <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider hidden sm:inline-block">Timer</span>
+            <div className="flex items-center gap-6">
+                 <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest hidden sm:inline-block">Auto-Timer</span>
                      <button
                       onClick={() => setTimerEnabled(!timerEnabled)}
-                      className={`w-8 h-4 rounded-full relative transition-colors cursor-pointer ${timerEnabled ? "bg-blue-600 dark:bg-blue-500" : "bg-slate-200 dark:bg-slate-700"}`}
+                      className={`w-10 h-5 rounded-full relative transition-all duration-300 cursor-pointer ${timerEnabled ? "bg-blue-600 shadow-inner" : "bg-slate-200 dark:bg-slate-700 shadow-inner"}`}
                     >
-                      <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all shadow-sm ${timerEnabled ? "left-4.5" : "left-0.5"}`} />
+                      <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all duration-300 shadow-md ${timerEnabled ? "left-5.5" : "left-0.5"}`} />
                     </button>
                  </div>
                  
-                 <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-1" />
+                 <div className="h-6 w-px bg-slate-100 dark:bg-slate-800 hidden md:block" />
 
                  <button
                     onClick={() => router.push("/oefenexamens")}
-                    className="flex items-center gap-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors font-bold text-[10px] md:text-xs cursor-pointer"
+                    className="flex items-center gap-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-all font-black text-[10px] md:text-xs cursor-pointer group uppercase tracking-widest"
                   >
-                    <X size={14} />
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-slate-50 dark:bg-slate-800 group-hover:bg-rose-50 dark:group-hover:bg-rose-900/20 transition-colors">
+                      <X size={14} />
+                    </div>
                     <span className="hidden sm:inline">Stoppen</span>
                   </button>
             </div>
         </header>
 
-        {/* Main Content - Split Layout */}
-        <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+        {/* Main Content - Improved Split Layout */}
+        <div className="flex-1 flex flex-col md:flex-row overflow-hidden bg-slate-50/30 dark:bg-slate-900/50">
              
-             {/* Left: Question & Image */}
+             {/* Left: Question & Image - Maximum focus */}
              <div className="flex-1 flex flex-col min-w-0 bg-white dark:bg-slate-900 relative">
-                 <div className="p-6 md:p-8 pb-4">
-                     <h1 className="text-xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                 <div className="p-6 md:p-10 pb-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="h-1 w-10 rounded-full bg-blue-600" />
+                      <span className="text-[9px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest">Oefening</span>
+                    </div>
+                    <h1 className="text-xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-[1.2] tracking-tight">
                         <HighlightableText text={q.question_text} />
-                     </h1>
+                    </h1>
                  </div>
 
-                 <div className="flex-1 p-6 pt-0 min-h-0 overflow-hidden flex items-start justify-start">
+                 <div className="flex-1 p-6 md:p-10 pt-0 min-h-0 overflow-hidden flex items-start justify-start">
                     {q.image ? (
-                      <div className="relative w-[80%] aspect-video">
+                      <div className="relative w-full h-full max-h-[450px] group">
+                        <div className="absolute -inset-4 bg-blue-500/5 rounded-[3rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
                         <FallbackImage
                           src={q.image}
                           fallbackSrc="/images/exams/placeholder.jpg"
                           alt="Situatieschets"
                           fill
-                          sizes="(max-width: 768px) 100vw, 80vw"
-                          className="object-contain object-left-top rounded-none"
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          className="object-contain object-left-top rounded-3xl transition-transform duration-500 hover:scale-[1.01]"
                         />
                       </div>
                     ) : (
-                      <div className="flex items-center justify-center text-slate-300 dark:text-slate-600 bg-slate-50/50 dark:bg-slate-800/50 rounded-none w-[80%] h-[80%] border-2 border-dashed border-slate-100 dark:border-slate-800">
-                         <span className="text-xs font-bold">Geen afbeelding</span>
+                      <div className="flex flex-col items-center justify-center text-slate-300 dark:text-slate-600 bg-slate-50/50 dark:bg-slate-800/50 rounded-[2rem] w-full h-full border-4 border-dashed border-slate-100 dark:border-slate-800 p-8 text-center">
+                         <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                           <AlertCircle size={32} className="text-slate-200 dark:text-slate-700" />
+                         </div>
+                         <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Geen afbeelding voor deze vraag</span>
                       </div>
                     )}
                  </div>
              </div>
 
-             {/* Right: Answers & Navigation */}
-             <div className="w-full md:w-[280px] lg:w-[320px] flex flex-col border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/20 p-4 shrink-0 overflow-y-auto">
-                <div className="flex-1 flex flex-col gap-2 justify-start">
-                    <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1 px-1 text-center md:text-left">
-                        Kies een antwoord
+             {/* Right: Answers & Navigation - Sidebar style */}
+             <div className="w-full md:w-[300px] lg:w-[340px] flex flex-col border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-black/20 p-5 md:p-6 shrink-0 overflow-y-auto">
+                <div className="flex-1 flex flex-col gap-2.5 justify-start">
+                    <div className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 px-1 flex items-center gap-2">
+                        <div className="w-1 h-1 rounded-full bg-slate-400" /> Choose an answer
                     </div>
                     {options.map((opt: string, idx: number) => {
                         const isSelected = answers[current] === idx;
@@ -457,52 +499,63 @@ export default function StartExamPage() {
                             key={idx}
                             onClick={() => selectAnswer(idx)}
                             className={`
-                              relative w-full p-2.5 rounded-lg border text-left transition-all duration-200 cursor-pointer flex items-center gap-3
+                              relative w-full p-3.5 rounded-xl border-2 text-left transition-all duration-300 cursor-pointer flex items-center gap-4 group
                               ${isSelected 
-                                 ? "border-blue-600 bg-blue-50/80 dark:bg-blue-900/40 shadow-sm" 
-                                 : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm hover:border-blue-200 dark:hover:border-blue-800"
+                                 ? "border-blue-600 bg-blue-50 dark:bg-blue-900/30 shadow-xl shadow-blue-500/10" 
+                                 : "border-transparent bg-white dark:bg-slate-800 shadow-sm hover:border-slate-200 dark:hover:border-slate-700 hover:scale-[1.02]"
                               }
                             `}
                           >
                              <div className={`
-                                w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-colors shrink-0
-                                ${isSelected ? "bg-blue-600 text-white" : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300"}
+                                w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black transition-all duration-300 shrink-0
+                                ${isSelected 
+                                  ? "bg-blue-600 text-white scale-110 shadow-lg shadow-blue-500/30" 
+                                  : "bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500 group-hover:bg-slate-200 dark:group-hover:bg-slate-600"
+                                }
                              `}>
                                 {letters[idx]}
                              </div>
                              <div className={`font-bold text-xs md:text-sm ${isSelected ? "text-blue-900 dark:text-blue-100" : "text-slate-600 dark:text-slate-300"}`}>
                                 {opt}
                              </div>
+                             
+                             {isSelected && (
+                               <div className="ml-auto">
+                                 <CheckCircle size={18} className="text-blue-600 dark:text-blue-400 animate-in zoom-in duration-300" />
+                               </div>
+                             )}
                           </button>
                         )
                     })}
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-3">
-                        <button
-                            onClick={prevQuestion}
-                            disabled={current === 0}
-                            className="h-10 w-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
-                            title="Vorige vraag"
-                        >
-                           <ArrowRight size={16} className="rotate-180" />
-                        </button>
+                <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+                    <div className="flex flex-col gap-3">
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={prevQuestion}
+                                disabled={current === 0}
+                                className="h-12 w-12 flex items-center justify-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-slate-900 dark:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer hover:bg-slate-50 shadow-sm"
+                                title="Vorige vraag"
+                            >
+                               <ArrowRight size={20} className="rotate-180" />
+                            </button>
 
-                        <button
-                            onClick={nextQuestion}
-                            disabled={answers[current] === -1}
-                            className={`
-                               flex-1 h-10 flex items-center justify-center gap-2 px-4 rounded-lg font-bold text-[10px] md:text-xs transition-all cursor-pointer
-                               ${answers[current] === -1 
-                                  ? "bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed" 
-                                  : "bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-200 dark:shadow-none"
-                               }
-                            `}
-                        >
-                           <span>{current === questions.length - 1 ? "Afronden" : "Volgende vraag"}</span>
-                           <ArrowRight size={16} className={answers[current] === -1 ? "opacity-0" : "opacity-100"} />
-                        </button>
+                            <button
+                                onClick={nextQuestion}
+                                disabled={answers[current] === -1}
+                                className={`
+                                   flex-1 h-12 flex items-center justify-center gap-2 px-4 rounded-xl font-black text-[11px] transition-all duration-300 cursor-pointer
+                                   ${answers[current] === -1 
+                                      ? "bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed border border-slate-100 dark:border-slate-800" 
+                                      : "bg-blue-600 text-white hover:bg-blue-700 shadow-xl shadow-blue-500/20 scale-[1.02] active:scale-95"
+                                   }
+                                `}
+                            >
+                               <span>{current === questions.length - 1 ? "EXAMEN AFRONDEN" : "VOLGENDE VRAAG"}</span>
+                               <ArrowRight size={18} className={answers[current] === -1 ? "opacity-0 invisible" : "opacity-100 visible"} />
+                            </button>
+                        </div>
                     </div>
                 </div>
              </div>
