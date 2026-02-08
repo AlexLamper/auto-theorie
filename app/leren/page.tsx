@@ -21,6 +21,9 @@ import {
   HelpCircle,
   Users,
   Route,
+  ArrowRight,
+  Lock,
+  CheckCircle,
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useSession } from "next-auth/react"
@@ -191,94 +194,73 @@ export default function LerenStartPage() {
                <LoadingSpinner className="h-12 w-12" />
              </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filtered.map((cat, index) => {
-                const iconKey = Object.keys(categorieen).find((k) =>
-                   cat.slug.toLowerCase().includes(k)
-                ) || "default"
-                // const CatIcon = categorieIconen[iconKey] // Icon not used in new card design in the same way? Screenshot uses numbers.
-                const tone = toneStyles[iconKey] || toneStyles.default
                 const isCompleted = completedCategories.includes(cat.slug)
                 const isLocked = !hasPlan && index !== 0
-
-                // Map slugs to cover images
                 const coverImage = `/images/leren-covers/${cat.slug.replace(/-/g, '_')}.png`
 
                 return (
-                  <div key={cat.slug} className="group">
-                    <Link href={`/leren/${cat.slug}`} className="block relative">
-                       {/* Card Visual Area */}
-                       <div className={`
-                         relative aspect-video rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-[1.02] shadow-sm
-                         border border-slate-200/50 dark:border-slate-700/50
-                       `}>
-                          {/* Cover Image Background */}
-                          <div className="absolute inset-0">
-                             <FallbackImage 
-                               src={coverImage}
-                               fallbackSrc="/images/exams/exam-default.jpg"
-                               alt={cat.title}
-                               fill
-                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                               className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
-                             />
-                             {/* Overlay Gradient for readability */}
-                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-                          </div>
+                  <Link 
+                    key={cat.slug} 
+                    href={isLocked ? "/prijzen" : `/leren/${cat.slug}`}
+                    className="group"
+                  >
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all h-full group-hover:-translate-y-1 flex flex-col">
+                       {/* Card Image Area */}
+                       <div className="aspect-video relative overflow-hidden bg-slate-50 dark:bg-slate-800">
+                          <FallbackImage 
+                             src={coverImage}
+                             fallbackSrc="/images/exams/exam-default.jpg"
+                             alt={cat.title}
+                             fill
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                             className="object-cover opacity-90 group-hover:opacity-100 transition-opacity grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
                           
-                          {/* Top Row */}
+                          {/* Top Row: Chapter Info & Status */}
                           <div className="absolute top-3 left-3 right-3 flex justify-between items-start z-10">
-                             <span className="text-xs font-mono font-bold text-white opacity-90">
-                               {cat.order.toString().padStart(2, "0")}
-                             </span>
-                             {/* Lock or Status Icon */}
+                             <div className="bg-black/30 backdrop-blur-md px-2 py-0.5 rounded border border-white/10">
+                                <p className="text-[10px] font-bold text-white uppercase tracking-wider">Hoofdstuk {cat.order}</p>
+                             </div>
                              {isLocked ? (
-                               <div className="bg-black/40 p-1.5 rounded-full backdrop-blur-md border border-white/10">
-                                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                               <div className="bg-black/40 p-1.5 rounded-full backdrop-blur-md border border-white/10 text-white">
+                                  <Lock className="w-3.5 h-3.5" />
                                </div>
                              ) : isCompleted ? (
-                               <div className="bg-green-500/40 p-1.5 rounded-full backdrop-blur-md border border-green-400/20 text-green-300">
-                                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                               <div className="bg-green-500/80 p-1.5 rounded-full backdrop-blur-md border border-green-400 text-white shadow-sm">
+                                 <CheckCircle className="w-3.5 h-3.5" />
                                </div>
                              ) : null}
                           </div>
 
-                          {/* Content Bottom */}
-                          <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 z-10">
-                             {/* Only show "Start hier" if NOT premium/authenticated with plan? */}
+                          {/* Title inside image */}
+                          <div className="absolute bottom-3 left-3 right-3 text-white">
+                             <h4 className="font-bold text-lg leading-tight line-clamp-2 drop-shadow-md group-hover:text-blue-200 transition-colors">{cat.title}</h4>
                              {index === 0 && (!session?.user?.plan) && (
-                                <span className="inline-block bg-yellow-400 text-yellow-900 text-[10px] uppercase font-bold px-1.5 py-0.5 rounded mb-2 shadow-sm">
-                                  Start hier
+                                <span className="inline-block bg-yellow-400 text-yellow-900 text-[9px] uppercase px-1.5 py-0.5 rounded mt-2 shadow-sm font-black tracking-wide">
+                                   Gratis lessen
                                 </span>
                              )}
-                             <h3 className="text-lg font-bold text-white leading-tight mb-3 drop-shadow-md">
-                               {cat.title}
-                             </h3>
-                             
-                             {/* Progress/Duration Line */}
-                             <div className="flex items-center gap-3">
-                               <button className="bg-white text-slate-900 rounded-full p-1.5 hover:bg-blue-600 hover:text-white transition-colors shadow-sm">
-                                 <svg className="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                               </button>
-                               <div className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
-                                  <div className={`h-full bg-white/70 w-0 group-hover:w-full transition-all duration-700`} />
-                               </div>
-                               <span className="text-[10px] font-mono font-bold text-white/90">
-                                 ~15m
-                               </span>
-                             </div>
                           </div>
                        </div>
-                    </Link>
 
-                    {/* Description Outside Card */}
-                    <div className="mt-3 px-1">
-                      <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
-                        {/* Placeholder text logic based on category, or generic description */}
-                        Leer alles over {cat.title.toLowerCase()} en bereid je voor op het theorie-examen.
-                      </p>
+                       {/* Card Footer */}
+                       <div className="p-4 flex items-center justify-between mt-auto">
+                          <div className="flex flex-col gap-0.5">
+                             <span className="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-tight">Beginnen</span>
+                             <div className="flex items-center gap-1.5">
+                                <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">~15 Minuten</span>
+                             </div>
+                          </div>
+                          <div className="bg-blue-50 dark:bg-slate-800 p-2 rounded-full group-hover:bg-blue-600 transition-all text-blue-600 dark:text-blue-400 group-hover:text-white shadow-sm">
+                             <ArrowRight className="w-4 h-4" />
+                          </div>
+                       </div>
                     </div>
-                  </div>
+                  </Link>
                 )
               })}
             </div>
