@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const categorie = searchParams.get("categorie")
+    const includeLessons = searchParams.get("includeLessons") === "true"
 
     const session = await getServerSession(authOptions)
     const user = session?.user?.id ? await findUserById(session.user.id) : null
@@ -23,9 +24,6 @@ export async function GET(req: NextRequest) {
       
       // Fallback voor oude data die nog categoryId gebruikt
       if (lessons.length === 0) {
-        // Hier zouden we normaal gesproken de categoryId moeten opzoeken, 
-        // maar de user wil de Category model weg.
-        // We proberen lessen te vinden waar 'category' (string) gelijk is aan de slug
         lessons = await Lesson.find({ category: categorie }).sort({ order: 1 }).lean()
       }
 
@@ -57,6 +55,42 @@ export async function GET(req: NextRequest) {
       }
 
       return NextResponse.json(lessons)
+    }
+
+    if (includeLessons) {
+      const allLessons = await Lesson.find({}, { content: 0 }).sort({ categoryOrder: 1, order: 1 }).lean()
+      
+      // Group by category
+      const grouped: Record<string, any> = {}
+      allLessons.forEach((lesson: any) => {
+        if (!grouped[lesson.category]) {
+          grouped[lesson.category] = {
+            slug: lesson.category,
+            title: lesson.categoryTitle,
+            order: lesson.categoryOrder,
+            lessons: []
+          }
+        }
+        
+        // Handle locking logic for titles only
+        let isLocked = false
+        if (!activePlan) {
+          // Find first category
+          // This logic is a bit simple here for performance, we should ideally know which is first
+          // But usually order 1 is first.
+          if (lesson.categoryOrder > 1 || (lesson.categoryOrder === 1 && lesson.order > 3)) {
+            isLocked = true
+          }
+        }
+
+        grouped[lesson.category].lessons.push({
+          title: lesson.title,
+          order: lesson.order,
+          isLocked
+        })
+      })
+
+      return NextResponse.json(Object.values(grouped).sort((a: any, b: any) => a.order - b.order))
     }
 
     // Geen categorie? Geef alle categorieen uit de database

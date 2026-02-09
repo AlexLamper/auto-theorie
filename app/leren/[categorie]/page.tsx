@@ -103,29 +103,21 @@ function LesPaginaContent() {
   useEffect(() => {
     async function fetchAllData() {
       try {
-        const catRes = await fetch(`/api/leren?voertuig=auto`)
-        const categorieen = await catRes.json()
-        const groepen: CategorieGroep[] = []
+        // Fetch all categories and their lessons in one go for much faster loading
+        const res = await fetch(`/api/leren?voertuig=auto&includeLessons=true`)
+        if (!res.ok) throw new Error("Failed to fetch lessons")
+        
+        const data = await res.json()
+        const groepen: CategorieGroep[] = data.map((cat: any) => ({
+          categorie: cat.slug,
+          titel: cat.title,
+          sublessen: cat.lessons.map((l: any) => ({
+            titel: l.title,
+            volgorde: l.order,
+            isLocked: l.isLocked,
+          })),
+        }))
 
-        for (const cat of categorieen) {
-          const slug = cat.slug
-          const lesRes = await fetch(`/api/leren?voertuig=auto&categorie=${slug}`)
-          if (!lesRes.ok) continue
-
-          const lessen = await lesRes.json()
-
-          groepen.push({
-            categorie: slug,
-            titel: cat.title,
-            sublessen: lessen.map((l: any) => ({
-              titel: l.title,
-              volgorde: typeof l.order === "number" ? l.order : parseInt(l.order ?? "1", 10),
-              isLocked: Boolean(l.isLocked),
-            })),
-          })
-        }
-
-        groepen.forEach((groep) => groep.sublessen.sort((a, b) => a.volgorde - b.volgorde))
         setGroepen(groepen)
       } catch (err) {
         console.error("Fout bij laden van data:", err)
