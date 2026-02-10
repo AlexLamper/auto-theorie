@@ -181,24 +181,7 @@ export default function PricingPage() {
            </div>
         </section>
 
-        <section>
-          <div className="container mx-auto px-4 py-14 grid lg:grid-cols-[1.2fr_0.8fr] gap-6 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Direct toegang zonder gedoe</h2>
-            <p className="text-slate-600 dark:text-slate-400 mt-3">
-              Je hoeft pas een account aan te maken wanneer je betaalt. Zo kun je eerst rustig kijken of het bij je past.
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button asChild className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">
-              <Link href="/leren">Start gratis</Link>
-            </Button>
-            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-              <Link href="/aanmelden">Maak account aan</Link>
-            </Button>
-          </div>
-        </div>
-        </section>
+        {/* Removed 'Direct toegang zonder gedoe' section as requested */}
       </div>
       <Footer />
     </div>
