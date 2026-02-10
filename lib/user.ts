@@ -238,7 +238,7 @@ export async function updateAndGetStreak(userId: string): Promise<number> {
   return newStreak
 }
 
-export async function addExams(userId: string, amount: number) {
+export async function addExams(userId: string, amount: number, stripeId?: string) {
   const collection = await getUsersCollection()
   let query: Record<string, any> = { _id: userId }
   try {
@@ -249,8 +249,14 @@ export async function addExams(userId: string, amount: number) {
     // Ignore error
   }
 
-  await collection.updateOne(query, { 
+  const update: any = { 
     $inc: { examLimit: amount },
-  }, { upsert: false })
+  }
+
+  if (stripeId) {
+    update.$set = { lastPaymentSessionId: stripeId, lastPaymentAt: new Date() }
+  }
+
+  await collection.updateOne(query, update, { upsert: false })
 }
 
