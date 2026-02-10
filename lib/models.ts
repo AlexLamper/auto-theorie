@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import TrafficSignModel from "@/models/TrafficSign"
 
 
 export interface TrafficSignType {

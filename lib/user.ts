@@ -55,12 +55,14 @@ async function getUsersCollection() {
 export async function ensureUserRemovalDate(userId: string, referenceDate = new Date()) {
   const collection = await getUsersCollection()
   
-  let query: any = { _id: userId }
+  let query: Record<string, any> = { _id: userId }
   try {
     if (ObjectId.isValid(userId)) {
       query = { _id: new ObjectId(userId) }
     }
-  } catch (e) {}
+  } catch {
+    // Ignore error
+  }
 
   const user = await collection.findOne(query, { projection: { removalAt: 1, createdAt: 1 } })
 
@@ -82,7 +84,7 @@ export async function ensureUserRemovalDate(userId: string, referenceDate = new 
 export async function updateUserPlan(
   userId: string,
   planId: string,
-  sessionOrIntent: any
+  sessionOrIntent: Stripe.Checkout.Session | Stripe.PaymentIntent
 ): Promise<StoredPlan> {
   const definition = PLAN_DEFINITIONS[planId]
   if (!definition) {
@@ -90,13 +92,14 @@ export async function updateUserPlan(
   }
 
   const now = new Date()
-  const startDate = sessionOrIntent.created
-    ? new Date(sessionOrIntent.created * 1000)
+  const created = (sessionOrIntent as any).created;
+  const startDate = created
+    ? new Date(created * 1000)
     : now
   const expiresAt = new Date(startDate.getTime() + definition.durationDays * 24 * 60 * 60 * 1000)
 
   // Stripe Checkout uses amount_total, PaymentIntent uses amount
-  const amount = sessionOrIntent.amount_total ?? sessionOrIntent.amount ?? 0
+  const amount = (sessionOrIntent as any).amount_total ?? (sessionOrIntent as any).amount ?? 0
 
   const plan: StoredPlan = {
     name: planId,
@@ -112,12 +115,14 @@ export async function updateUserPlan(
 
   const collection = await getUsersCollection()
   
-  let query: any = { _id: userId }
+  let query: Record<string, any> = { _id: userId }
   try {
     if (ObjectId.isValid(userId)) {
       query = { _id: new ObjectId(userId) }
     }
-  } catch (e) {}
+  } catch {
+    // Ignore error
+  }
 
   await collection.updateOne(
     query,
@@ -136,12 +141,14 @@ export async function updateUserPlan(
 export async function findUserById(userId: string) {
   const collection = await getUsersCollection()
   
-  let query: any = { _id: userId }
+  let query: Record<string, any> = { _id: userId }
   try {
     if (ObjectId.isValid(userId)) {
       query = { _id: new ObjectId(userId) }
     }
-  } catch (e) {}
+  } catch {
+    // Ignore error
+  }
 
   return collection.findOne(query)
 }
@@ -182,12 +189,14 @@ export async function createUserWithAccessCode(email: string, name: string) {
 export async function updateAndGetStreak(userId: string): Promise<number> {
   const collection = await getUsersCollection()
   
-  let query: any = { _id: userId }
+  let query: Record<string, any> = { _id: userId }
   try {
     if (ObjectId.isValid(userId)) {
       query = { _id: new ObjectId(userId) }
     }
-  } catch (e) {}
+  } catch {
+    // Ignore error
+  }
 
   const user = await collection.findOne(query)
   if (!user) return 0
@@ -231,12 +240,14 @@ export async function updateAndGetStreak(userId: string): Promise<number> {
 
 export async function addExams(userId: string, amount: number) {
   const collection = await getUsersCollection()
-  let query: any = { _id: userId }
+  let query: Record<string, any> = { _id: userId }
   try {
     if (ObjectId.isValid(userId)) {
       query = { _id: new ObjectId(userId) }
     }
-  } catch (e) {}
+  } catch {
+    // Ignore error
+  }
 
   await collection.updateOne(query, { 
     $inc: { examLimit: amount },

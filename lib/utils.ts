@@ -107,8 +107,8 @@ function mapLessonImageSrc(src: string) {
 /**
  * Very basic HTML to InhoudBlok converter for legacy lessons
  */
-export function htmlToBlocks(html: string): any[] {
-  const blocks: any[] = []
+export function htmlToBlocks(html: string): Record<string, any>[] {
+  const blocks: Record<string, any>[] = []
 
   const tokenRegex = /(<img[\s\S]*?>)|(<ul[\s\S]*?<\/ul>)|(<h[1-6][\s\S]*?<\/h[1-6]>)|(<p[\s\S]*?<\/p>)|(<blockquote[\s\S]*?<\/blockquote>)/gi
   const tokens = html.match(tokenRegex) || []
