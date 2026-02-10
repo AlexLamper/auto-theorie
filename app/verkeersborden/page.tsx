@@ -156,49 +156,65 @@ export default function TrafficSignsPage() {
               <Button onClick={() => {setSearchTerm(""); setSelectedType("all")}} variant="ghost" className="text-blue-600 font-bold">Herstel filters</Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-up animate-delay-2">
-              {filteredSigns.map((sign) => {
-                const signId = typeof sign._id === 'string' ? sign._id : sign._id?.$oid;
-                
-                return (
-                  <div key={signId} className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-xl hover:border-blue-400 dark:hover:border-blue-500 transition-all flex items-start gap-5">
-                    {/* Image Design */}
-                    <div className="w-24 h-24 relative bg-slate-50 dark:bg-slate-800 rounded-xl flex-shrink-0 flex items-center justify-center p-2 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors shadow-inner overflow-hidden">
-                      <FallbackImage 
-                        src={sign.image} 
-                        fallbackSrc="/images/verkeersborden/placeholder.png"
-                        alt={sign.description}
-                        fill
-                        sizes="96px"
-                        className="object-contain p-1 filter drop-shadow-md group-hover:scale-110 transition-transform duration-500 ease-out"
-                      />
-                    </div>
-
-                    <div className="flex-1 min-w-0 pt-1">
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-tight h-5 px-2 text-slate-400 dark:text-slate-500 border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
-                           {sign.category}
-                        </Badge>
-                        <TextToSpeechButton 
-                          text={sign.description} 
-                          className="h-8 w-8 text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 border-0 rounded-full" 
-                          minimal={true}
-                        />
-                      </div>
-                      
-                      <h3 className="font-bold text-slate-900 dark:text-white text-md leading-snug mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                         {sign.description}
-                      </h3>
-                      
-                      {sign.hoverHint && (
-                        <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed italic line-clamp-2">
-                           {sign.hoverHint}
-                        </p>
-                      )}
-                    </div>
+            <div className="flex flex-col gap-12 sm:gap-16">
+              {signTypes.filter(type => type.id !== "all" && filteredSigns.some(s => s.category === type.id)).map((type) => (
+                <div key={type.id} className="animate-fade-up">
+                  <div className="flex items-center gap-4 mb-8">
+                    <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                      {type.label}
+                    </h2>
+                    <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+                    <Badge variant="secondary" className="rounded-lg h-7 px-3 text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-0">
+                      {filteredSigns.filter(s => s.category === type.id).length} Borden
+                    </Badge>
                   </div>
-                );
-              })}
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredSigns.filter(s => s.category === type.id).map((sign) => {
+                      const signId = typeof sign._id === 'string' ? sign._id : sign._id?.$oid;
+                      
+                      return (
+                        <div key={signId} className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-xl hover:border-blue-400 dark:hover:border-blue-500 transition-all flex items-start gap-5">
+                          {/* Image Design */}
+                          <div className="w-24 h-24 relative bg-slate-50 dark:bg-slate-800 rounded-xl flex-shrink-0 flex items-center justify-center p-2 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors shadow-inner overflow-hidden">
+                            <FallbackImage 
+                              src={sign.image} 
+                              fallbackSrc="/images/verkeersborden/placeholder.png"
+                              alt={sign.description}
+                              fill
+                              sizes="96px"
+                              className="object-contain p-1 filter drop-shadow-md group-hover:scale-110 transition-transform duration-500 ease-out"
+                            />
+                          </div>
+
+                          <div className="flex-1 min-w-0 pt-1">
+                            <div className="flex items-center justify-between gap-2 mb-2">
+                              <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-tight h-5 px-2 text-slate-400 dark:text-slate-500 border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
+                                {sign.category}
+                              </Badge>
+                              <TextToSpeechButton 
+                                text={sign.description} 
+                                className="h-8 w-8 text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 border-0 rounded-full" 
+                                minimal={true}
+                              />
+                            </div>
+                            
+                            <h3 className="font-bold text-slate-900 dark:text-white text-md leading-snug mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                              {sign.description}
+                            </h3>
+                            
+                            {sign.hoverHint && (
+                              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed italic line-clamp-2">
+                                {sign.hoverHint}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
