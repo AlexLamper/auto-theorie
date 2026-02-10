@@ -82,7 +82,7 @@ export async function ensureUserRemovalDate(userId: string, referenceDate = new 
 export async function updateUserPlan(
   userId: string,
   planId: string,
-  checkoutSession: Stripe.Checkout.Session
+  sessionOrIntent: any
 ): Promise<StoredPlan> {
   const definition = PLAN_DEFINITIONS[planId]
   if (!definition) {
@@ -90,10 +90,13 @@ export async function updateUserPlan(
   }
 
   const now = new Date()
-  const startDate = checkoutSession.created
-    ? new Date(checkoutSession.created * 1000)
+  const startDate = sessionOrIntent.created
+    ? new Date(sessionOrIntent.created * 1000)
     : now
   const expiresAt = new Date(startDate.getTime() + definition.durationDays * 24 * 60 * 60 * 1000)
+
+  // Stripe Checkout uses amount_total, PaymentIntent uses amount
+  const amount = sessionOrIntent.amount_total ?? sessionOrIntent.amount ?? 0
 
   const plan: StoredPlan = {
     name: planId,
@@ -101,10 +104,10 @@ export async function updateUserPlan(
     durationDays: definition.durationDays,
     startedAt: startDate,
     expiresAt,
-    stripeSessionId: checkoutSession.id,
-    amount: checkoutSession.amount_total ?? 0,
-    currency: (checkoutSession.currency || "eur").toUpperCase(),
-    metadata: toMetadata(checkoutSession.metadata),
+    stripeSessionId: sessionOrIntent.id,
+    amount,
+    currency: (sessionOrIntent.currency || "eur").toUpperCase(),
+    metadata: toMetadata(sessionOrIntent.metadata),
   }
 
   const collection = await getUsersCollection()
@@ -122,7 +125,7 @@ export async function updateUserPlan(
       $set: {
         plan,
         lastPaymentAt: new Date(),
-        lastPaymentSessionId: checkoutSession.id,
+        lastPaymentSessionId: sessionOrIntent.id,
       },
     }
   )
@@ -141,6 +144,39 @@ export async function findUserById(userId: string) {
   } catch (e) {}
 
   return collection.findOne(query)
+}
+
+export async function findUserByAccessCode(accessCode: string) {
+  const collection = await getUsersCollection()
+  return collection.findOne({ accessCode })
+}
+
+export async function getUserByEmail(email: string) {
+  const collection = await getUsersCollection()
+  return collection.findOne({ email })
+}
+
+export async function createUserWithAccessCode(email: string, name: string) {
+  const collection = await getUsersCollection()
+  // Generate a random 6-digit code
+  const accessCode = Math.floor(100000 + Math.random() * 900000).toString()
+  
+  await collection.updateOne(
+    { email },
+    { 
+      $setOnInsert: { 
+        email, 
+        name, 
+        createdAt: new Date(), 
+        image: null,
+        emailVerified: null
+      },
+      $set: { accessCode }
+    },
+    { upsert: true }
+  )
+  
+  return accessCode
 }
 
 export async function updateAndGetStreak(userId: string): Promise<number> {

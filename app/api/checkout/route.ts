@@ -15,21 +15,25 @@ const planToPriceId: Record<string, string | undefined> = {
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions)
 
-  if (!session?.user?.id) {
-    // Redirect to login if not authenticated
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-    return NextResponse.redirect(`${baseUrl}/inloggen?callbackUrl=/prijzen`, 303)
-  }
-
   const contentType = request.headers.get("content-type") || ""
   let plan: string | null = null
-
+  let customerEmail = session?.user?.email
+  let customerName = session?.user?.name
+  
   if (contentType.includes("application/json")) {
     const body = await request.json()
     plan = body?.plan || null
+    if (!session) {
+      customerEmail = body?.email
+      customerName = body?.name
+    }
   } else {
     const formData = await request.formData()
     plan = formData.get("plan")?.toString() || null
+    if (!session) {
+      customerEmail = formData.get("email")?.toString()
+      customerName = formData.get("name")?.toString()
+    }
   }
 
   if (!plan || !planToPriceId[plan]) {
@@ -39,13 +43,18 @@ export async function POST(request: Request) {
     )
   }
 
+  // If no session and no email provided, we can't proceed with "Access Code" flow properly
+  // unless we rely entirely on Stripe collecting the email.
+  // But to generate the user we need the email. Stripe collects it, so we can get it in the webhook.
+  // However, `customer_email` pre-fills it.
+  
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
 
   try {
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "payment",
-      customer_email: session.user.email || undefined,
-      client_reference_id: session.user.id,
+      customer_email: customerEmail || undefined,
+      client_reference_id: session?.user?.id,
       line_items: [
         {
           price: planToPriceId[plan],
@@ -56,12 +65,24 @@ export async function POST(request: Request) {
       cancel_url: `${baseUrl}/betaling/geannuleerd`,
       metadata: {
         plan,
-        userId: session.user.id
+        userId: session?.user?.id || "",
+        guestName: customerName || "",
       },
+      payment_intent_data: {
+        metadata: {
+            plan,
+            userId: session?.user?.id || "",
+        }
+      }
     })
 
+    if (contentType.includes("application/json")) {
+       return NextResponse.json({ url: checkoutSession.url })
+    }
+    
     return NextResponse.redirect(checkoutSession.url || baseUrl, 303)
   } catch (error) {
+    console.error("Stripe Checkout Error:", error)
     return NextResponse.json(
       { message: "Kon checkout niet starten. Controleer Stripe configuratie." },
       { status: 500 }

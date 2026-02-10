@@ -4,6 +4,7 @@ import type React from "react"
 import { SessionProvider } from "next-auth/react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SpeechProvider } from "@/lib/SpeechContext"
+import { SmoothScroll } from "@/components/SmoothScroll"
 import type { Session } from "next-auth"
 
 export function Providers({
@@ -16,7 +17,9 @@ export function Providers({
   return (
     <SessionProvider session={session}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <SpeechProvider>{children}</SpeechProvider>
+        <SmoothScroll>
+          <SpeechProvider>{children}</SpeechProvider>
+        </SmoothScroll>
       </ThemeProvider>
     </SessionProvider>
   )

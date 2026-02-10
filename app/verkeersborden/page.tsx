@@ -111,7 +111,7 @@ export default function TrafficSignsPage() {
         
         {/* Header Section */}
         <div className="bg-gradient-to-b from-slate-900 to-slate-800 text-white pb-24 pt-12 border-b border-slate-700/50">
-          <div className="container mx-auto px-4 max-w-7xl">
+          <div className="container mx-auto px-4 max-w-7xl animate-fade-up">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Verkeersborden</h1>
             <p className="text-slate-400 max-w-2xl text-lg">
               Leer alle verkeersborden die je moet kennen voor het CBR theorie-examen. Zoek op trefwoord of filter per categorie.
@@ -123,7 +123,7 @@ export default function TrafficSignsPage() {
         <div className="container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
           
           {/* Controls Bar */}
-          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-auto p-6 mb-10 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
+          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-auto p-6 mb-10 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between animate-fade-up animate-delay-1">
             <div className="relative w-full lg:max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <Input 
@@ -168,7 +168,7 @@ export default function TrafficSignsPage() {
               <Button onClick={() => {setSearchTerm(""); setSelectedType("all")}} variant="ghost" className="text-blue-600 font-bold">Herstel filters</Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-up animate-delay-2">
               {filteredSigns.map((sign) => {
                 const signId = typeof sign._id === 'string' ? sign._id : sign._id?.$oid;
                 const displayType = sign.type || (Array.isArray(sign.category) ? sign.category[0] : sign.category);

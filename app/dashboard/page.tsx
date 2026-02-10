@@ -104,7 +104,7 @@ export default async function DashboardPage() {
       {/* Welcome Banner */}
       <div className="bg-gradient-to-b from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white pb-24 pt-12 border-b border-slate-700/50">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 animate-fade-up">
             <div>
                <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">
                  Welkom terug, {session.user.name?.split(' ')[0] || 'Student'}! 👋
@@ -136,7 +136,7 @@ export default async function DashboardPage() {
       <div className="container mx-auto px-4 -mt-16 relative z-10">
         
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 animate-fade-up animate-delay-1">
            <Card className="shadow-lg border-0 bg-white dark:bg-slate-900 hover:shadow-xl transition-shadow hover:cursor-default">
              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">Voltooide Lessen</CardTitle>
@@ -195,7 +195,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Learning Paths */}
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-8 animate-fade-up animate-delay-2">
            
            {/* Left: Content */}
            <div className="lg:col-span-2 space-y-12">

@@ -122,16 +122,17 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <form action="/api/checkout" method="POST" className="mt-10">
-                <input type="hidden" name="plan" value={plan.id} />
-                <Button type="submit" className={`w-full h-14 rounded-2xl font-black text-lg transition-all cursor-pointer ${
+              <div className="mt-10">
+                <Button asChild className={`w-full h-14 rounded-2xl font-black text-lg transition-all cursor-pointer ${
                   plan.highlight 
                     ? "bg-blue-600 hover:bg-blue-700 text-white shadow-2xl shadow-blue-600/40 hover:scale-[1.02] active:scale-95" 
                     : "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200"
                 }`}>
-                  Start met {plan.name}
+                   <Link href={`/aanmelden?plan=${plan.id}`}>
+                      Start met {plan.name}
+                   </Link>
                 </Button>
-              </form>
+              </div>
             </div>
           ))}
         </div>
@@ -168,12 +169,13 @@ export default function PricingPage() {
                        <p className="text-4xl font-black text-slate-900 dark:text-white">€ {bundle.price}</p>
                     </div>
                     
-                    <form action="/api/checkout" method="POST" className="w-full mt-auto">
-                        <input type="hidden" name="plan" value={bundle.id} />
-                        <Button type="submit" className="w-full h-12 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-emerald-600 dark:hover:bg-emerald-400 hover:text-white dark:hover:text-slate-900 transition-all shadow-lg shadow-slate-900/10 hover:shadow-emerald-500/20">
-                          Bundel van {bundle.amount} kopen
+                    <div className="w-full mt-auto">
+                        <Button asChild className="w-full h-12 rounded-xl font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-emerald-600 dark:hover:bg-emerald-400 hover:text-white dark:hover:text-slate-900 transition-all shadow-lg shadow-slate-900/10 hover:shadow-emerald-500/20">
+                          <Link href={`/aanmelden?plan=${bundle.id}`}>
+                            Bundel van {bundle.amount} kopen
+                          </Link>
                         </Button>
-                    </form>
+                    </div>
                 </div>
              ))}
            </div>

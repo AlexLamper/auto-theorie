@@ -48,6 +48,9 @@ next-env.d.ts
 /docs*
 # Data & images
 /data/
+/app/leren-images/
+/scripts/*.js
+!/scripts/seed-*.js
 /public/images/lessons/
 /public/verkeersborden/
 /public/favicon/

@@ -9,89 +9,71 @@ type UpdateStatus = "idle" | "loading" | "success" | "unauthenticated" | "error"
 
 export default function BetalingGeslaagdPage() {
   const [status, setStatus] = useState<UpdateStatus>("idle")
-  const [planLabel, setPlanLabel] = useState<string | null>(null)
-  const [planExpiry, setPlanExpiry] = useState<string | null>(null)
+  const [email, setEmail] = useState<string | null>(null)
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
     const sessionId = searchParams.get("session_id")
-    if (!sessionId) return
+    const paymentIntentId = searchParams.get("payment_intent")
+    
+    if (!sessionId && !paymentIntentId) return
 
     setStatus("loading")
-    fetch("/api/payments/session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sessionId }),
-    })
-      .then(async (response) => {
-        if (response.status === 401) {
-          setStatus("unauthenticated")
-          return
-        }
-        const payload = await response.json()
-        if (!response.ok) {
-          throw new Error(payload?.message || "Onbekende fout")
-        }
-        if (payload?.plan) {
-          setPlanLabel(payload.plan.label)
-          if (payload.plan.expiresAt) {
-            setPlanExpiry(new Date(payload.plan.expiresAt).toLocaleDateString("nl-NL"))
-          }
-        }
+    
+    const endpoint = sessionId 
+      ? `/api/payments/session?sessionId=${sessionId}` // Note: This might need a GET version if we use Hosted Checkout sessions
+      : `/api/payments/intent?paymentIntentId=${paymentIntentId}`
+
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(data => {
+        if (data.email) setEmail(data.email)
         setStatus("success")
       })
-      .catch(() => {
-        setStatus("error")
-      })
+      .catch(() => setStatus("error"))
   }, [])
 
-  const statusMessage = () => {
-    switch (status) {
-      case "loading":
-        return <p className="text-sm text-slate-500">Je betaling wordt gekoppeld aan je account.</p>
-      case "success":
-        return (
-          <p className="text-sm text-slate-500">
-            {planLabel
-              ? `Je ${planLabel.toLowerCase()} is gekoppeld${planExpiry ? ` tot ${planExpiry}` : ""}.`
-              : "Je betaling is gekoppeld aan je account."}
-          </p>
-        )
-      case "unauthenticated":
-        return (
-          <p className="text-sm text-slate-500">
-            Om deze betaling vast te leggen moet je even inloggen. <Link className="text-blue-600" href="/inloggen">Inloggen</Link>
-          </p>
-        )
-      case "error":
-        return <p className="text-sm text-slate-500">Er ging iets mis bij het koppelen van je betaling. Probeer het nogmaals.</p>
-      default:
-        return null
-    }
-  }
-
   return (
-    <div className="min-h-screen bg-slate-50">
-      <section className="container mx-auto px-4 py-16">
-        <div className="max-w-2xl mx-auto rounded-3xl border border-slate-100 bg-white p-10 text-center shadow-sm space-y-6">
-          <p className="text-sm font-semibold text-emerald-600">Betaling geslaagd</p>
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Welkom bij Auto Theorie</h1>
-          <p className="text-slate-600">
-            Je betaling is ontvangen. Je toegang is nu actief en je voortgang wordt automatisch opgeslagen.
-          </p>
-          {statusMessage()}
-          <div className="mt-4 flex flex-wrap justify-center gap-3 text-sm text-slate-500">
-            <p>Je plan wordt automatisch gekoppeld aan je account.</p>
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <section className="flex-1 container mx-auto px-4 py-20 flex flex-col justify-center">
+        <div className="max-w-2xl mx-auto rounded-[2.5rem] border border-slate-200 bg-white p-12 text-center shadow-xl animate-fade-up">
+          <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600"><path d="M20 6 9 17l-5-5"/></svg>
           </div>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-              <Link href="/leren">Start met leren</Link>
+          
+          <p className="text-sm font-black text-emerald-600 uppercase tracking-widest mb-4">Gefeliciteerd!</p>
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight">Betaling geslaagd!</h1>
+          
+          <div className="space-y-6 text-lg text-slate-600 font-medium">
+            <p>
+              Je kunt nu direct beginnen met leren. We hebben je persoonlijke toegangscode gestuurd naar:
+            </p>
+            {email && (
+              <div className="inline-block px-6 py-2 bg-blue-50 text-blue-700 rounded-full font-bold border border-blue-100">
+                {email}
+              </div>
+            )}
+            <p className="text-base text-slate-500 italic">
+              (Niets ontvangen? Check ook even je spam-folder)
+            </p>
+          </div>
+
+          <div className="mt-12 bg-slate-50 rounded-3xl p-8 border border-slate-100 text-left">
+             <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Hoe log ik in?
+             </h3>
+             <p className="text-sm text-slate-600 leading-relaxed">
+                Ga naar de inlogpagina en vul de 6-cijferige code in die je zojuist per e-mail hebt ontvangen. Je hebt geen wachtwoord nodig!
+             </p>
+          </div>
+
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild className="h-14 px-8 bg-blue-600 hover:bg-blue-700 text-white font-black text-lg rounded-2xl shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]">
+              <Link href="/inloggen">Direct Inloggen</Link>
             </Button>
-            <Button asChild variant="outline" className="border-slate-200">
-              <Link href="/oefenexamens">Doe een proefexamen</Link>
-            </Button>
-            <Button asChild variant="ghost" className="text-slate-600 border-slate-200">
-              <Link href="/account">Bekijk account</Link>
+            <Button asChild variant="outline" className="h-14 px-8 border-slate-200 text-slate-600 font-bold text-lg rounded-2xl hover:bg-slate-50">
+              <Link href="/">Terug naar Home</Link>
             </Button>
           </div>
         </div>
