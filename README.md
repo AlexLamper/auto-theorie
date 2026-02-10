@@ -17,7 +17,7 @@
 
 ## Over Auto Theorie
 
-*Auto Theorie* is een modern, interactief leerplatform waarmee je je optimaal kunt voorbereiden op je theorie-examen voor de auto, motor of scooter. Met realistische oefenvragen, proefexamens, en een uitgebreide verkeersbordenbibliotheek is dit hét platform voor iedereen die wil slagen — gratis en zonder limieten.
+*Auto Theorie* is een modern, interactief leerplatform waarmee je je optimaal kunt voorbereiden op je theorie-examen voor de auto. Met realistische oefenvragen, proefexamens, en een uitgebreide verkeersbordenbibliotheek is dit hét platform voor iedereen die wil slagen.
 
 ## Inhoudsopgave
 
@@ -37,7 +37,6 @@
 - ![🛑](https://img.shields.io/badge/🛑-Verkeersborden-lightgrey?style=flat-square) **Verkeersborden** — Leer alle Nederlandse verkeersborden met visuele ondersteuning.
 - ![📊](https://img.shields.io/badge/📊-Voortgangsmeting-lightgrey?style=flat-square) **Voortgangsmeting** — Houd je prestaties en groei bij.  
 - ![📱](https://img.shields.io/badge/📱-Responsief_design-lightgrey?style=flat-square) **Mobile-friendly** — Oefen altijd en overal, op mobiel, tablet of desktop.  
-- ![🌐](https://img.shields.io/badge/🌐-Meertalig-lightgrey?style=flat-square) **Meertalige ondersteuning** — Nederlands, Engels en meer in de toekomst.
 
 ## Technologieën
 
@@ -57,7 +56,6 @@
 - **Oefenen** — Selecteer categorieën en oefen per onderwerp.
 - **Proefexamens** — Neem volledige proefexamens af zoals bij het CBR.
 - **Verkeersborden** — Alle verkeersborden overzichtelijk met uitleg.
-- **Categorieën** — Oefenmateriaal per voertuigtype (Auto, Motor, Scooter).
 
 ## Bijdragen
 
