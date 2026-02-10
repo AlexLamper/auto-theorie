@@ -34,19 +34,19 @@ export default function Footer() {
             <h4 className="font-bold mb-6 text-lg text-slate-100">Auto Theorie</h4>
             <ul className="space-y-4 text-slate-400">
               <li>
-                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
+                <Link href="/leren/gevaarherkenning" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
                   Gevaarherkenning
                 </Link>
               </li>
               <li>
-                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
+                <Link href="/leren/verkeersregels-en-snelheid" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
                   Verkeersregels
                 </Link>
               </li>
               <li>
-                <Link href="/leren" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
+                <Link href="/leren/voorrang-en-voor-laten-gaan" className="hover:text-blue-400 transition-colors flex items-center cursor-pointer">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
                   Verkeersinzicht
                 </Link>

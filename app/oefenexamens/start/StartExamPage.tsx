@@ -563,7 +563,7 @@ export default function StartExamPage() {
                         <div className="absolute -inset-4 bg-blue-500/5 rounded-[3rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
                         <FallbackImage
                           src={q.image}
-                          fallbackSrc="/images/exams/placeholder.jpg"
+                          fallbackSrc="/images/leren-covers/gevaarherkenning.png"
                           alt="Situatieschets"
                           fill
                           sizes="(max-width: 1024px) 100vw, 50vw"

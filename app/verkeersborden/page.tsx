@@ -13,17 +13,12 @@ import { Button } from "@/components/ui/button"
 
 interface TrafficSign {
   _id: string | { $oid: string }
-  name: string
   description: string
-  meaning: string
-  category: string[] | string
-  type: string
-  shape: string
-  color: string
+  category: string
   image: string
-  applicableFor: string[]
-  createdAt: string
-  updatedAt: string
+  hoverHint?: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 export default function TrafficSignsPage() {
@@ -37,13 +32,13 @@ export default function TrafficSignsPage() {
 
   const signTypes = useMemo(() => [
     { id: "all", label: "Alles" },
-    { id: "waarschuwing", label: "Waarschuwing" }, 
-    { id: "snelheid", label: "Snelheid" }, 
-    { id: "voorrang", label: "Voorrang" }, 
-    { id: "informatie", label: "Informatie" }, 
-    { id: "verbod", label: "Verbod" }, 
-    { id: "rijrichting", label: "Rijrichting" }, 
-    { id: "parkeren", label: "Parkeren" }
+    { id: "Waarschuwingsborden", label: "Waarschuwing" }, 
+    { id: "Snelheidsborden", label: "Snelheid" }, 
+    { id: "Voorrangsborden", label: "Voorrang" }, 
+    { id: "Informatieborden", label: "Informatie" }, 
+    { id: "Geboden en verboden", label: "Geboden/Verboden" }, 
+    { id: "Rijrichtingen", label: "Rijrichtingen" }, 
+    { id: "Parkeren", label: "Parkeren" }
   ], [])
 
   const fetchSigns = async () => {
@@ -73,16 +68,12 @@ export default function TrafficSignsPage() {
     if (searchTerm) {
       const lowerSearch = searchTerm.toLowerCase()
       filtered = filtered.filter(s => 
-        (s.name?.toLowerCase() || "").includes(lowerSearch) || 
-        (s.meaning?.toLowerCase() || "").includes(lowerSearch) ||
-        (s.description?.toLowerCase() || "").includes(lowerSearch)
+        (s.description?.toLowerCase() || "").includes(lowerSearch) || 
+        (s.category?.toLowerCase() || "").includes(lowerSearch)
       )
     }
     if (selectedType !== "all") {
-      filtered = filtered.filter(s => {
-        const type = s.type || (Array.isArray(s.category) ? s.category[0] : s.category)
-        return type?.toLowerCase() === selectedType.toLowerCase()
-      })
+      filtered = filtered.filter(s => s.category === selectedType)
     }
     setFilteredSigns(filtered)
   }, [searchTerm, selectedType, signs])
@@ -92,10 +83,7 @@ export default function TrafficSignsPage() {
       const type = typeObj.id
       const count = type === "all" 
         ? signs.length 
-        : signs.filter((s) => {
-            const signType = s.type || (Array.isArray(s.category) ? s.category[0] : s.category)
-            return signType?.toLowerCase() === type.toLowerCase()
-          }).length
+        : signs.filter((s) => s.category === type).length
       return {
         ...typeObj,
         count
@@ -171,41 +159,42 @@ export default function TrafficSignsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-up animate-delay-2">
               {filteredSigns.map((sign) => {
                 const signId = typeof sign._id === 'string' ? sign._id : sign._id?.$oid;
-                const displayType = sign.type || (Array.isArray(sign.category) ? sign.category[0] : sign.category);
                 
                 return (
                   <div key={signId} className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-xl hover:border-blue-400 dark:hover:border-blue-500 transition-all flex items-start gap-5">
-                    {/* Bigger Card Design */}
-                    <div className="w-28 h-28 relative bg-slate-50 dark:bg-slate-800 rounded-xl flex-shrink-0 flex items-center justify-center p-3 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors shadow-inner overflow-hidden">
+                    {/* Image Design */}
+                    <div className="w-24 h-24 relative bg-slate-50 dark:bg-slate-800 rounded-xl flex-shrink-0 flex items-center justify-center p-2 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors shadow-inner overflow-hidden">
                       <FallbackImage 
                         src={sign.image} 
-                        fallbackSrc="/images/traffic-signs/placeholder.png"
-                        alt={sign.name}
+                        fallbackSrc="/images/verkeersborden/placeholder.png"
+                        alt={sign.description}
                         fill
-                        sizes="112px"
-                        className="object-contain p-2 filter drop-shadow-md group-hover:scale-110 transition-transform duration-500 ease-out"
+                        sizes="96px"
+                        className="object-contain p-1 filter drop-shadow-md group-hover:scale-110 transition-transform duration-500 ease-out"
                       />
                     </div>
 
                     <div className="flex-1 min-w-0 pt-1">
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-tight h-5 px-2 text-slate-400 dark:text-slate-500 border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
-                           {displayType}
+                           {sign.category}
                         </Badge>
                         <TextToSpeechButton 
-                          text={sign.name + ". Betekenis: " + sign.meaning} 
+                          text={sign.description} 
                           className="h-8 w-8 text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 border-0 rounded-full" 
                           minimal={true}
                         />
                       </div>
                       
-                      <h3 className="font-bold text-slate-900 dark:text-white text-lg leading-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                         {sign.name}
+                      <h3 className="font-bold text-slate-900 dark:text-white text-md leading-snug mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                         {sign.description}
                       </h3>
                       
-                      <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-3">
-                         {sign.meaning}
-                      </p>
+                      {sign.hoverHint && (
+                        <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed italic line-clamp-2">
+                           {sign.hoverHint}
+                        </p>
+                      )}
                     </div>
                   </div>
                 );

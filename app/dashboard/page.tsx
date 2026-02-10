@@ -239,8 +239,8 @@ export default async function DashboardPage() {
                                 <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 h-full hover:shadow-lg transition-all hover:border-blue-400 group-hover:-translate-y-1 overflow-hidden flex flex-col">
                                    <div className="aspect-video bg-slate-100 dark:bg-slate-800 relative overflow-hidden w-full m-0 p-0">
                                       <FallbackImage 
-                                        src={`/images/oefenexamens/exam-${((exam.exam_id - 1) % 3) + 1}.png`} 
-                                        fallbackSrc="/images/exams/exam-default.jpg"
+                                        src={`/images/oefenexamens/exam-${((Math.abs(Number(exam.exam_id) || 0) || 1) % 3) + 1}.png`} 
+                                        fallbackSrc="/images/leren-covers/verkeersregels_en_snelheid.png"
                                         alt={exam.title}
                                         fill
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
@@ -301,7 +301,7 @@ export default async function DashboardPage() {
                                     <div className="aspect-video bg-slate-50 dark:bg-slate-800 relative overflow-hidden w-full m-0 p-0">
                                        <FallbackImage 
                                          src={category.image || `/images/leren-covers/${category.slug.replace(/-/g, '_')}.png`} 
-                                         fallbackSrc="/images/exams/exam-default.jpg"
+                                         fallbackSrc="/images/leren-covers/gevaarherkenning.png"
                                          alt={category.title}
                                          fill
                                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"

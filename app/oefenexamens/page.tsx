@@ -94,8 +94,8 @@ export default async function ExamsPage() {
                         {/* Background Image */}
                         <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
                            <FallbackImage 
-                             src={`/images/oefenexamens/exam-${((exam.exam_id - 1) % 3) + 1}.png`} 
-                             fallbackSrc="/images/exams/exam-default.jpg"
+                             src={`/images/oefenexamens/exam-${((Math.abs(Number(exam.exam_id) || 0) || 1) % 3) + 1}.png`} 
+                             fallbackSrc="/images/leren-covers/verkeersregels_en_snelheid.png"
                              alt={exam.title}
                              fill
                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
@@ -120,8 +120,8 @@ export default async function ExamsPage() {
 
                         {/* Content Overlay */}
                         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent pt-12">
-                           {/* Optional Badge for first item */}
-                           {index === 0 && (
+                           {/* Optional Badge for first item - Only show if user doesn't have a plan yet */}
+                           {index === 0 && !active && user?.examLimit === 0 && (
                              <span className="inline-block bg-emerald-500 text-white text-[10px] font-black px-2.5 py-1 rounded mb-2 uppercase tracking-widest shadow-lg border border-emerald-400/50">
                                Gratis Demo
                              </span>
