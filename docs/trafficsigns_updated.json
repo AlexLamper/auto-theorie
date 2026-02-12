@@ -1,0 +1,2256 @@
+[
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39105"
+    },
+    "name": "Advies snelheid 50",
+    "description": "Dit bord geeft een adviessnelheid van 50 km/u aan. Dit is geen verplichte snelheidslimiet, maar een aanbeveling voor veilige omstandigheden.",
+    "meaning": "Rijd bij voorkeur 50 km/u of minder.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "snelheid",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739200359-h3-verkeersborden-auto_a4-50-advies-snelheid.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39118"
+    },
+    "name": "Eenrichtingsweg rechts",
+    "description": "Geeft aan dat de weg waar je op rijdt, een eenrichtingsweg is en dat je verplicht bent rechtsaf te slaan.",
+    "meaning": "Je moet hier rechtsaf slaan; dit is een eenrichtingsweg.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "rijrichting",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739282819-h3-verkeersborden-auto_c04r-eenrichtingsweg-rechts.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3911a"
+    },
+    "name": "Verboden voor auto's",
+    "description": "Geeft aan dat de weg niet toegankelijk is voor auto's. Dit kan gelden voor bepaalde zones of rijstroken.",
+    "meaning": "Auto's mogen hier niet rijden.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739282899-h3-verkeersborden-auto_c6-verboden-voor-autos.png",
+    "applicableFor": [
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3912e"
+    },
+    "name": "Voetpad",
+    "description": "Geeft een pad aan dat uitsluitend bestemd is voor voetgangers. Andere weggebruikers mogen hier niet komen.",
+    "meaning": "Dit pad is alleen voor voetgangers.",
+    "category": [
+      "voetganger"
+    ],
+    "type": "informatie",
+    "shape": "rond",
+    "color": "blauw",
+    "image": "/verkeersborden/1739284866-h3-verkeersborden-auto_g7-voetpad.png",
+    "applicableFor": [
+      "voetganger"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3910e"
+    },
+    "name": "Hectometerbord autoweg",
+    "description": "Geeft de afstand aan in hectometers langs de autoweg, vergelijkbaar met snelwegen voor locatiereferentie.",
+    "meaning": "Afstandsinformatie op de autoweg.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739281319-h3-verkeersborden-auto_bb09-hectometerbord-autoweg.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39111"
+    },
+    "name": "Spoorwegovergang over 160 meter",
+    "description": "Waarschuwt voor een spoorwegovergang op 160 meter afstand, wat meer tijd geeft om te reageren.",
+    "meaning": "Spoorwegovergang nadert over 160 meter.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "vierkant",
+    "color": "wit",
+    "image": "/verkeersborden/1739282343-h3-verkeersborden-auto_bb23-spoorwegovergang-over-160-meter.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39140"
+    },
+    "name": "Vooraanduiding zijwind",
+    "description": "Kondigt een gebied aan waar sterke zijwind kan voorkomen, wat de stabiliteit van voertuigen kan beïnvloeden. Rijd met beide handen aan het stuur.",
+    "meaning": "Pas op voor sterke zijwind.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288826-h3-verkeersborden-auto_j31-vooraanduiding-zijwind.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39149"
+    },
+    "name": "Wegwijzer met wijknummers binnen bebouwde kom",
+    "description": "Een wegwijzer die wijknummers aangeeft binnen de bebouwde kom, voor lokale oriëntatie.",
+    "meaning": "Wegwijzer met wijknummers.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739289328-h3-verkeersborden-auto_k13-wegwijzer-met-wijknummers-binnen-bebouwde-kom.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3914c"
+    },
+    "name": "Doodlopende weg",
+    "description": "Geeft aan dat de weg doodloopt en er geen doorgaand verkeer mogelijk is. Keer tijdig om.",
+    "meaning": "De weg eindigt hier, je kunt niet verder.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289568-h3-verkeersborden-auto_l08-doodlopende-weg.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39151"
+    },
+    "name": "Uitwijkplaats rechts",
+    "description": "Geeft een uitwijkplaats aan de rechterzijde van de weg, waar voertuigen kunnen wachten of passeren op smalle wegen.",
+    "meaning": "Uitwijkplaats aan de rechterkant.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289751-h3-verkeersborden-auto_l20-uitwijkplaats-rechts.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39110"
+    },
+    "name": "Spoorwegovergang over 80 meter",
+    "description": "Waarschuwt voor een spoorwegovergang op 80 meter afstand, met spoorbomen of verkeerslichten.",
+    "meaning": "Spoorwegovergang nadert over 80 meter.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "vierkant",
+    "color": "wit",
+    "image": "/verkeersborden/1739282227-h3-verkeersborden-auto_bb23-spoorwegovergang-over-80-meter.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39123"
+    },
+    "name": "Gebod tot volgen aangegeven rijrichting",
+    "description": "Verplicht om de aangegeven rijrichting te volgen. Dit kan een verplichte afslag zijn of een verandering in de rijstrook.",
+    "meaning": "Je moet de aangegeven richting volgen.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "rijrichting",
+    "shape": "rond",
+    "color": "blauw",
+    "image": "/verkeersborden/1739283513-h3-verkeersborden-auto_d5-gebod-tot-volgen-aangegeven-rijrichting.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39128"
+    },
+    "name": "Parkeer- en reisvoorziening",
+    "description": "Een Park and Ride (P+R) faciliteit, waar je je voertuig kunt parkeren en verder kunt reizen met openbaar vervoer.",
+    "meaning": "Hier kun je parkeren en verder reizen met OV.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "parkeren",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739284064-h3-verkeersborden-auto_e12-parkeer-en-reisvoorziening.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3913c"
+    },
+    "name": "Let op: kinderen",
+    "description": "Waarschuwt voor de aanwezigheid van kinderen op of langs de weg, bijvoorbeeld in de buurt van scholen, speeltuinen of woonwijken. Rijd extra voorzichtig.",
+    "meaning": "Wees extra alert op spelende of overstekende kinderen.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288709-h3-verkeersborden-auto_j21-let-op-kinderen.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets",
+      "voetganger"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3913f"
+    },
+    "name": "Let op: tegenliggers",
+    "description": "Waarschuwt voor de mogelijkheid van tegemoetkomend verkeer op een plaats waar dit onverwacht is, zoals na een eenrichtingsweg of bij wegwerkzaamheden.",
+    "meaning": "Wees alert op tegenliggers.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288801-h3-verkeersborden-auto_j29-let-op-tegenliggers.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39147"
+    },
+    "name": "Hoge beslissingswijzer langs autosnelweg",
+    "description": "Een grote wegwijzer boven de snelweg die belangrijke beslissingsinformatie geeft over rijstroken en afslagen.",
+    "meaning": "Belangrijke informatie over rijstroken en afslagen op de snelweg.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289257-h3-verkeersborden-auto_k4-hoge-beslissingswijzer-langs-autosnelweg.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3914b"
+    },
+    "name": "Voetgangersoversteekplaats",
+    "description": "Geeft een oversteekplaats voor voetgangers aan, waar zij voorrang hebben op het verkeer.",
+    "meaning": "Zebrapad, voetgangers hebben voorrang.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289450-h3-verkeersborden-auto_l2-voetgangersoversteekplaats.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets",
+      "voetganger"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39152"
+    },
+    "name": "Fietsstraat",
+    "description": "Geeft het begin van een fietsstraat aan, waar fietsers de hoofdgebruiker zijn en auto's te gast. De maximumsnelheid is vaak 30 km/u.",
+    "meaning": "Fietsers zijn hier leidend, pas je snelheid aan.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289778-h3-verkeersborden-auto_l51-fietsstraat.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3910d"
+    },
+    "name": "Hectometerbord autoweg (variant)",
+    "description": "Een variant van het hectometerbord, specifiek voor autowegen, die de afstandsinformatie langs deze wegen aangeeft.",
+    "meaning": "Afstandsinformatie op de autoweg.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739281304-h3-verkeersborden-auto_bb09-hectometerbord-autoweg-variant.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39113"
+    },
+    "name": "Uitwijkroute rechts afslaan",
+    "description": "Wijst op een uitwijkroute die rechtsaf slaat, bedoeld voor calamiteiten of omleidingen.",
+    "meaning": "Volg deze route bij een omleiding of calamiteit, sla rechtsaf.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "blauw",
+    "image": "/verkeersborden/1739282517-h3-verkeersborden-auto_bw501r-uitwijkroute-rechts-afslaan.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39136"
+    },
+    "name": "Gevaarlijk kruispunt",
+    "description": "Waarschuwt voor een gevaarlijk kruispunt waar extra voorzichtigheid geboden is, vaak zonder specifieke voorrangsborden.",
+    "meaning": "Extra voorzichtigheid geboden bij het naderende kruispunt.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288393-h3-verkeersborden-auto_j8-gevaarlijk-kruispunt.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39144"
+    },
+    "name": "Let op: drempel",
+    "description": "Waarschuwt voor een drempel in de weg. Verminder snelheid om schade aan het voertuig te voorkomen en comfort te behouden.",
+    "meaning": "Drempel nadert, rijd langzaam.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739289070-h3-verkeersborden-auto_j37-let-op-drempel.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39159"
+    },
+    "name": "Verkeersbrigadier bij zebrapad",
+    "description": "Waarschuwt voor de aanwezigheid van een verkeersbrigadier bij een zebrapad, vaak bij scholen. Volg de aanwijzingen van de brigadier.",
+    "meaning": "Let op een verkeersbrigadier bij het zebrapad.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739289998-h3-verkeersborden-auto_vr07-verkeersbrigadier-bij-zebrapad.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39116"
+    },
+    "name": "Verboden in te rijden (met uitzondering)",
+    "description": "Geeft aan dat het verboden is de weg in te rijden, behalve voor voertuigen die expliciet zijn uitgezonderd, meestal via een onderbord.",
+    "meaning": "Hier mag je niet inrijden, tenzij je een uitzondering hebt.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739282719-h3-verkeersborden-auto_c2-ob52-verboden-in-te-rijden-met-uitzondering.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3912c"
+    },
+    "name": "Autosnelweg",
+    "description": "Geeft het begin van een autosnelweg aan, waar specifieke regels gelden, zoals een minimumsnelheid en verboden voor langzaam verkeer.",
+    "meaning": "Je rijdt nu op een autosnelweg.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739284210-h3-verkeersborden-auto_g1-autosnelweg.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39135"
+    },
+    "name": "Gevaarlijke daling",
+    "description": "Waarschuwt voor een gevaarlijke daling, waarvoor je de snelheid moet aanpassen en mogelijk in een lagere versnelling moet rijden.",
+    "meaning": "Een steile daling nadert, rijd voorzichtig.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288352-h3-verkeersborden-auto_j7-gevaarlijke-daling.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3914f"
+    },
+    "name": "Aangegeven rijstrook heeft breedte beperking",
+    "description": "Geeft aan dat een specifieke rijstrook een breedtebeperking heeft, belangrijk voor bredere voertuigen.",
+    "meaning": "Deze rijstrook is smaller, let op breedte van je voertuig.",
+    "category": [
+      "auto",
+      "motor",
+      "vrachtwagen"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289697-h3-verkeersborden-auto_l11-aangegeven-rijstrook-heeft-breedte-beperking.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "vrachtwagen"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39154"
+    },
+    "name": "Matrixbord verdrijfbord links",
+    "description": "Een matrixbord dat aangeeft dat verkeer naar links moet verdrijven, vaak vanwege een afgesloten rijstrook of obstakel.",
+    "meaning": "Verkeer moet naar links uitwijken.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "rijrichting",
+    "shape": "vierkant",
+    "color": "zwart",
+    "image": "/verkeersborden/1739289847-h3-verkeersborden-auto_matrixbord-verdrijfbord-links.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39109"
+    },
+    "name": "Stopbord",
+    "description": "Verplicht bestuurders om volledig tot stilstand te komen alvorens de kruising op te rijden of de doorgaande weg te betreden, en voorrang te verlenen aan al het verkeer op de kruisende weg.",
+    "meaning": "Stop en verleen voorrang.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "voorrang",
+    "shape": "achtkant",
+    "color": "rood",
+    "image": "/verkeersborden/1739280789-h3-verkeersborden-auto_b7-stopbord.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3911c"
+    },
+    "name": "Gesloten verklaring tractor, bromfiets, fiets",
+    "description": "Dit bord geeft aan dat de weg gesloten is voor tractoren, bromfietsen en fietsen. Dit is vaak te zien op wegen waar deze voertuigen gevaar zouden opleveren of hinder zouden veroorzaken.",
+    "meaning": "Geen toegang voor tractoren, bromfietsen en fietsen.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739283011-h3-verkeersborden-auto_c9-gesloten-verklaring-tracktor-bromfiets-fiets.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39122"
+    },
+    "name": "Gebod tot volgen van aangegeven rijrichting",
+    "description": "Verplicht bestuurders om de richting aan te houden die op het bord is aangegeven, vaak voor een bocht of afslag.",
+    "meaning": "Volg de aangegeven rijrichting.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "rijrichting",
+    "shape": "rond",
+    "color": "blauw",
+    "image": "/verkeersborden/1739283453-h3-verkeersborden-auto_d4-gebod-tot-volgen-van-aangegeven-rijrichting.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3912d"
+    },
+    "name": "Woonerf",
+    "description": "Geeft het begin van een woonerf aan, waar een maximumsnelheid van 15 km/u geldt en voetgangers en spelende kinderen voorrang hebben.",
+    "meaning": "Je betreedt een woonerf, rijd langzaam en wees voorzichtig.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739284828-h3-verkeersborden-auto_g5-woonerf.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets",
+      "voetganger"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39146"
+    },
+    "name": "Voorwegwijzer langs autosnelweg",
+    "description": "Een wegwijzer die informatie geeft over de naderende afslagen en bestemmingen langs een autosnelweg.",
+    "meaning": "Informatie over afslagen op de snelweg.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289219-h3-verkeersborden-auto_k2-voorwegwijzer-langs-autosnelweg.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39157"
+    },
+    "name": "Onderbord voor vrachtwagens met tijden",
+    "description": "Een onderbord dat aangeeft dat het bovenliggende verkeersbord alleen van toepassing is op vrachtwagens, en alleen gedurende de aangegeven tijden.",
+    "meaning": "Hoofdbord geldt voor vrachtwagens gedurende bepaalde tijden.",
+    "category": [
+      "auto",
+      "vrachtwagen"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739289934-h3-verkeersborden-auto_ob61-onderbord-voor-vrachtwagens-met-tijden.png",
+    "applicableFor": [
+      "vrachtwagen"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3915a"
+    },
+    "name": "Waarschuwingsbord (algemeen)",
+    "description": "Een algemene afbeelding van een waarschuwingsbord. Specifieke borden duiden op het exacte gevaar.",
+    "meaning": "Waarschuwt voor een algemeen gevaar.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739290024-h3-verkeersborden-auto_waarschuwingsbord.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets",
+      "voetganger"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39104"
+    },
+    "name": "Waarschuwing Rijbaanversmalling",
+    "description": "Waarschuwt voor een versmalling van de rijbaan aan beide zijden. Wees voorbereid op het aanpassen van je snelheid of positie op de weg.",
+    "meaning": "De weg wordt smaller, pas je rijgedrag aan.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739200259-h3-waarschuwing-rijbaanversmalling.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39107"
+    },
+    "name": "Voorrangskruispunt",
+    "description": "Geeft aan dat de kruisende weg ondergeschikt is aan de weg waarop je rijdt, wat betekent dat je voorrang hebt.",
+    "meaning": "Je hebt voorrang op de eerstvolgende kruising.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "voorrang",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739280712-h3-verkeersborden-auto_b3-voorrangskruispunt.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3910a"
+    },
+    "name": "Splitsing Autosnelweg",
+    "description": "Kondigt een splitsing van de autosnelweg aan, waarbij de weg zich in twee of meer richtingen verdeelt.",
+    "meaning": "De autosnelweg splitst zich hier.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739280819-h3-verkeersborden-auto_bb03-splitsing-autosnelweg.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3910f"
+    },
+    "name": "Bochtschild",
+    "description": "Een aanwijzing voor een scherpe bocht in de weg, vaak gebruikt om bestuurders te waarschuwen en de juiste snelheid te adviseren.",
+    "meaning": "Waarschuwt voor een scherpe bocht.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "rechthoek",
+    "color": "geel",
+    "image": "/verkeersborden/1739282180-h3-verkeersborden-auto_bb11-bochtschild.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39115"
+    },
+    "name": "Verboden in te rijden (inclusief afgebeelde voertuigen)",
+    "description": "Geeft aan dat het verboden is om de weg in te rijden, inclusief de specifiek afgebeelde voertuigtypen op het bord (bijv. auto's, motoren).",
+    "meaning": "Rijden is hier niet toegestaan, ook niet voor de genoemde voertuigen.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739282647-h3-verkeersborden-auto_c2-ob4-verboden-in-te-rijden-inclusief-afgebeelde-voertuigen.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39117"
+    },
+    "name": "Eenrichtingsweg",
+    "description": "Dit bord geeft aan dat de weg waar je op rijdt, een eenrichtingsweg is, wat betekent dat verkeer alleen in de aangegeven richting is toegestaan.",
+    "meaning": "Je mag hier alleen in deze richting rijden.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "rijrichting",
+    "shape": "rechthoek",
+    "color": "blauw",
+    "image": "/verkeersborden/1739282751-h3-verkeersborden-auto_c3-eenrichtingsweg.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39120"
+    },
+    "name": "Gesloten voor te hoge voertuigen",
+    "description": "Geeft aan dat voertuigen die hoger zijn dan de aangegeven hoogte, de weg niet mogen betreden, vaak vanwege een tunnel of brug.",
+    "meaning": "Voertuigen boven de aangegeven hoogte mogen hier niet rijden.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739283267-h3-verkeersborden-auto_c19-gesloten-voor-te-hoge-voertuigen.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3914e"
+    },
+    "name": "Voorwaarschuwing doodlopende weg",
+    "description": "Algemene waarschuwing dat een doodlopende weg nadert. Wees voorbereid om te keren.",
+    "meaning": "Een doodlopende weg nadert.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289672-h3-verkeersborden-auto_l09-voorwaarschuwing-doodlopende-weg.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3912a"
+    },
+    "name": "Keerverbod",
+    "description": "Verbiedt het maken van een U-bocht op deze locatie. Vaak te vinden op drukke wegen of in gevaarlijke bochten.",
+    "meaning": "Hier mag je niet keren.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739284138-h3-verkeersborden-auto_f7-keerverbod.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3913a"
+    },
+    "name": "Let op: slipgevaar",
+    "description": "Waarschuwt voor de mogelijkheid van slipgevaar, bijvoorbeeld door nat wegdek, ijzel, of los grind. Pas je snelheid aan en rijd voorzichtig.",
+    "meaning": "De weg kan glad zijn, pas op voor slipgevaar.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288626-h3-verkeersborden-auto_j20-let-op-slipgevaar.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39143"
+    },
+    "name": "Let op: slecht zicht bij regen, sneeuw, mist",
+    "description": "Waarschuwt voor situaties met slecht zicht als gevolg van regen, sneeuw of mist. Pas je snelheid aan en schakel verlichting in.",
+    "meaning": "Rijd extra voorzichtig bij slechte weersomstandigheden.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288981-h3-verkeersborden-auto_j35-let-op-slecht-zicht-bij-regen-sneeuw-mist.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3914d"
+    },
+    "name": "Voorwaarschuwing doodlopende weg links",
+    "description": "Waarschuwt vooraf voor een doodlopende weg aan de linkerzijde.",
+    "meaning": "Let op, de weg links is doodlopend.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289637-h3-verkeersborden-auto_l09-voorwaarschuwing-doodlopende-weg-links.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3915b"
+    },
+    "name": "Omleidingsroute volgen rechtsaf",
+    "description": "Geeft aan dat je een omleidingsroute moet volgen door rechtsaf te slaan.",
+    "meaning": "Volg de omleiding, sla rechtsaf.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "rijrichting",
+    "shape": "vierkant",
+    "color": "geel",
+    "image": "/verkeersborden/1739290045-h3-verkeersborden-auto_wiu-t201-omleidingsroute-volgen-rechtsaf.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39102"
+    },
+    "name": "Let op! Rollende stenen",
+    "description": "Waarschuwt voor gevaar van vallende of rollende stenen, wat kan duiden op een instabiele helling of rotswand.",
+    "meaning": "Rij voorzichtig, er kunnen stenen op de weg liggen.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1728908982-a19-let-op-rollende-stenen.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39124"
+    },
+    "name": "Bromfietsers moeten wisselen van rijbaan",
+    "description": "Dit bord geeft aan dat bromfietsers verplicht zijn van rijbaan te wisselen, vaak van de hoofdrijbaan naar een parallelweg of fietspad.",
+    "meaning": "Bromfietsers moeten van rijbaan wisselen.",
+    "category": [
+      "bromfiets"
+    ],
+    "type": "rijrichting",
+    "shape": "rond",
+    "color": "blauw",
+    "image": "/verkeersborden/1739283657-h3-verkeersborden-auto_d104-bromfietsers-moeten-wisselen-van-rijbaan.png",
+    "applicableFor": [
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39138"
+    },
+    "name": "Spoorwegovergang zonder spoorbomen",
+    "description": "Waarschuwt voor een spoorwegovergang zonder spoorbomen. Wees extra alert en kijk goed uit voor treinen.",
+    "meaning": "Spoorwegovergang zonder slagbomen nadert, extra voorzichtigheid.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288463-h3-verkeersborden-auto_j11-spoorwegovergang-zonder-spoorbomen.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39142"
+    },
+    "name": "Vooraanduiding ongeval",
+    "description": "Kondigt een ongeval of calamiteit op de weg aan. Rijd voorzichtig en volg eventuele instructies van hulpdiensten.",
+    "meaning": "Een ongeval nadert, rijd voorzichtig.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288953-h3-verkeersborden-auto_j34-vooraanduiding-ongeval.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3914a"
+    },
+    "name": "Route voor vervoer gevaarlijke stoffen",
+    "description": "Geeft de verplichte route aan voor het vervoer van gevaarlijke stoffen, vaak om bewoonde gebieden te vermijden.",
+    "meaning": "Volg deze route met gevaarlijke stoffen.",
+    "category": [
+      "auto",
+      "vrachtwagen"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "oranje",
+    "image": "/verkeersborden/1739289370-h3-verkeersborden-auto_k14-route-voor-vervoer-gevaarlijkes-stoffen.png",
+    "applicableFor": [
+      "vrachtwagen"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39155"
+    },
+    "name": "Onderbord voor fietsen",
+    "description": "Een onderbord dat aangeeft dat het bovenliggende verkeersbord alleen van toepassing is op fietsen.",
+    "meaning": "Hoofdbord geldt alleen voor fietsers.",
+    "category": [
+      "fiets"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739289883-h3-verkeersborden-auto_ob11-onderbord-voor-fietsen.png",
+    "applicableFor": [
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39125"
+    },
+    "name": "Parkeerverbod",
+    "description": "Verbiedt het parkeren van voertuigen op deze plek. Stilstaan om passagiers in- of uit te laten of om te laden/lossen is wel toegestaan.",
+    "meaning": "Hier mag je niet parkeren.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "parkeren",
+    "shape": "rond",
+    "color": "blauw",
+    "image": "/verkeersborden/1739283792-h3-verkeersborden-auto_e01-parkeerverbod.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39126"
+    },
+    "name": "Verboden stil te staan",
+    "description": "Verbiedt zowel stilstaan als parkeren van voertuigen. Dit is een strikter verbod dan een parkeerverbod.",
+    "meaning": "Je mag hier niet stilstaan of parkeren.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "parkeren",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739283954-h3-verkeersborden-auto_e02-verboden-stil-te-staan.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39156"
+    },
+    "name": "Onderbord voor bussen",
+    "description": "Een onderbord dat aangeeft dat het bovenliggende verkeersbord alleen van toepassing is op bussen.",
+    "meaning": "Hoofdbord geldt alleen voor bussen.",
+    "category": [
+      "auto",
+      "bus"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739289907-h3-verkeersborden-auto_ob12-onderbord-voor-bussen.png",
+    "applicableFor": [
+      "bus"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39127"
+    },
+    "name": "Parkeergelegenheid laden en lossen",
+    "description": "Geeft een parkeergelegenheid aan die specifiek is bestemd voor het laden en lossen van goederen. Vaak is er een tijdslimiet.",
+    "meaning": "Parkeren alleen voor laden en lossen.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "parkeren",
+    "shape": "rechthoek",
+    "color": "blauw",
+    "image": "/verkeersborden/1739283993-h3-verkeersborden-auto_e7-parkeergelegenheid-laden-en-lossen.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39129"
+    },
+    "name": "Tegenligger heeft voorrang",
+    "description": "Geeft aan dat het tegemoetkomende verkeer voorrang heeft op een smalle doorgang of brug. Bestuurders moeten wachten als er tegenliggers zijn.",
+    "meaning": "Verleen voorrang aan tegenliggers.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "voorrang",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739284094-h3-verkeersborden-auto_f05-tegenligger-heeft-voorrang.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39132"
+    },
+    "name": "Vooraanduiding bocht naar rechts",
+    "description": "Kondigt een scherpe bocht naar rechts aan, zodat bestuurders tijdig kunnen afremmen en de juiste positie kunnen kiezen.",
+    "meaning": "Een scherpe bocht naar rechts nadert.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739285005-h3-verkeersborden-auto_j02-vooraanduiding-bocht-naar-rechts.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39139"
+    },
+    "name": "Spoorwegoverweg met enkel spoor",
+    "description": "Waarschuwt voor een spoorwegovergang met één enkel spoor. Dit kan zowel met als zonder spoorbomen zijn.",
+    "meaning": "Enkelspoor spoorwegovergang nadert.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288499-h3-verkeersborden-auto_j12-spoorweg-overweg-met-enkel-spoor.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3910b"
+    },
+    "name": "Einde of smalle vluchtstrook",
+    "description": "Waarschuwt voor het einde van een vluchtstrook of een vluchtstrook die versmalt, wat betekent dat er minder ruimte is om te stoppen in geval van nood.",
+    "meaning": "De vluchtstrook is hier smaller of eindigt binnenkort.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "rechthoek",
+    "color": "blauw",
+    "image": "/verkeersborden/1739281161-h3-verkeersborden-auto_bb04-einde-of-smalle-vluchtstrook.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3910c"
+    },
+    "name": "Hectometerbord snelweg",
+    "description": "Geeft de afstand aan in hectometers (100 meter) langs de snelweg. Dit helpt bij het lokaliseren van specifieke punten of in geval van pech.",
+    "meaning": "Afstandsinformatie op de snelweg.",
+    "category": [
+      "auto",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739281207-h3-verkeersborden-auto_bb08-hectometerbord-snelweg.png",
+    "applicableFor": [
+      "auto",
+      "motor"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39133"
+    },
+    "name": "Vooraanduiding bocht naar links",
+    "description": "Kondigt een scherpe bocht naar links aan. Bereid je voor op het afremmen en sturen.",
+    "meaning": "Een scherpe bocht naar links nadert.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739285037-h3-verkeersborden-auto_j03-vooraanduiding-bocht-naar-links.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3913d"
+    },
+    "name": "Let op: voetgangers",
+    "description": "Waarschuwt voor de aanwezigheid van voetgangers, vooral op plaatsen waar geen trottoir of zebrapad is. Rijd voorzichtig.",
+    "meaning": "Wees alert op voetgangers.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288737-h3-verkeersborden-auto_j24-let-op-voetgangers.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39141"
+    },
+    "name": "Kans op file",
+    "description": "Waarschuwt voor een mogelijke file of opstopping op de weg. Bereid je voor op langzamer verkeer of stilstaan.",
+    "meaning": "Filegevaar, houd rekening met langzamer verkeer.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288926-h3-verkeersborden-auto_j33-kans-op-file.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39158"
+    },
+    "name": "Voorrangsborden (algemeen)",
+    "description": "Een algemene afbeelding van voorrangsborden. Specifieke borden duiden de exacte voorrangssituatie aan.",
+    "meaning": "Geeft een voorrangssituatie aan.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "voorrang",
+    "shape": "divers",
+    "color": "divers",
+    "image": "/verkeersborden/1739289973-h3-verkeersborden-auto_voorrangsborden.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets",
+      "voetganger"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39119"
+    },
+    "name": "Inrijden toegestaan",
+    "description": "Dit is een 'uitzondering op het verbod', vaak gebruikt in combinatie met andere borden, om aan te geven dat inrijden toch is toegestaan voor bepaalde voertuigen of onder bepaalde voorwaarden.",
+    "meaning": "Hier mag je toch inrijden, vaak met een specifieke uitzondering.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "rond",
+    "color": "wit",
+    "image": "/verkeersborden/1739282864-h3-verkeersborden-auto_c05-inrijden-toegestaan.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39131"
+    },
+    "name": "Let op: overstekend vee",
+    "description": "Waarschuwt voor de mogelijkheid van overstekend vee, zoals koeien, schapen of ander landbouwdieren. Rijd voorzichtig.",
+    "meaning": "Wees alert op vee dat de weg oversteekt.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739284974-h3-verkeersborden-auto_j2-let-op-overstekend-vee.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39137"
+    },
+    "name": "Spoorwegovergang met spoorbomen",
+    "description": "Waarschuwt voor een spoorwegovergang die is voorzien van spoorbomen. Stop wanneer de bomen sluiten.",
+    "meaning": "Spoorwegovergang met spoorbomen nadert.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288426-h3-verkeersborden-auto_j10-spoorwegovergang-met-spoorbomen.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39103"
+    },
+    "name": "Voorrangsweg van één kant",
+    "description": "Dit bord geeft aan dat de weg waar je je op bevindt, voorrang heeft, maar dat dit mogelijk van één specifieke kant komt. Dit kan worden aangevuld met een onderbord om de precieze situatie te duiden.",
+    "meaning": "Je hebt voorrang op het tegemoetkomende verkeer, maar let op specifieke situaties die met een onderbord zijn aangegeven.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "voorrang",
+    "shape": "vierkant",
+    "color": "geel",
+    "image": "/verkeersborden/1739200215-h3-voorrangsweg-van-1-kantpng.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39108"
+    },
+    "name": "Voorrang verlenen",
+    "description": "Verplicht om voorrang te verlenen aan bestuurders op de kruisende weg.",
+    "meaning": "Geef voorrang aan het verkeer van rechts of rechtdoor.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "voorrang",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739280756-h3-verkeersborden-auto_b6-voorrang-verlenen.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39112"
+    },
+    "name": "Spoorwegovergang over 240 meter",
+    "description": "Geeft een waarschuwing voor een spoorwegovergang die 240 meter verderop ligt.",
+    "meaning": "Spoorwegovergang nadert over 240 meter.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "vierkant",
+    "color": "wit",
+    "image": "/verkeersborden/1739282458-h3-verkeersborden-auto_bb23-spoorwegovergang-over-240-meter.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3911e"
+    },
+    "name": "Verboden voor auto's en motoren",
+    "description": "Dit bord geeft aan dat de weg niet toegankelijk is voor zowel auto's als motoren.",
+    "meaning": "Auto's en motoren mogen hier niet rijden.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739283178-h3-verkeersborden-auto_c12-verboden-voor-autos-en-motoren.png",
+    "applicableFor": [
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39134"
+    },
+    "name": "Steile helling",
+    "description": "Waarschuwt voor een steile helling bergopwaarts. Houd rekening met de trekkracht van je voertuig en schakel tijdig terug.",
+    "meaning": "Er komt een steile helling aan.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288254-h3-verkeersborden-auto_j6-steile-helling.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3913b"
+    },
+    "name": "Slipgevaar met afstandsinformatie",
+    "description": "Waarschuwt voor slipgevaar op een bepaalde afstand, aangegeven met een onderbord. Geeft bestuurders meer tijd om zich voor te bereiden.",
+    "meaning": "Slipgevaar op aangegeven afstand.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288673-h3-verkeersborden-auto_j20-ob411-slipgevaar-met-afstandinformatie.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39145"
+    },
+    "name": "Let op: uitschuifbare paal",
+    "description": "Waarschuwt voor een beweegbare of uitschuifbare paal in de weg, vaak om toegang te reguleren. Wees voorzichtig en let op signalering.",
+    "meaning": "Pas op voor een uitschuifbare paal in de weg.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739289100-h3-verkeersborden-auto_j39-let-op-uitschuifbare-paal.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39106"
+    },
+    "name": "Voorrangsweg",
+    "description": "Geeft aan dat de weg waarop je rijdt een voorrangsweg is. Dit betekent dat verkeer op kruisende wegen jou voorrang moet verlenen.",
+    "meaning": "Je hebt voorrang op deze weg.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "voorrang",
+    "shape": "ruit",
+    "color": "geel",
+    "image": "/verkeersborden/1739280687-h3-verkeersborden-auto_b1-voorrangsweg.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3911d"
+    },
+    "name": "Gesloten voor motorfietsen",
+    "description": "Verbiedt de toegang voor motorfietsen op deze weg, vaak om overlast te verminderen of de veiligheid te verhogen.",
+    "meaning": "Motorfietsen mogen hier niet rijden.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739283077-h3-verkeersborden-auto_c11-gesloten-voor-motorfietsen.png",
+    "applicableFor": [
+      "auto",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3911f"
+    },
+    "name": "Verboden voor voetgangers",
+    "description": "Verbiedt de toegang voor voetgangers. Dit wordt vaak gebruikt op plaatsen waar voetgangers gevaar lopen, zoals op snelwegen of in tunnels.",
+    "meaning": "Voetgangers mogen hier niet komen.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739283238-h3-verkeersborden-auto_c16-verboden-voor-voetgangers.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39148"
+    },
+    "name": "Voorwegwijzer langs niet-autosnelweg",
+    "description": "Een wegwijzer die informatie geeft over de naderende afslagen en bestemmingen langs een weg die geen autosnelweg is.",
+    "meaning": "Informatie over afslagen op een reguliere weg.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "rechthoek",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289285-h3-verkeersborden-auto_k5-voorwegwijzer-langs-niet-autosnelweg.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39153"
+    },
+    "name": "Matrixbord einde aangegeven verboden/adviezen",
+    "description": "Een dynamisch matrixbord dat aangeeft dat eerder gecommuniceerde verboden of adviezen (bijv. snelheidsbeperkingen, waarschuwingen) zijn opgeheven.",
+    "meaning": "Einde van eerder aangegeven verboden of adviezen.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "zwart",
+    "image": "/verkeersborden/1739289801-h3-verkeersborden-auto_matrixbord-einde-aangegeven-verboden-adviezen.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39114"
+    },
+    "name": "Verbodsborden",
+    "description": "Dit is een algemene afbeelding voor verbodsborden. Specifieke borden duiden op wat verboden is.",
+    "meaning": "Toegang verboden voor alle voertuigen.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739282604-h3-verkeersborden-auto_c1-verbodsborden.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets",
+      "voetganger"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3911b"
+    },
+    "name": "Gesloten voor vrachtwagens",
+    "description": "Verbiedt de toegang voor vrachtwagens op deze weg. Vaak te vinden op smallere wegen of in milieuzones.",
+    "meaning": "Vrachtwagens mogen hier niet rijden.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "verbod",
+    "shape": "rond",
+    "color": "rood",
+    "image": "/verkeersborden/1739282976-h3-verkeersborden-auto_c7-gesloten-voor-vrachtwagens.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39121"
+    },
+    "name": "Passeren aan rechterzijde",
+    "description": "Dit bord geeft aan dat voertuigen verplicht zijn om aan de rechterzijde van een obstakel of eiland te passeren.",
+    "meaning": "Je moet dit obstakel rechts passeren.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "rijrichting",
+    "shape": "rond",
+    "color": "blauw",
+    "image": "/verkeersborden/1739283326-h3-verkeersborden-auto_d2-passeren-aan-rechterzijde.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3912b"
+    },
+    "name": "Einde aangegeven verboden door verkeersborden",
+    "description": "Dit bord geeft aan dat de eerder door verkeersborden ingestelde verboden zijn opgeheven. Dit kan variëren van snelheidsbeperkingen tot inrijverboden.",
+    "meaning": "De eerder ingestelde verboden gelden niet meer.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor",
+      "voetganger"
+    ],
+    "type": "informatie",
+    "shape": "rond",
+    "color": "wit",
+    "image": "/verkeersborden/1739284165-h3-verkeersborden-auto_f8-einde-aangegeven-verboden-door-verkeersborden.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets",
+      "voetganger"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3912f"
+    },
+    "name": "Fietspad",
+    "description": "Geeft een pad aan dat uitsluitend bestemd is voor fietsers en snorfietsers. Andere weggebruikers mogen hier niet komen.",
+    "meaning": "Dit pad is alleen voor fietsers en snorfietsers.",
+    "category": [
+      "fiets",
+      "snorfiets"
+    ],
+    "type": "informatie",
+    "shape": "rond",
+    "color": "blauw",
+    "image": "/verkeersborden/1739284890-h3-verkeersborden-auto_g11-fietspad.png",
+    "applicableFor": [
+      "fiets",
+      "snorfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39130"
+    },
+    "name": "Slecht wegdek",
+    "description": "Waarschuwt voor een slecht wegdek, zoals kuilen, hobbels, of ongelijke bestrating. Pas je snelheid aan.",
+    "meaning": "Let op, de weg is in slechte staat.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739284935-h3-verkeersborden-auto_j1-slecht-wegdek.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a3913e"
+    },
+    "name": "Let op: groot wild",
+    "description": "Waarschuwt voor de mogelijkheid van overstekend groot wild, zoals herten of wilde zwijnen. Vooral in bosrijke gebieden.",
+    "meaning": "Pas op voor overstekend groot wild.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "fiets",
+      "motor"
+    ],
+    "type": "waarschuwing",
+    "shape": "driehoek",
+    "color": "wit",
+    "image": "/verkeersborden/1739288761-h3-verkeersborden-auto_j27-let-op-groot-wild.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets",
+      "fiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  },
+  {
+    "_id": {
+      "$oid": "686fa9fc8adcb19ac1a39150"
+    },
+    "name": "Vluchthaven",
+    "description": "Geeft een vluchthaven aan: een veilige plek om te stoppen in geval van pech of noodsituaties, vaak langs tunnels of gevaarlijke wegen.",
+    "meaning": "Een vluchthaven voor noodsituaties.",
+    "category": [
+      "auto",
+      "bromfiets",
+      "motor"
+    ],
+    "type": "informatie",
+    "shape": "vierkant",
+    "color": "blauw",
+    "image": "/verkeersborden/1739289726-h3-verkeersborden-auto_l14-vluchthaven.png",
+    "applicableFor": [
+      "auto",
+      "motor",
+      "bromfiets"
+    ],
+    "createdAt": "2025-07-10T00:00:00.000Z",
+    "updatedAt": "2025-07-10T00:00:00.000Z"
+  }
+]

@@ -1,0 +1,494 @@
+[
+    {
+        "category": "Waarschuwingsborden",
+        "count": 32,
+        "signs": [
+            {
+                "description": "Waarschuwing rijbaanversmalling",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739200259-h3-waarschuwing-rijbaanversmalling.png&w=384&q=75"
+            },
+            {
+                "description": "Let op rollende stenen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1728908982-a19-let-op-rollende-stenen.png&w=384&q=75"
+            },
+            {
+                "description": "Splitsing autosnelweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739280819-h3-verkeersborden-auto_bb03-splitsing-autosnelweg.png&w=384&q=75"
+            },
+            {
+                "description": "Einde of smalle vluchtstrook",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739281161-h3-verkeersborden-auto_bb04-einde-of-smalle-vluchtstrook.png&w=384&q=75"
+            },
+            {
+                "description": "Bochtschild",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282180-h3-verkeersborden-auto_bb11-bochtschild.png&w=384&q=75"
+            },
+            {
+                "description": "Spoorwegovergang over 80 meter",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282227-h3-verkeersborden-auto_bb23-spoorwegovergang-over-80-meter.png&w=384&q=75"
+            },
+            {
+                "description": "Spoorwegovergang over 160 meter",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282343-h3-verkeersborden-auto_bb23-spoorwegovergang-over-160-meter.png&w=384&q=75"
+            },
+            {
+                "description": "Spoorwegovergang over 240 meter",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282458-h3-verkeersborden-auto_bb23-spoorwegovergang-over-240-meter.png&w=384&q=75"
+            },
+            {
+                "description": "Slecht wegdek",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284935-h3-verkeersborden-auto_j1-slecht-wegdek.png&w=384&q=75"
+            },
+            {
+                "description": "Let op overstekend vee",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284974-h3-verkeersborden-auto_j2-let-op-overstekend-vee.png&w=384&q=75"
+            },
+            {
+                "description": "Vooraanduiding bocht naar rechts",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739285005-h3-verkeersborden-auto_j02-vooraanduiding-bocht-naar-rechts.png&w=384&q=75"
+            },
+            {
+                "description": "Vooraanduiding bocht naar links",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739285037-h3-verkeersborden-auto_j03-vooraanduiding-bocht-naar-links.png&w=384&q=75"
+            },
+            {
+                "description": "Steile helling",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288254-h3-verkeersborden-auto_j6-steile-helling.png&w=384&q=75"
+            },
+            {
+                "description": "Gevaarlijke daling",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288352-h3-verkeersborden-auto_j7-gevaarlijke-daling.png&w=384&q=75"
+            },
+            {
+                "description": "Gevaarlijk kruispunt",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288393-h3-verkeersborden-auto_j8-gevaarlijk-kruispunt.png&w=384&q=75"
+            },
+            {
+                "description": "Spoorwegovergang met spoorbomen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288426-h3-verkeersborden-auto_j10-spoorwegovergang-met-spoorbomen.png&w=384&q=75"
+            },
+            {
+                "description": "Spoorwegovergang zonder spoorbomen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288463-h3-verkeersborden-auto_j11-spoorwegovergang-zonder-spoorbomen.png&w=384&q=75"
+            },
+            {
+                "description": "Spoorweg overweg met enkel spoor",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288499-h3-verkeersborden-auto_j12-spoorweg-overweg-met-enkel-spoor.png&w=384&q=75"
+            },
+            {
+                "description": "Let op slipgevaar",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288626-h3-verkeersborden-auto_j20-let-op-slipgevaar.png&w=384&q=75"
+            },
+            {
+                "description": "Slipgevaar met afstand informatie",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288673-h3-verkeersborden-auto_j20-ob411-slipgevaar-met-afstandinformatie.png&w=384&q=75"
+            },
+            {
+                "description": "Let op kinderen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288709-h3-verkeersborden-auto_j21-let-op-kinderen.png&w=384&q=75"
+            },
+            {
+                "description": "Let op voetgangers",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288737-h3-verkeersborden-auto_j24-let-op-voetgangers.png&w=384&q=75"
+            },
+            {
+                "description": "Let op groot wild",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288761-h3-verkeersborden-auto_j27-let-op-groot-wild.png&w=384&q=75"
+            },
+            {
+                "description": "Let op tegenliggers",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288801-h3-verkeersborden-auto_j29-let-op-tegenliggers.png&w=384&q=75"
+            },
+            {
+                "description": "Vooraanduiding zijwind",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288826-h3-verkeersborden-auto_j31-vooraanduiding-zijwind.png&w=384&q=75"
+            },
+            {
+                "description": "Kans op file",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288926-h3-verkeersborden-auto_j33-kans-op-file.png&w=384&q=75"
+            },
+            {
+                "description": "Vooraanduiding ongeval",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288953-h3-verkeersborden-auto_j34-vooraanduiding-ongeval.png&w=384&q=75"
+            },
+            {
+                "description": "Let op slecht zicht bij regen sneeuw mist",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739288981-h3-verkeersborden-auto_j35-let-op-slecht-zicht-bij-regen-sneeuw-mist.png&w=384&q=75"
+            },
+            {
+                "description": "Let op drempel",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289070-h3-verkeersborden-auto_j37-let-op-drempel.png&w=384&q=75"
+            },
+            {
+                "description": "Let op uitschuifbare paal",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289100-h3-verkeersborden-auto_j39-let-op-uitschuifbare-paal.png&w=384&q=75"
+            },
+            {
+                "description": "Voorrangsborden",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289973-h3-verkeersborden-auto_voorrangsborden.png&w=384&q=75"
+            },
+            {
+                "description": "Waarschuwingsbord",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739290024-h3-verkeersborden-auto_waarschuwingsbord.png&w=384&q=75"
+            }
+        ]
+    },
+    {
+        "category": "Snelheidsborden",
+        "count": 4,
+        "signs": [
+            {
+                "description": "Advies snelheid",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739200359-h3-verkeersborden-auto_a4-50-advies-snelheid.png&w=384&q=75"
+            },
+            {
+                "description": "Hectometerbord snelweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739281207-h3-verkeersborden-auto_bb08-hectometerbord-snelweg.png&w=384&q=75"
+            },
+            {
+                "description": "Hectometerbord autoweg variant",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739281304-h3-verkeersborden-auto_bb09-hectometerbord-autoweg-variant.png&w=384&q=75"
+            },
+            {
+                "description": "Hectometerbord autoweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739281319-h3-verkeersborden-auto_bb09-hectometerbord-autoweg.png&w=384&q=75"
+            }
+        ]
+    },
+    {
+        "category": "Voorrangsborden",
+        "count": 5,
+        "signs": [
+            {
+                "description": "Voorrangsweg van één kant",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739200215-h3-voorrangsweg-van-1-kantpng.png&w=384&q=75"
+            },
+            {
+                "description": "Voorrangsweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739280687-h3-verkeersborden-auto_b1-voorrangsweg.png&w=384&q=75"
+            },
+            {
+                "description": "Voorrangskruispunt",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739280712-h3-verkeersborden-auto_b3-voorrangskruispunt.png&w=384&q=75"
+            },
+            {
+                "description": "Voorrang verlenen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739280756-h3-verkeersborden-auto_b6-voorrang-verlenen.png&w=384&q=75"
+            },
+            {
+                "description": "Stopbord",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739280789-h3-verkeersborden-auto_b7-stopbord.png&w=384&q=75"
+            }
+        ]
+    },
+    {
+        "category": "Informatieborden",
+        "count": 25,
+        "signs": [
+            {
+                "description": "Uitwijkroute rechts afslaan",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282517-h3-verkeersborden-auto_bw501r-uitwijkroute-rechts-afslaan.png&w=384&q=75"
+            },
+            {
+                "description": "Autosnelweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284210-h3-verkeersborden-auto_g1-autosnelweg.png&w=384&q=75"
+            },
+            {
+                "description": "Woonerf",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284828-h3-verkeersborden-auto_g5-woonerf.png&w=384&q=75"
+            },
+            {
+                "description": "Voetpad",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284866-h3-verkeersborden-auto_g7-voetpad.png&w=384&q=75"
+            },
+            {
+                "description": "Fietspad",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284890-h3-verkeersborden-auto_g11-fietspad.png&w=384&q=75"
+            },
+            {
+                "description": "Voorwegwijzer langs autosnelweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289219-h3-verkeersborden-auto_k2-voorwegwijzer-langs-autosnelweg.png&w=384&q=75"
+            },
+            {
+                "description": "Hoge beslissingswijzer langs autosnelweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289257-h3-verkeersborden-auto_k4-hoge-beslissingswijzer-langs-autosnelweg.png&w=384&q=75"
+            },
+            {
+                "description": "Voorwegwijzer langs niet autosnelweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289285-h3-verkeersborden-auto_k5-voorwegwijzer-langs-niet-autosnelweg.png&w=384&q=75"
+            },
+            {
+                "description": "Wegwijzer met wijknummers binnen en bebouwde kom",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289328-h3-verkeersborden-auto_k13-wegwijzer-met-wijknummers-binnen-bebouwde-kom.png&w=384&q=75"
+            },
+            {
+                "description": "Route voor vervoer gevaarlijke stoffen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289370-h3-verkeersborden-auto_k14-route-voor-vervoer-gevaarlijkes-stoffen.png&w=384&q=75"
+            },
+            {
+                "description": "Voetgangersoversteekplaats",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289450-h3-verkeersborden-auto_l2-voetgangersoversteekplaats.png&w=384&q=75"
+            },
+            {
+                "description": "Doodlopende weg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289568-h3-verkeersborden-auto_l08-doodlopende-weg.png&w=384&q=75"
+            },
+            {
+                "description": "Voorwaarschuwing doodlopende weg links",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289637-h3-verkeersborden-auto_l09-voorwaarschuwing-doodlopende-weg-links.png&w=384&q=75"
+            },
+            {
+                "description": "Voorwaarschuwing doodlopende weg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289672-h3-verkeersborden-auto_l09-voorwaarschuwing-doodlopende-weg.png&w=384&q=75"
+            },
+            {
+                "description": "Aangegeven rijstrook heeft breedte beperking",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289697-h3-verkeersborden-auto_l11-aangegeven-rijstrook-heeft-breedte-beperking.png&w=384&q=75"
+            },
+            {
+                "description": "Vluchthaven",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289726-h3-verkeersborden-auto_l14-vluchthaven.png&w=384&q=75"
+            },
+            {
+                "description": "Uitwijkplaats rechts",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289751-h3-verkeersborden-auto_l20-uitwijkplaats-rechts.png&w=384&q=75"
+            },
+            {
+                "description": "Fietsstraat",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289778-h3-verkeersborden-auto_l51-fietsstraat.png&w=384&q=75"
+            },
+            {
+                "description": "Matrixbord einde aangegeven verboden of adviezen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289801-h3-verkeersborden-auto_matrixbord-einde-aangegeven-verboden-adviezen.png&w=384&q=75"
+            },
+            {
+                "description": "Matrixbord verdrijfsbord links",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289847-h3-verkeersborden-auto_matrixbord-verdrijfbord-links.png&w=384&q=75"
+            },
+            {
+                "description": "Onderbord voor fietsen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289883-h3-verkeersborden-auto_ob11-onderbord-voor-fietsen.png&w=384&q=75"
+            },
+            {
+                "description": "Onderbord voor bussen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289907-h3-verkeersborden-auto_ob12-onderbord-voor-bussen.png&w=384&q=75"
+            },
+            {
+                "description": "Onderbord voor vrachtwagens met tijden",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289934-h3-verkeersborden-auto_ob61-onderbord-voor-vrachtwagens-met-tijden.png&w=384&q=75"
+            },
+            {
+                "description": "Verkeersbrigadier bij zebrapad",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739289998-h3-verkeersborden-auto_vr07-verkeersbrigadier-bij-zebrapad.png&w=384&q=75"
+            },
+            {
+                "description": "Omleidingsroute volgen rechtsaf",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739290045-h3-verkeersborden-auto_wiu-t201-omleidingsroute-volgen-rechtsaf.png&w=384&q=75"
+            }
+        ]
+    },
+    {
+        "category": "Geboden en verboden",
+        "count": 15,
+        "signs": [
+            {
+                "description": "Verbodsborden",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282604-h3-verkeersborden-auto_c1-verbodsborden.png&w=384&q=75"
+            },
+            {
+                "description": "Verboden in te rijden inclusief afgebeelde voertuigen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282647-h3-verkeersborden-auto_c2-ob4-verboden-in-te-rijden-inclusief-afgebeelde-voertuigen.png&w=384&q=75"
+            },
+            {
+                "description": "Verboden in te rijden met uitzondering",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282719-h3-verkeersborden-auto_c2-ob52-verboden-in-te-rijden-met-uitzondering.png&w=384&q=75"
+            },
+            {
+                "description": "Gesloten voor voertuigen op meer dan twee wielen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282899-h3-verkeersborden-auto_c6-verboden-voor-autos.png&w=384&q=75"
+            },
+            {
+                "description": "Gesloten voor vrachtwagens",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282976-h3-verkeersborden-auto_c7-gesloten-voor-vrachtwagens.png&w=384&q=75"
+            },
+            {
+                "description": "Gesloten verklaring voor traktor, bromfiets en fiets",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283011-h3-verkeersborden-auto_c9-gesloten-verklaring-tracktor-bromfiets-fiets.png&w=384&q=75"
+            },
+            {
+                "description": "Gesloten voor motorfietsen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283077-h3-verkeersborden-auto_c11-gesloten-voor-motorfietsen.png&w=384&q=75"
+            },
+            {
+                "description": "Verboden voor auto's en motoren",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283178-h3-verkeersborden-auto_c12-verboden-voor-autos-en-motoren.png&w=384&q=75"
+            },
+            {
+                "description": "Verboden voor voetgangers",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283238-h3-verkeersborden-auto_c16-verboden-voor-voetgangers.png&w=384&q=75"
+            },
+            {
+                "description": "Gesloten voor te hoge voertuigen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283267-h3-verkeersborden-auto_c19-gesloten-voor-te-hoge-voertuigen.png&w=384&q=75"
+            },
+            {
+                "description": "Parkeerverbod",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283792-h3-verkeersborden-auto_e01-parkeerverbod.png&w=384&q=75"
+            },
+            {
+                "description": "Verboden stil te staan.",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283954-h3-verkeersborden-auto_e02-verboden-stil-te-staan.png&w=384&q=75"
+            },
+            {
+                "description": "Tegenligger heeft voorrang",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284094-h3-verkeersborden-auto_f05-tegenligger-heeft-voorrang.png&w=384&q=75"
+            },
+            {
+                "description": "Keerverbod",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284138-h3-verkeersborden-auto_f7-keerverbod.png&w=384&q=75"
+            },
+            {
+                "description": "Einde aangegeven verboden door verkeersborden",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284165-h3-verkeersborden-auto_f8-einde-aangegeven-verboden-door-verkeersborden.png&w=384&q=75"
+            }
+        ]
+    },
+    {
+        "category": "Rijrichtingen",
+        "count": 7,
+        "signs": [
+            {
+                "description": "Éénrichtingsweg",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282751-h3-verkeersborden-auto_c3-eenrichtingsweg.png&w=384&q=75"
+            },
+            {
+                "description": "Éénrichtingsweg rechts",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282819-h3-verkeersborden-auto_c04r-eenrichtingsweg-rechts.png&w=384&q=75"
+            },
+            {
+                "description": "Inrijden toegestaan",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739282864-h3-verkeersborden-auto_c05-inrijden-toegestaan.png&w=384&q=75"
+            },
+            {
+                "description": "Passeren aan rechterzijde",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283326-h3-verkeersborden-auto_d2-passeren-aan-rechterzijde.png&w=384&q=75"
+            },
+            {
+                "description": "Gebod tot volgen van aangegeven rijrichting",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283453-h3-verkeersborden-auto_d4-gebod-tot-volgen-van-aangegeven-rijrichting.png&w=384&q=75"
+            },
+            {
+                "description": "Gebod tot volgen aangegeven rijrichting",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283513-h3-verkeersborden-auto_d5-gebod-tot-volgen-aangegeven-rijrichting.png&w=384&q=75"
+            },
+            {
+                "description": "Bromfietsers moeten wisselen van rijbaan",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283657-h3-verkeersborden-auto_d104-bromfietsers-moeten-wisselen-van-rijbaan.png&w=384&q=75"
+            }
+        ]
+    },
+    {
+        "category": "Parkeren",
+        "count": 2,
+        "signs": [
+            {
+                "description": "Parkeergelegenheid laden en lossen",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739283993-h3-verkeersborden-auto_e7-parkeergelegenheid-laden-en-lossen.png&w=384&q=75"
+            },
+            {
+                "description": "Parkeer en reisvoorziening",
+                "hoverHint": "",
+                "imageUrl": "/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F55417%2F1739284064-h3-verkeersborden-auto_e12-parkeer-en-reisvoorziening.png&w=384&q=75"
+            }
+        ]
+    }
+]

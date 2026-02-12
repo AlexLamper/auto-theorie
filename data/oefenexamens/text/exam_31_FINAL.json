@@ -1,0 +1,782 @@
+{
+  "exam_id": 31,
+  "questions": [
+    {
+      "index": 1,
+      "real_id": 30417,
+      "scraped_id": "010417",
+      "question": "Je verlaat de rotonde. Moet je de bromfietser voor laten gaan?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00021919.jpg?v=1679308400"
+    },
+    {
+      "index": 2,
+      "real_id": 31299,
+      "scraped_id": "011299",
+      "question": "In welke situatie moet je stoppen?",
+      "answers": [
+        "A\t\tAlleen in situatie A.",
+        "B\t\tAlleen in situatie B.",
+        "C\t\tIn situatie A en B.",
+        "D\t\tGeen van beide."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00023135.jpg?v=1706696860"
+    },
+    {
+      "index": 3,
+      "real_id": 29115,
+      "scraped_id": "009115",
+      "question": "Wie mag eerst?",
+      "answers": [],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00016562-2.jpg?v=1584528522"
+    },
+    {
+      "index": 4,
+      "real_id": 29684,
+      "scraped_id": "009684",
+      "question": "Met welke banden is de kans op aquaplaning het grootst?",
+      "answers": [
+        "A\t\tBrede banden.",
+        "B\t\tSmalle banden.",
+        "C\t\tBrede of smalle banden maken geen verschil."
+      ],
+      "correct_answer_indices": [
+        1,
+        0,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00012385.jpg?v=1584528385"
+    },
+    {
+      "index": 5,
+      "real_id": 6297,
+      "scraped_id": "001631",
+      "question": "Er is een ongeluk gebeurd. Van wie moet de identiteit bekend zijn, voordat hij of zij de plaats van het ongeluk mag verlaten?",
+      "answers": [
+        "A\t\tVan diegene die het slachtoffer is van het ongeluk.",
+        "B\t\tVan diegene die schuldig is aan het ongeluk.",
+        "C\t\tVan iedereen die bij het ongeluk betrokken is."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": null
+    },
+    {
+      "index": 6,
+      "real_id": 29696,
+      "scraped_id": "009696",
+      "question": "Je wilt zometeen gaan invoegen. Mag je hier met 60 kilometer per uur invoegen?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00013125.jpg?v=1584527284"
+    },
+    {
+      "index": 7,
+      "real_id": 17213,
+      "scraped_id": "002756",
+      "question": "Wanneer kun je een betrouwbare meting uitvoeren van het oliepeil van de motor?",
+      "answers": [
+        "A\t\tOngeveer 15 minuten na een autorit.",
+        "B\t\tBij een koude motor.",
+        "C\t\tBeide antwoorden zijn juist."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00014252.jpg?v=1584535586"
+    },
+    {
+      "index": 8,
+      "real_id": 31052,
+      "scraped_id": "011052",
+      "question": "Waar mag je na het verkeersbord iemand laten uitstappen? Er kunnen meer antwoorden goed zijn.",
+      "answers": [
+        "A\t\tRechts op de rijbaan.",
+        "B\t\tLinks op de rijbaan.",
+        "C\t\tRechts en links op het trottoir.",
+        "D\t\tRechts in een parkeervak.",
+        "E\t\tLinks in een parkeervak."
+      ],
+      "correct_answer_indices": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00014877.jpg?v=1584527020"
+    },
+    {
+      "index": 9,
+      "real_id": 16350,
+      "scraped_id": "001987",
+      "question": "Je wilt rechtdoor. Moet je de motor voor laten gaan?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00010793.jpg?v=1584527448"
+    },
+    {
+      "index": 10,
+      "real_id": 29907,
+      "scraped_id": "009907",
+      "question": "Wat geldt voor jou in deze situatie?",
+      "answers": [
+        "A\t\tJe moet hier naar links afslaan.",
+        "B\t\tJe mag hier niet naar links afslaan.",
+        "C\t\tJe mag hier rechtdoor rijden of links afslaan."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00012674.jpg?v=1584533794"
+    },
+    {
+      "index": 11,
+      "real_id": 29715,
+      "scraped_id": "009715",
+      "question": "Welke markering zit achterop een aanhangwagen?",
+      "answers": [],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00018968-1.jpg?v=1584535719"
+    },
+    {
+      "index": 12,
+      "real_id": 16814,
+      "scraped_id": "002386",
+      "question": "Wat is de betekenis van dit verkeersbord?",
+      "answers": [
+        "A\t\tRijbaan of rijstrook alleen bestemd voor lijnbussen.",
+        "B\t\tVerboden voor lijnbussen.",
+        "C\t\tBushalte."
+      ],
+      "correct_answer_indices": [
+        1,
+        0,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00016911.jpg?v=1584533801"
+    },
+    {
+      "index": 13,
+      "real_id": 5527,
+      "scraped_id": "001929",
+      "question": "Als je je niet aan de verkeersregels houdt, is dat een overtreding of een misdrijf. Wat is het als je te hard rijdt?",
+      "answers": [
+        "A\t\tEen overtreding.",
+        "B\t\tEen misdrijf."
+      ],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": null
+    },
+    {
+      "index": 14,
+      "real_id": 29794,
+      "scraped_id": "009794",
+      "question": "Wat is hier de juiste volgorde van voor laten gaan?",
+      "answers": [],
+      "correct_answer_indices": [
+        1,
+        2,
+        3
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00019702-2.jpg?v=1584528742"
+    },
+    {
+      "index": 15,
+      "real_id": 30408,
+      "scraped_id": "010408",
+      "question": "Mag je nu de witte bus inhalen?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": null
+    },
+    {
+      "index": 16,
+      "real_id": 1146,
+      "scraped_id": "000178",
+      "question": "Je parkeert op een parkeerhaven van een autoweg. Welke verlichting doe je aan?",
+      "answers": [
+        "A\t\tDe stadslichten: twee lichten voor, twee lichten achter.",
+        "B\t\tHet parkeerlicht: één licht voor, één licht achter.",
+        "C\t\tDe richtingaanwijzers."
+      ],
+      "correct_answer_indices": [
+        1,
+        0,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00021346.jpg?v=1634288371"
+    },
+    {
+      "index": 17,
+      "real_id": 29963,
+      "scraped_id": "009963",
+      "question": "De toegestane maximummassa van deze bedrijfsauto is 3.400 kilogram. Mag je met alleen rijbewijs B deze bedrijfsauto besturen?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00020070.jpg?v=1584714068"
+    },
+    {
+      "index": 18,
+      "real_id": 30024,
+      "scraped_id": "010024",
+      "question": "Welke pijl op het wegdek heeft te maken met 'voorsorteren'?",
+      "answers": [
+        "A\t\tPijl 1.",
+        "B\t\tPijl 2.",
+        "C\t\tPijl 3."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00020229.jpg?v=1598524551"
+    },
+    {
+      "index": 19,
+      "real_id": 16770,
+      "scraped_id": "002344",
+      "question": "Je maakt deel uit van een langzaam rijdende file. Wat verwachten inhalende motorrijders van je?",
+      "answers": [
+        "A\t\tNiets.",
+        "B\t\tUitwijken naar links.",
+        "C\t\tUitwijken naar rechts."
+      ],
+      "correct_answer_indices": [
+        0,
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00021339.jpg?v=1634288395"
+    },
+    {
+      "index": 20,
+      "real_id": 32023,
+      "scraped_id": "012023",
+      "question": "Binnen hoeveel meter afstand van een kruispunt mag je niet parkeren?",
+      "answers": [],
+      "correct_answer_indices": [
+        "5"
+      ],
+      "image": null
+    },
+    {
+      "index": 21,
+      "real_id": 16773,
+      "scraped_id": "002347",
+      "question": "De rijbevoegdheid is je ontzegd. Mag je nog wel met dit voertuig rijden?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00014092.jpg?v=1584533698"
+    },
+    {
+      "index": 22,
+      "real_id": 4766,
+      "scraped_id": "001143",
+      "question": "Wie zijn herkenbaar als kwetsbare bestuurders?",
+      "answers": [
+        "A\t\t65-plussers.",
+        "B\t\tDe bestuurders van een gehandicaptenvoertuig.",
+        "C\t\tJongeren die net hun rijbewijs hebben gehaald."
+      ],
+      "correct_answer_indices": [
+        0,
+        1,
+        0
+      ],
+      "image": null
+    },
+    {
+      "index": 23,
+      "real_id": 3452,
+      "scraped_id": "000634",
+      "question": "Je wilt rechtdoor en je ziet deze drie verkeersborden. Bij welk bord moet je voorrang krijgen van andere bestuurders?",
+      "answers": [],
+      "correct_answer_indices": [
+        0,
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00016665-1.jpg?v=1584528532"
+    },
+    {
+      "index": 24,
+      "real_id": 16641,
+      "scraped_id": "002232",
+      "question": "Wanneer moet de vrachtauto voorrang krijgen?",
+      "answers": [
+        "A\t\tAlleen in situatie A.",
+        "B\t\tAlleen in situatie B.",
+        "C\t\tIn situatie A en B."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00013857.jpg?v=1584527004"
+    },
+    {
+      "index": 25,
+      "real_id": 29122,
+      "scraped_id": "009122",
+      "question": "Wie mag eerst?",
+      "answers": [],
+      "correct_answer_indices": [
+        1,
+        0,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00016642-2.jpg?v=1584528811"
+    },
+    {
+      "index": 26,
+      "real_id": 29755,
+      "scraped_id": "009755",
+      "question": "Je gebruikt geen dakdrager. Mag je zo gaan rijden?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00019614.jpg?v=1584527062"
+    },
+    {
+      "index": 27,
+      "real_id": 987,
+      "scraped_id": "000108",
+      "question": "Deze verkeersborden staan onder elkaar. Wat betekenen ze samen?",
+      "answers": [
+        "A\t\tJe mag hier niet parkeren in de eerste helft van de maand.",
+        "B\t\tJe mag hier niet parkeren op alle oneven dagen.",
+        "C\t\tJe mag hier parkeren in de eerste helft van de maand."
+      ],
+      "correct_answer_indices": [
+        1,
+        0,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00016801.jpg?v=1584527328"
+    },
+    {
+      "index": 28,
+      "real_id": 5079,
+      "scraped_id": "001255",
+      "question": "Je wilt linksaf. Moet je de motorrijder voor laten gaan?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00013925.jpg?v=1584525556"
+    },
+    {
+      "index": 29,
+      "real_id": 1095,
+      "scraped_id": "000173",
+      "question": "Je wilt de fietsers inhalen. Wat moet je doen?",
+      "answers": [
+        "A\t\tJe haalt de fietsers in met veel ruimte aan de zijkant.",
+        "B\t\tJe toetert eerst en daarna haal je de fietsers in.",
+        "C\t\tJe wacht tot je de fietsers veilig kunt inhalen."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00021395.jpg?v=1634288534"
+    },
+    {
+      "index": 30,
+      "real_id": 30359,
+      "scraped_id": "010359",
+      "question": "Moet je verwachten dat je voorligger gaat remmen?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": null
+    },
+    {
+      "index": 31,
+      "real_id": 5225,
+      "scraped_id": "001303",
+      "question": "Je keert hier. Mag dat?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00013482.jpg?v=1584527064"
+    },
+    {
+      "index": 32,
+      "real_id": 3578,
+      "scraped_id": "000689",
+      "question": "Je hebt drugs gebruikt en je gaat rijden. Wat gebeurt er?",
+      "answers": [
+        "A\t\tJe gaat anders rijden, op een manier die anderen niet verwachten.",
+        "B\t\tJe gaat voorzichtiger rijden.",
+        "C\t\tJe ziet alles beter en sneller."
+      ],
+      "correct_answer_indices": [
+        1,
+        0,
+        0
+      ],
+      "image": null
+    },
+    {
+      "index": 33,
+      "real_id": 29040,
+      "scraped_id": "009040",
+      "question": "Welk verkeersbord waarschuwt je voor een ongeval?",
+      "answers": [],
+      "correct_answer_indices": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00016725-1.jpg?v=1584527940"
+    },
+    {
+      "index": 34,
+      "real_id": 31263,
+      "scraped_id": "011263",
+      "question": "Wat is de maximum-snelheid van een motorfiets op een autosnelweg buiten de bebouwde kom?",
+      "answers": [
+        "A\t\t90 kilometer per uur.",
+        "B\t\t100 kilometer per uur.",
+        "C\t\t130 kilometer per uur."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00018620.jpg?v=1706696812"
+    },
+    {
+      "index": 35,
+      "real_id": 29500,
+      "scraped_id": "009500",
+      "question": "Je rijdt in een auto met ABS. Bij het uitvoeren van een noodstop voel je een heftige trilling in het rempedaal. Laat je het rempedaal los?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00011894.jpg?v=1584527497"
+    },
+    {
+      "index": 36,
+      "real_id": 1218,
+      "scraped_id": "000191",
+      "question": "Je wilt invoegen. Wat moet je doen?",
+      "answers": [
+        "A\t\tJe laat de vrachtauto voorgaan.",
+        "B\t\tJe voegt nog voor de vrachtauto in."
+      ],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00013445.jpg?v=1584527555"
+    },
+    {
+      "index": 37,
+      "real_id": 17142,
+      "scraped_id": "002687",
+      "question": "Wat is hier de juiste volgorde van voor laten gaan?",
+      "answers": [],
+      "correct_answer_indices": [
+        1,
+        2,
+        3
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00015306-2.jpg?v=1584530066"
+    },
+    {
+      "index": 38,
+      "real_id": 6153,
+      "scraped_id": "001530",
+      "question": "Bij welk verkeersbord mag je niet parkeren?",
+      "answers": [
+        "A\t\tAan de kant van de weg waar verkeersbord 1 staat.",
+        "B\t\tAan de kant van de weg waar verkeersbord 2 staat.",
+        "C\t\tAan de kanten van de weg waar verkeersbord 1 of 2 staat."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00017130.jpg?v=1584526490"
+    },
+    {
+      "index": 39,
+      "real_id": 3878,
+      "scraped_id": "000774",
+      "question": "Je wilt rechtdoor. Moet je de auto voor laten gaan?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00015246.jpg?v=1584528752"
+    },
+    {
+      "index": 40,
+      "real_id": 16381,
+      "scraped_id": "002013",
+      "question": "Waar kun je een maximum-snelheid van 60 kilometer per uur aantreffen?",
+      "answers": [
+        "A\t\tBinnen de bebouwde kom.",
+        "B\t\tBuiten de bebouwde kom."
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00012298.jpg?v=1584526666"
+    },
+    {
+      "index": 41,
+      "real_id": 4280,
+      "scraped_id": "000932",
+      "question": "Je rijdt met winterbanden. Waar let je op?",
+      "answers": [
+        "A\t\tDe bandenspanning moet lager zijn dan die van normale banden.",
+        "B\t\tMet winterbanden heb je langer de tijd nodig om te remmen.",
+        "C\t\tOp een droge weg kan je auto anders rijden."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": null
+    },
+    {
+      "index": 42,
+      "real_id": 3436,
+      "scraped_id": "000625",
+      "question": "Je ziet dit verkeersbord aan het begin van een weg. Wie mogen deze weg niet inrijden?",
+      "answers": [
+        "A\t\tLandbouwtrekkers die niet sneller mogen rijden dan 25 kilometer per uur.",
+        "B\t\tLandbouwtrekkers die niet sneller mogen rijden dan 40 kilometer per uur.",
+        "C\t\tBeide antwoorden zijn juist."
+      ],
+      "correct_answer_indices": [
+        0,
+        0,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00016867.jpg?v=1584527229"
+    },
+    {
+      "index": 43,
+      "real_id": 29646,
+      "scraped_id": "009646",
+      "question": "Je bent betrokken bij een ongeval op de autosnelweg. Wanneer bel je het alarmnummer 112?",
+      "answers": [
+        "A\t\tBij ieder ongeval op de autosnelweg.",
+        "B\t\tBij ieder ongeval waarbij voertuigen op de rijbaan blijven staan.",
+        "C\t\tAlleen bij een ongeval met slachtoffers."
+      ],
+      "correct_answer_indices": [
+        0,
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00017643.jpg?v=1584528530"
+    },
+    {
+      "index": 44,
+      "real_id": 31355,
+      "scraped_id": "011355",
+      "question": "Op het kruispunt sla je links af om vervolgens rechtdoor te rijden. In welke situatie sorteer je goed voor? Er kunnen meer antwoorden goed zijn!",
+      "answers": [],
+      "correct_answer_indices": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00023481-1.jpg?v=1717593092"
+    },
+    {
+      "index": 45,
+      "real_id": 32072,
+      "scraped_id": "012072",
+      "question": "Wat moet je doen?",
+      "answers": [
+        "A\t\tGas geven en uitvoegen vóór de motorfiets.",
+        "B\t\tGas loslaten en uitvoegen áchter de motorfiets."
+      ],
+      "correct_answer_indices": [
+        0,
+        1
+      ],
+      "image": null
+    },
+    {
+      "index": 46,
+      "real_id": 31028,
+      "scraped_id": "011028",
+      "question": "Voordat je rechts afslaat, sorteer je ...? Er kunnen meer antwoorden goed zijn.",
+      "answers": [
+        "A\t\tniet voor op fietsstroken met een doorgetrokken streep.",
+        "B\t\tzoveel mogelijk voor op fietsstroken met een onderbroken streep.",
+        "C\t\tuitsluitend voor op fietsstroken gemarkeerd met onderbroken streep indien dit de vlotte doorstroming van het verkeer bevordert."
+      ],
+      "correct_answer_indices": [
+        1,
+        0,
+        1
+      ],
+      "image": null
+    },
+    {
+      "index": 47,
+      "real_id": 29955,
+      "scraped_id": "009955",
+      "question": "De afstand tussen de beide auto's is 4 meter. Mag je zo slepen?",
+      "answers": [
+        "JA",
+        "NEE"
+      ],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00015315.jpg?v=1584533615"
+    },
+    {
+      "index": 48,
+      "real_id": 3518,
+      "scraped_id": "000655",
+      "question": "Op plaatsen waar je last kunt hebben van zijwind, staat vaak een windzak. Wat kun je daaraan zien?",
+      "answers": [
+        "A\t\tHoe sterk de wind is en uit welke richting de wind komt.",
+        "B\t\tAlleen hoe sterk de wind is.",
+        "C\t\tAlleen van welke richting de wind komt."
+      ],
+      "correct_answer_indices": [
+        1,
+        0,
+        0
+      ],
+      "image": null
+    },
+    {
+      "index": 49,
+      "real_id": 31985,
+      "scraped_id": "011985",
+      "question": "Wat is buiten de bebouwde kom de maximum-snelheid van een landbouwtrekker op een weg waar fietsers mogen rijden?",
+      "answers": [],
+      "correct_answer_indices": [
+        "40"
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00024358.jpg?v=1737717418"
+    },
+    {
+      "index": 50,
+      "real_id": 4402,
+      "scraped_id": "000990",
+      "question": "Wat weet je over inhalen vóór en op een overweg?",
+      "answers": [
+        "A\t\tOp overwegen is inhalen niet veilig.",
+        "B\t\tVlak vóór en op overwegen geldt een inhaalverbod voor motorvoertuigen op meer dan twee wielen."
+      ],
+      "correct_answer_indices": [
+        1,
+        0
+      ],
+      "image": "https://members.wegrijden.nl/exams/assets/photo/photo_a/vkf00012842.jpg?v=1584526354"
+    }
+  ]
+}

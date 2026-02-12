@@ -43,15 +43,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# docs
-/docs
-/docs*
 # Data & images
-/data/
-/app/leren-images/
 /scripts/*.js
 !/scripts/seed-*.js
-/public/images/lessons/
-/public/verkeersborden/
-/public/favicon/
-/public/images/oefenexamens/
