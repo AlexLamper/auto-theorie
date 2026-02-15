@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect, useMemo } from "react"
-import { Search, Info, Award } from "lucide-react"
+import { Search, ArrowRight } from "lucide-react"
 import Footer from "@/components/footer"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import { FallbackImage } from "@/components/ui/fallback-image"
@@ -10,6 +10,7 @@ import { TextToSpeechButton } from "@/components/TextToSpeechButton"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 interface TrafficSign {
   _id: string | { $oid: string }
@@ -109,6 +110,24 @@ export default function TrafficSignsPage() {
 
         {/* Content Section */}
         <div className="container mx-auto px-4 max-w-7xl -mt-8 relative z-10">
+
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 mb-6 animate-fade-up">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">Nieuw</p>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-1">Interactieve bordentraining</h2>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">
+                  Oefen direct met meerkeuzevragen en leer verkeersborden sneller herkennen.
+                </p>
+              </div>
+              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold">
+                <Link href="/verkeersborden/oefenen">
+                  Start bordentraining
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </div>
           
           {/* Controls Bar */}
           <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 h-auto p-6 mb-10 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between animate-fade-up animate-delay-1">

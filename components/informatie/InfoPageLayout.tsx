@@ -61,7 +61,7 @@ export default function InfoPageLayout({
                   </BreadcrumbList>
                 </Breadcrumb>
                 
-                <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:text-slate-900 dark:prose-headings:text-white prose-headings:font-bold prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 dark:prose-strong:text-white">
+                 <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:text-slate-900 dark:prose-headings:text-white prose-headings:font-bold prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 dark:prose-strong:text-white prose-p:leading-8 prose-p:text-[1.02rem] prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-5 prose-h2:pb-4 prose-h2:border-b prose-h2:border-slate-200 dark:prose-h2:border-slate-800 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-ul:my-6 prose-li:my-2 prose-li:marker:text-blue-500">
                    {children}
                 </div>
             </div>

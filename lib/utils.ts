@@ -29,9 +29,25 @@ function looksLikeHtml(content: string) {
   return /<\/?[a-z][\s\S]*>/i.test(content)
 }
 
+function sanitizeLegacyLessonHtml(html: string) {
+  if (!html) return ""
+
+  return html.replace(/<iframe\b[^>]*src=["']([^"']+)["'][^>]*>[\s\S]*?<\/iframe>/gi, (iframeTag, src) => {
+    const normalizedSrc = String(src || "").trim().toLowerCase()
+    const isHttp = normalizedSrc.startsWith("http://") || normalizedSrc.startsWith("https://")
+    const isRootRelative = normalizedSrc.startsWith("/")
+
+    if (isHttp || isRootRelative) {
+      return iframeTag
+    }
+
+    return ""
+  })
+}
+
 export function formatLessonContent(content: string) {
   if (!content) return ""
-  if (looksLikeHtml(content)) return content
+  if (looksLikeHtml(content)) return sanitizeLegacyLessonHtml(content)
 
   const lines = content
     .replace(/\r\n/g, "\n")

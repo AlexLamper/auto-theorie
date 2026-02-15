@@ -154,10 +154,23 @@ function LesPaginaContent() {
         const res = await fetch(`/api/leren?voertuig=auto&categorie=${actieveGroep}`)
         if (res.ok) {
           const lessen = await res.json()
-          const les = lessen.find((l: any) => {
+          const gesorteerdeLessen = [...lessen].sort((a: any, b: any) => {
+            const aOrder = typeof a.order === "number" ? a.order : parseInt(a.order ?? "0", 10)
+            const bOrder = typeof b.order === "number" ? b.order : parseInt(b.order ?? "0", 10)
+            return aOrder - bOrder
+          })
+
+          const les = gesorteerdeLessen.find((l: any) => {
             const v = typeof l.order === "number" ? l.order : parseInt(l.order ?? "1", 10)
             return v === lesVolgorde
-          }) || lessen[0]
+          }) || gesorteerdeLessen[0]
+
+          const gevondenLesOrder =
+            typeof les?.order === "number" ? les.order : parseInt(les?.order ?? "1", 10)
+
+          if (les && gevondenLesOrder !== lesVolgorde) {
+            router.replace(`/leren/${actieveGroep}?les=${gevondenLesOrder}`)
+          }
 
           if (les) {
             setActieveLes({

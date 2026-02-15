@@ -1,6 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Trophy, AlertCircle, Lock } from "lucide-react"
+import { AlertCircle, Lock } from "lucide-react"
 import Link from "next/link"
 import Footer from "@/components/footer"
 import { getExams } from "@/lib/exams"

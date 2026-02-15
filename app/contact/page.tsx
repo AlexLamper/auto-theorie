@@ -31,7 +31,7 @@ export default function ContactPage() {
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Contact Info */}
           <Card className="border-slate-100 dark:border-slate-800 shadow-sm rounded-2xl overflow-hidden bg-white dark:bg-slate-900">
-            <CardHeader className="bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800 pb-6">
+            <CardHeader className="border-b border-slate-100 dark:border-slate-800 pb-6">
               <CardTitle className="text-xl font-bold text-slate-900 dark:text-white">Contactgegevens</CardTitle>
             </CardHeader>
             <CardContent className="p-8 space-y-8">
@@ -41,7 +41,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-semibold text-slate-900 dark:text-white mb-1">E-mail</p>
-                  <p className="text-slate-600 dark:text-slate-400">devlamper06@gmail.com</p>
+                  <p className="text-slate-600 dark:text-slate-400">info@auto-theorie.com</p>
                 </div>
               </div>
 
@@ -69,7 +69,7 @@ export default function ContactPage() {
 
           {/* FAQ */}
           <Card className="border-slate-100 dark:border-slate-800 shadow-sm rounded-2xl overflow-hidden bg-white dark:bg-slate-900">
-            <CardHeader className="bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800 pb-6">
+            <CardHeader className="border-b border-slate-100 dark:border-slate-800 pb-6">
               <CardTitle className="flex items-center space-x-2 text-xl font-bold text-slate-900 dark:text-white">
                 <HelpCircle className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 <span>Veelgestelde Vragen</span>

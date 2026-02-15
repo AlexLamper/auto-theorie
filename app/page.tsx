@@ -51,7 +51,7 @@ export default function HomePage() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 sm:space-y-8">
               <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/50 dark:border-blue-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm px-4 py-1.5 text-xs sm:text-sm font-semibold text-blue-700 dark:text-blue-400 animate-fade-up shadow-sm">
-                <Sparkles className="h-3.5 w-3.5 sm:h-4 w-4" />
+                <Sparkles className="h-4 w-4" />
                 <span>CBR 2025/2026 Update</span>
               </div>
               
@@ -61,8 +61,8 @@ export default function HomePage() {
                   <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">moeiteloos & sneller.</span>
                 </h1>
                 <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed px-4">
-                  Alles wat je nodig hebt om in één keer te slagen voor je CBR examen. 
-                  Een modern platform voor de moderne leerling.
+                  Het voordeligste platform om te leren voor je auto theorie-examen,
+                  met complete lessen, oefenvragen en proefexamens op één plek.
                 </p>
               </div>
 
@@ -82,12 +82,7 @@ export default function HomePage() {
 
               {/* Social proof */}
               <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-500 dark:text-slate-500 pt-4 animate-fade-up animate-delay-3">
-                <div className="flex -space-x-2">
-                  {[1,2,3,4].map(i => (
-                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-950 bg-slate-200 dark:bg-slate-800 overflow-hidden bg-[url('https://api.dicebear.com/7.x/avataaars/svg?seed='+i)] bg-cover" />
-                  ))}
-                </div>
-                <span>Join over <span className="font-bold text-slate-900 dark:text-slate-200">10.000+</span> geslaagde leerlingen</span>
+                <span><span className="font-bold text-slate-900 dark:text-slate-200">Start vandaag</span> met gericht oefenen voor je theorie-examen</span>
               </div>
             </div>
           </div>
@@ -204,14 +199,13 @@ export default function HomePage() {
               </div>
             </div>
             
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full text-left">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full max-w-5xl mx-auto">
               {[
                 { title: "Geen overbodige info", desc: "Alleen de kennis die je nodig hebt voor het CBR examen." },
                 { title: "Visueel leren", desc: "Duidelijke illustraties en uitleg voor complexe verkeerssituaties." },
-                { title: "Slaagkans 98%", desc: "Onze methode is bewezen effectief voor duizenden leerlingen." },
                 { title: "Bespaar tijd", desc: "Gemiddeld hebben onze leerlingen slechts 12 uur studietijd nodig." },
               ].map((item) => (
-                <div key={item.title} className="flex flex-col gap-3 sm:gap-4 p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+                <div key={item.title} className="flex flex-col items-center text-center gap-3 sm:gap-4 p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                     <CheckCircle className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                   </div>
@@ -243,27 +237,24 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {[
               { 
-                name: "Auto Dag", 
+                name: "Basic", 
                 price: "19,99", 
-                note: "Ideaal voor de laatste check", 
-                duration: "24 uur toegang",
-                features: ["Alle theorie lessen", "Alle oefenexamens", "Direct resultaat"]
+                note: "1 Dag (24 uur) toegang", 
+                features: ["Volledige toegang tot alle lessen", "Alle oefenexamens beschikbaar", "1 Willekeurig examen (Poging)", "Directe foutanalyse"]
               },
               { 
-                name: "Auto Week", 
+                name: "Pro", 
+                price: "24,99", 
+                note: "7 Dagen toegang", 
+                features: ["Volledige toegang tot alle lessen", "Alle oefenexamens beschikbaar", "3 Willekeurige examens (Pogingen)", "Voortgang wordt opgeslagen"]
+              },
+              { 
+                name: "Premium", 
                 price: "29,99", 
-                note: "De meest populaire keuze", 
-                duration: "7 dagen toegang",
+                note: "31 Dagen (1 Maand) toegang", 
                 recommended: true,
-                features: ["Alle theorie lessen", "Onbeperkt oefenvragen", "Alle oefenexamens", "Prioriteit support"]
-              },
-              { 
-                name: "Auto Maand", 
-                price: "39,99", 
-                note: "Leren zonder tijdsdruk", 
-                duration: "30 dagen toegang",
-                old: "79,99",
-                features: ["Alles in Auto Week", "Voortgang analyse", "Langer studeren"]
+                old: "59,99",
+                features: ["Volledige toegang tot alle lessen", "Alle oefenexamens beschikbaar", "7 Willekeurige examens (Pogingen)", "100% Slaaggarantie methode"]
               },
             ].map((plan) => (
               <div key={plan.name} className={`relative p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border ${plan.recommended ? 'border-blue-500 bg-white dark:bg-slate-900 md:scale-105 shadow-2xl z-10' : 'border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 shadow-sm'} flex flex-col transition-transform hover:scale-[1.02] md:hover:scale-[1.07] duration-500`}>
@@ -275,11 +266,12 @@ export default function HomePage() {
                 
                 <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 text-center sm:text-left">
                   <h4 className="text-lg sm:text-xl font-bold dark:text-white">{plan.name}</h4>
+                  {plan.old && <p className="text-xs font-bold text-slate-400 dark:text-slate-600 line-through">EUR {plan.old}</p>}
                   <div className="flex items-baseline justify-center sm:justify-start gap-1">
                     <span className="text-xl font-bold">€</span>
                     <span className="text-4xl sm:text-5xl font-black tracking-tighter">{plan.price}</span>
                   </div>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{plan.duration}</p>
+                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{plan.note}</p>
                 </div>
 
                 <div className="flex-1 space-y-3 sm:space-y-4 mb-6 sm:mb-8">

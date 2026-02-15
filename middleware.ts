@@ -4,6 +4,19 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const planExpiry = (token?.plan as any)?.expiresAt
+  const hasExpiredPlan = Boolean(planExpiry && new Date(planExpiry) <= new Date())
+
+  if (token?.id && hasExpiredPlan) {
+    const response = NextResponse.redirect(new URL("/inloggen?expired=1", req.url))
+    response.cookies.delete("next-auth.session-token")
+    response.cookies.delete("__Secure-next-auth.session-token")
+    response.cookies.delete("next-auth.csrf-token")
+    response.cookies.delete("__Host-next-auth.csrf-token")
+    response.cookies.delete("next-auth.callback-url")
+    response.cookies.delete("__Secure-next-auth.callback-url")
+    return response
+  }
   
   // Check if user has an active plan
   const hasPlan = 
