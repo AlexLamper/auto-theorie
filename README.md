@@ -1,4 +1,4 @@
-# Auto Theorie - Oefenplatform voor het Theorie-examen
+# Auto Theorie - Jouw platform voor het auto theorie-examen
 
 <p>
   <img src="https://img.shields.io/github/license/AlexLamper/auto-theorie?style=for-the-badge" alt="License" />
@@ -6,7 +6,8 @@
   <img src="https://img.shields.io/github/contributors/AlexLamper/auto-theorie?style=for-the-badge&logo=github" alt="Contributors" />
 </p>
 
-**Oefen gratis met voorbeeldlessen en stap over naar volledige toegang wanneer je er klaar voor bent.**
+
+**Start gratis met voorbeeldlessen en oefenvragen. Ontgrendel volledige toegang tot alle lessen, oefenexamens en interactieve verkeersborden-training wanneer je er klaar voor bent.**
 
 ![Auto Theorie Screenshot](public/screenshot.png)
 <p>
@@ -15,9 +16,10 @@
   </a>
 </p>
 
+
 ## Over Auto Theorie
 
-*Auto Theorie* is een modern, interactief leerplatform waarmee je je optimaal kunt voorbereiden op je theorie-examen voor de auto. Met realistische oefenvragen, proefexamens, en een uitgebreide verkeersbordenbibliotheek is dit hét platform voor iedereen die wil slagen.
+*Auto Theorie* is een modern, interactief leerplatform waarmee je je optimaal voorbereidt op het CBR auto theorie-examen. Oefen met honderden vragen, realistische proefexamens en een uitgebreide verkeersborden-tool. Je voortgang wordt opgeslagen en je kunt altijd en overal oefenen - op mobiel, tablet of desktop.
 
 ## Inhoudsopgave
 
@@ -30,13 +32,15 @@
 - [FAQ](#faq)  
 - [Contact](#contact)
 
+
 ## Functionaliteiten
 
-- ![📘](https://img.shields.io/badge/📘-Oefenmodules-lightgrey?style=flat-square) **Oefenmodules** — Realistische vragen per categorie, zoals voorrang, verkeersborden, etc.  
-- ![🧪](https://img.shields.io/badge/🧪-Proefexamens-lightgrey?style=flat-square) **Proefexamens** — Ervaar hoe het echte theorie-examen voelt.  
-- ![🛑](https://img.shields.io/badge/🛑-Verkeersborden-lightgrey?style=flat-square) **Verkeersborden** — Leer alle Nederlandse verkeersborden met visuele ondersteuning.
-- ![📊](https://img.shields.io/badge/📊-Voortgangsmeting-lightgrey?style=flat-square) **Voortgangsmeting** — Houd je prestaties en groei bij.  
-- ![📱](https://img.shields.io/badge/📱-Responsief_design-lightgrey?style=flat-square) **Mobile-friendly** — Oefen altijd en overal, op mobiel, tablet of desktop.  
+- **Oefenmodules** — Honderden oefenvragen per categorie met directe feedback en uitleg.
+- **Proefexamens** — Realistische examens die werken zoals bij het CBR.
+- **Verkeersborden** — Volledige bordenbibliotheek met uitleg en interactieve gratis training.
+- **Voortgangsmeting** — Je voortgang wordt opgeslagen, zodat je altijd verder kunt gaan waar je gebleven was.
+- **Direct starten** — Begin gratis, volledige toegang na eenmalige betaling (dag, week of maand).
+- **Mobile-friendly** — Werkt perfect op mobiel, tablet en desktop.
 
 ## Technologieën
 
@@ -50,23 +54,16 @@
   <img src="https://img.shields.io/badge/Framer_Motion-000000?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
 </p>
 
+
 ## Paginastructuur
 
-- **Home** — Introductie tot het platform met duidelijke call-to-actions.
-- **Oefenen** — Selecteer categorieën en oefen per onderwerp.
-- **Proefexamens** — Neem volledige proefexamens af zoals bij het CBR.
-- **Verkeersborden** — Alle verkeersborden overzichtelijk met uitleg.
-
-## Bijdragen
-
-Bijdragen zijn van harte welkom! Volg deze stappen om bij te dragen:
-
-1. Fork deze repository  
-2. Maak een feature branch (`git checkout -b feature/naam`)  
-3. Commit je wijzigingen met duidelijke berichten  
-4. Dien een Pull Request in
-
-> *Samen bouwen we aan een gratis en toegankelijk theorieplatform voor iedereen!*
+- **Home** — Introductie, voordelen, prijzen en call-to-actions.
+- **Leren** — Oefenmodules per categorie (bijv. voorrang, verkeersregels, gevaarherkenning).
+- **Oefenexamens** — Realistische proefexamens met directe feedback.
+- **Verkeersborden** — Overzicht van alle verkeersborden en een gratis interactieve training.
+- **Dashboard** — Persoonlijk overzicht van je voortgang en statistieken (na inloggen).
+- **Prijzen** — Overzicht van pakketten (dag, week, maand) en directe aankoop.
+- **Informatie** — Uitleg over het theorie-examen, bestelproces, tips, bedrijfsinformatie, ervaringen van anderen, veelgestelde vragen.
 
 ## Licentie
 
@@ -78,30 +75,26 @@ Dit project valt onder de [MIT Licentie](LICENSE). Bekijk het LICENSE-bestand vo
 
 ## FAQ
 
-<details>
-<summary>Kan ik gratis starten?</summary>
+**Kan ik gratis starten?**
+> Ja, je kunt direct beginnen met een selectie lessen en voorbeeldvragen. Volledige toegang krijg je na eenmalige betaling.
 
-Ja. Je kunt direct starten met een selectie lessen en voorbeeldvragen. Volledige toegang is beschikbaar via een pakket.
+**Wanneer moet ik inloggen?**
+> Inloggen is pas nodig wanneer je een pakket kiest. Dan maken we automatisch een account aan.
 
-</details>
+**Hoe werkt de betaling?**
+> Je betaalt eenmalig voor dag, week of maand. Daarna krijg je direct toegang tot alle materialen waar je voor betaald hebt.
 
-<details>
-<summary>Zijn de vragen gelijk aan het echte CBR-examen?</summary>
+**Wordt mijn voortgang opgeslagen?**
+> Ja, na betaling bewaren we je voortgang zodat je later verder kunt gaan waar je gebleven was.
 
-De vragen zijn gebaseerd op het officiële CBR-vragentype en zijn samengesteld met dezelfde logica, maar zijn niet exact identiek.
+**Zijn de vragen gelijk aan het echte CBR-examen?**
+> De vragen zijn gebaseerd op het officiële CBR-vragentype en zijn samengesteld met dezelfde logica, maar zijn niet exact identiek.
 
-</details>
-
-<details>
-<summary>Kan ik mijn voortgang bijhouden?</summary>
-
-Ja, na betaling wordt je voortgang opgeslagen via je account.
-
-</details>
 
 ## Contact
 
-Voor vragen, feedback of samenwerking:  
+Voor vragen, feedback of samenwerking:
 
+E-mail: info@auto-theorie.com
 
-Dank je wel voor het gebruiken van *Auto Theorie* — en veel succes met je theorie-examen!
+Dank je wel voor het gebruiken van *Auto Theorie* - veel succes met je theorie-examen! 🚗
