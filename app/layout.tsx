@@ -10,9 +10,11 @@ import { authOptions } from "@/lib/auth"
 import { Providers } from "@/components/Providers"
 
 const manrope = Manrope({ subsets: ["latin"] })
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://auto-theorie.com"
+const googleVerification = process.env.GOOGLE_SITE_VERIFICATION
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Auto Theorie - Gratis Nederlandse Theorie-examens Oefenen",
     template: "%s | Auto Theorie",
@@ -50,14 +52,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "nl_NL",
-    url: "https://auto-theorie.com",
+    url: siteUrl,
     siteName: "Auto Theorie",
     title: "Auto Theorie - Nederlandse Theorie-examens Oefenen",
     description:
       "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen. Geen registratie vereist, 100% gratis.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: "Auto Theorie - Nederlandse Theorie-examens",
@@ -69,14 +71,12 @@ export const metadata: Metadata = {
     title: "Gratis Auto Theorie - Gratis Nederlandse Theorie-examens Oefenen",
     description:
       "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen. 100% gratis, geen registratie vereist.",
-    images: ["/og-image.jpg"],
+    images: [`${siteUrl}/og-image.jpg`],
   },
   alternates: {
-    canonical: "https://auto-theorie.com",
+    canonical: "/",
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
+  verification: googleVerification ? { google: googleVerification } : undefined,
 }
 
 export default async function RootLayout({
@@ -90,7 +90,6 @@ export default async function RootLayout({
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158083181827933"
      crossOrigin="anonymous"></script>
-        <link rel="canonical" href="https://auto-theorie.com" />
         <meta name="geo.region" content="NL" />
         <meta name="geo.country" content="Netherlands" />
         <meta name="language" content="Dutch" />
@@ -106,15 +105,10 @@ export default async function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "Auto Theorie",
-              url: "https://auto-theorie.com",
+              url: siteUrl,
               description:
                 "Het beste gratis platform om te oefenen voor je Nederlandse auto theorie-examen.",
               inLanguage: "nl-NL",
-              potentialAction: {
-                "@type": "SearchAction",
-                target: "https://auto-theorie.com/search?q={search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
             }),
           }}
         />

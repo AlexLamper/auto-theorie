@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://auto-theorie.com
-
-# Sitemaps
-Sitemap: https://auto-theorie.com/sitemap.xml

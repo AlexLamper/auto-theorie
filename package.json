@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap",
     "seed:lessons": "node scripts/seed-lessons.js",
     "seed:traffic-signs": "node scripts/seed-traffic-signs.js",
     "seed:exams": "node scripts/seed-exams.js"
@@ -33,7 +32,6 @@
     "mongoose": "^8.16.2",
     "next": "15.3.8",
     "next-auth": "^4.24.11",
-    "next-sitemap": "^4.2.3",
     "next-themes": "^0.4.6",
     "nodemailer": "^8.0.1",
     "radix-ui": "^1.4.3",
