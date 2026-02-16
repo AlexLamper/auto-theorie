@@ -7,8 +7,15 @@ export async function middleware(req: NextRequest) {
   const planExpiry = (token?.plan as any)?.expiresAt
   const hasExpiredPlan = Boolean(planExpiry && new Date(planExpiry) <= new Date())
 
+  const { pathname } = req.nextUrl;
+
   if (token?.id && hasExpiredPlan) {
-    const response = NextResponse.redirect(new URL("/inloggen?expired=1", req.url))
+    const targetUrl = new URL("/?expired=1", req.url)
+    const response =
+      pathname === "/"
+        ? NextResponse.next()
+        : NextResponse.redirect(targetUrl)
+
     response.cookies.delete("next-auth.session-token")
     response.cookies.delete("__Secure-next-auth.session-token")
     response.cookies.delete("next-auth.csrf-token")
@@ -17,14 +24,12 @@ export async function middleware(req: NextRequest) {
     response.cookies.delete("__Secure-next-auth.callback-url")
     return response
   }
-  
+
   // Check if user has an active plan
   const hasPlan = 
     token?.plan && 
     (token.plan as any).expiresAt && 
     new Date((token.plan as any).expiresAt) > new Date();
-
-  const { pathname } = req.nextUrl;
 
   // 1. World for Users WITH a Plan
   if (hasPlan) {
