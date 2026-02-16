@@ -6,21 +6,27 @@ import Footer from "@/components/footer"
 import Link from "next/link"
 import { signIn, signOut, useSession } from "next-auth/react"
 import { useState, type FormEvent, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 
 export default function InloggenPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const isAuthenticated = status === "authenticated"
+  const isExpired = searchParams.get("expired") === "1"
+  
   const [code, setCode] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !isExpired) {
       router.push("/dashboard")
+    } else if (isAuthenticated && isExpired) {
+        // If we are authenticated but on the expired page, force sign out properly on client side
+        signOut({ redirect: false })
     }
-  }, [isAuthenticated, router])
+  }, [isAuthenticated, isExpired, router])
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()

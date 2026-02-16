@@ -22,12 +22,13 @@ export async function middleware(req: NextRequest) {
        response = NextResponse.redirect(new URL("/inloggen?expired=1", req.url));
     }
 
-    response.cookies.delete("next-auth.session-token")
-    response.cookies.delete("__Secure-next-auth.session-token")
-    response.cookies.delete("next-auth.csrf-token")
-    response.cookies.delete("__Host-next-auth.csrf-token")
-    response.cookies.delete("next-auth.callback-url")
-    response.cookies.delete("__Secure-next-auth.callback-url")
+    response.cookies.set("next-auth.session-token", "", { maxAge: 0 });
+    response.cookies.set("__Secure-next-auth.session-token", "", { maxAge: 0 });
+    response.cookies.set("next-auth.csrf-token", "", { maxAge: 0 });
+    response.cookies.set("__Host-next-auth.csrf-token", "", { maxAge: 0 });
+    response.cookies.set("next-auth.callback-url", "", { maxAge: 0 });
+    response.cookies.set("__Secure-next-auth.callback-url", "", { maxAge: 0 });
+    
     return response
   }
   
