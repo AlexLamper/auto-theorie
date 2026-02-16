@@ -6,15 +6,21 @@ export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const planExpiry = (token?.plan as any)?.expiresAt
   const hasExpiredPlan = Boolean(planExpiry && new Date(planExpiry) <= new Date())
-
   const { pathname } = req.nextUrl;
 
   if (token?.id && hasExpiredPlan) {
-    const targetUrl = new URL("/?expired=1", req.url)
-    const response =
-      pathname === "/"
-        ? NextResponse.next()
-        : NextResponse.redirect(targetUrl)
+    // Determine if we are already on the login page to avoid redirect loops
+    const isLoginPage = pathname === "/inloggen";
+    
+    // If on login page, just clear cookies and return response (let the page load)
+    // Otherwise redirect to login page with expired param
+    
+    let response;
+    if (isLoginPage) {
+       response = NextResponse.next();
+    } else {
+       response = NextResponse.redirect(new URL("/inloggen?expired=1", req.url));
+    }
 
     response.cookies.delete("next-auth.session-token")
     response.cookies.delete("__Secure-next-auth.session-token")
@@ -24,12 +30,14 @@ export async function middleware(req: NextRequest) {
     response.cookies.delete("__Secure-next-auth.callback-url")
     return response
   }
-
+  
   // Check if user has an active plan
   const hasPlan = 
     token?.plan && 
     (token.plan as any).expiresAt && 
     new Date((token.plan as any).expiresAt) > new Date();
+
+  const { pathname } = req.nextUrl;
 
   // 1. World for Users WITH a Plan
   if (hasPlan) {

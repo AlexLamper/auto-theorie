@@ -41,15 +41,6 @@ export interface StoredPlan {
   metadata: Record<string, string>
 }
 
-export function isPlanActive(plan?: StoredPlan | null, referenceDate = new Date()) {
-  if (!plan?.expiresAt) {
-    return false
-  }
-
-  const expiresAt = new Date(plan.expiresAt)
-  return expiresAt.getTime() > referenceDate.getTime()
-}
-
 async function getUsersCollection() {
   const { db } = await connectToDatabase()
   if (!removalIndexEnsured) {
