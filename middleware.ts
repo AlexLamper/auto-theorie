@@ -37,8 +37,6 @@ export async function middleware(req: NextRequest) {
     (token.plan as any).expiresAt && 
     new Date((token.plan as any).expiresAt) > new Date();
 
-  const { pathname } = req.nextUrl;
-
   // 1. World for Users WITH a Plan
   if (hasPlan) {
     // Redirect public sales pages to dashboard
