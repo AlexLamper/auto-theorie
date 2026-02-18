@@ -19,6 +19,8 @@ const PUBLIC_PATHS = [
   "/verkeersborden",
   "/betaling",
   "/not-found",
+  "/leren",
+  "/oefenexamens",
 ];
 
 /**
@@ -34,8 +36,6 @@ function isPublicRoute(pathname: string): boolean {
 // ── Protected routes (require an active plan) ──────────────────────────
 const PROTECTED_PATHS = [
   "/dashboard",
-  "/leren",
-  "/oefenexamens",
   "/account",
 ];
 
