@@ -22,13 +22,51 @@ export async function middleware(req: NextRequest) {
        response = NextResponse.redirect(new URL("/inloggen?expired=1", req.url));
     }
 
-    response.cookies.set("next-auth.session-token", "", { maxAge: 0 });
-    response.cookies.set("__Secure-next-auth.session-token", "", { maxAge: 0 });
-    response.cookies.set("next-auth.csrf-token", "", { maxAge: 0 });
-    response.cookies.set("__Host-next-auth.csrf-token", "", { maxAge: 0 });
-    response.cookies.set("next-auth.callback-url", "", { maxAge: 0 });
-    response.cookies.set("__Secure-next-auth.callback-url", "", { maxAge: 0 });
+    // Force clear all auth cookies with explicit options
+    const cookiesToClear = [
+      "next-auth.session-token",
+      "__Secure-next-auth.session-token",
+      "next-auth.csrf-token",
+      "__Host-next-auth.csrf-token",
+      "next-auth.callback-url",
+      "__Secure-next-auth.callback-url",
+    ];
+
+    // Add any other cookies present in the request that look like next-auth cookies
+    req.cookies.getAll().forEach((c) => {
+      if (c.name.includes("next-auth")) {
+        cookiesToClear.push(c.name);
+      }
+    });
     
+    // Remove duplicates
+    const uniqueCookiesToClear = [...new Set(cookiesToClear)];
+
+    uniqueCookiesToClear.forEach(cookieName => {
+        // Clear with default path (host-only)
+        response.cookies.set(cookieName, "", { maxAge: 0, path: "/" });
+        
+        // Also try clearing for domain logic if applicable
+        if (process.env.NEXTAUTH_URL) {
+            try {
+               const url = new URL(process.env.NEXTAUTH_URL);
+               const domain = url.hostname;
+               // Identify if we need Secure attribute
+               const isSecure = url.protocol === 'https:';
+               
+               // Manually append the domain-specific clearing cookie to avoid overwriting the previous one
+               // construct Set-Cookie header string
+               let cookieString = `${cookieName}=; Path=/; Domain=${domain}; Max-Age=0`;
+               if (isSecure) cookieString += "; Secure";
+               if (cookieName.startsWith("__Secure-")) cookieString += "; Secure"; // Force secure for secure prefix
+               
+               response.headers.append("Set-Cookie", cookieString);
+            } catch (e) {
+                // Ignore invalid URL
+            }
+        }
+    });
+
     return response
   }
   

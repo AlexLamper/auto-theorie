@@ -90,7 +90,6 @@ Dit project valt onder de [MIT Licentie](LICENSE). Bekijk het LICENSE-bestand vo
 **Zijn de vragen gelijk aan het echte CBR-examen?**
 > De vragen zijn gebaseerd op het officiële CBR-vragentype en zijn samengesteld met dezelfde logica, maar zijn niet exact identiek.
 
-
 ## Contact
 
 Voor vragen, feedback of samenwerking:
