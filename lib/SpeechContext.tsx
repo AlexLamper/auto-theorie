@@ -4,18 +4,46 @@ import React, { createContext, useContext, useState, useCallback, useRef, useEff
 import { usePathname, useSearchParams } from 'next/navigation'
 import { cleanForSpeech } from './utils'
 
+// ── Public types ────────────────────────────────────────────────────────
+export interface SpeechSegment {
+  /** Unique id (stable across re-renders) */
+  id: string
+  /** The cleaned plain-text of this segment */
+  text: string
+}
+
 interface SpeechContextType {
+  /* playback state */
   isSpeaking: boolean
-  currentText: string
-  currentCharIndex: number
-  speak: (text: string, lang?: string) => void
-  stop: () => void
   isLoading: boolean
-  currentRange: { start: number; end: number } | null
+
+  /* the full cleaned text being spoken */
+  currentText: string
+
+  /**
+   * Index of the sentence (chunk) currently being spoken.
+   * -1 when not speaking.
+   */
+  activeSentenceIndex: number
+
+  /**
+   * Character offset *within the current sentence* of the word being
+   * spoken right now.  -1 when unknown (browser didn't fire onboundary).
+   */
+  activeWordStart: number
+  activeWordEnd: number
+
+  /** The list of sentences the full text was split into. */
+  sentences: string[]
+
+  /* controls */
+  speak: (text: string) => void
+  stop: () => void
 }
 
 const SpeechContext = createContext<SpeechContextType | undefined>(undefined)
 
+// ── Provider ────────────────────────────────────────────────────────────
 export function SpeechProvider({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<>{children}</>}>
@@ -24,178 +52,179 @@ export function SpeechProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
+/**
+ * Split cleaned text into sentences.  We split on sentence-ending
+ * punctuation followed by whitespace, but keep the punctuation attached to
+ * the preceding sentence.
+ */
+function splitSentences(text: string): string[] {
+  if (!text) return []
+  // Split after . ! ? followed by a space (keep punctuation on the left)
+  const raw = text.split(/(?<=[.!?])\s+/)
+  return raw.map(s => s.trim()).filter(s => s.length > 0)
+}
+
 function SpeechProviderInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [isSpeaking, setIsSpeaking] = useState(false)
-  const [currentText, setCurrentText] = useState('')
-  const [currentCharIndex, setCurrentCharIndex] = useState(-1)
-  const [currentRange, setCurrentRange] = useState<{ start: number; end: number } | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
-  
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
-  const chunksRef = useRef<string[]>([])
-  const currentChunkIndexRef = useRef<number>(0)
-  const globalOffsetRef = useRef<number>(0)
 
-  // Function to stop speaking
+  const [isSpeaking, setIsSpeaking] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [currentText, setCurrentText] = useState('')
+  const [sentences, setSentences] = useState<string[]>([])
+  const [activeSentenceIndex, setActiveSentenceIndex] = useState(-1)
+  const [activeWordStart, setActiveWordStart] = useState(-1)
+  const [activeWordEnd, setActiveWordEnd] = useState(-1)
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
+
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
+  const sentencesRef = useRef<string[]>([])
+  const currentSentenceRef = useRef(0)
+
+  // ── Stop ───────────────────────────────────────────────────────────
   const stop = useCallback(() => {
     if (typeof window !== 'undefined') {
-      console.log("[SpeechContext] Stopping all speech")
       window.speechSynthesis.cancel()
-      setIsSpeaking(false)
-      setCurrentCharIndex(-1)
-      setCurrentRange(null)
-      setIsLoading(false)
-      chunksRef.current = []
-      currentChunkIndexRef.current = 0
-      globalOffsetRef.current = 0
     }
+    setIsSpeaking(false)
+    setIsLoading(false)
+    setActiveSentenceIndex(-1)
+    setActiveWordStart(-1)
+    setActiveWordEnd(-1)
+    sentencesRef.current = []
+    currentSentenceRef.current = 0
   }, [])
 
-  // Stop speaking when navigating
-  useEffect(() => {
-    stop()
-  }, [pathname, searchParams, stop])
+  // stop on navigation
+  useEffect(() => { stop() }, [pathname, searchParams, stop])
 
-  // Load voices
+  // ── Load voices ────────────────────────────────────────────────────
   useEffect(() => {
     if (typeof window === 'undefined') return
-    const loadVoices = () => {
+    const load = () => {
       const v = window.speechSynthesis.getVoices()
-      if (v.length > 0) {
-        setVoices(v)
-        console.log(`[SpeechContext] Loaded ${v.length} voices`)
-      }
+      if (v.length) setVoices(v)
     }
-    loadVoices()
-    window.speechSynthesis.onvoiceschanged = loadVoices
-    return () => { 
-        if (typeof window !== 'undefined') window.speechSynthesis.onvoiceschanged = null 
-    }
+    load()
+    window.speechSynthesis.onvoiceschanged = load
+    return () => { window.speechSynthesis.onvoiceschanged = null }
   }, [])
 
-  // Recursive chunk speaking
-  const speakChunk = useCallback((index: number) => {
+  // ── Pick best Dutch voice ──────────────────────────────────────────
+  const pickVoice = useCallback((): SpeechSynthesisVoice | null => {
+    return (
+      voices.find(v => v.name.includes('Google') && v.lang.toLowerCase().includes('nl')) ||
+      voices.find(v => v.lang.toLowerCase().startsWith('nl') && !v.localService) ||
+      voices.find(v => v.lang.toLowerCase().startsWith('nl')) ||
+      null
+    )
+  }, [voices])
+
+  // ── Speak one sentence ─────────────────────────────────────────────
+  const speakSentence = useCallback((idx: number) => {
     if (typeof window === 'undefined') return
     const synth = window.speechSynthesis
 
-    if (index >= chunksRef.current.length) {
-      console.log("[SpeechContext] All chunks finished")
+    if (idx >= sentencesRef.current.length) {
+      // done
       setIsSpeaking(false)
-      setCurrentCharIndex(-1)
+      setActiveSentenceIndex(-1)
+      setActiveWordStart(-1)
+      setActiveWordEnd(-1)
       return
     }
 
-    const chunkText = chunksRef.current[index]
-    console.log(`[SpeechContext] Speaking chunk ${index + 1}/${chunksRef.current.length} (Length: ${chunkText.length})`)
-    
-    const utterance = new SpeechSynthesisUtterance(chunkText)
-    utterance.lang = 'nl-NL'
-    utterance.rate = 0.9
-    utteranceRef.current = utterance
+    const text = sentencesRef.current[idx]
+    const utt = new SpeechSynthesisUtterance(text)
+    utt.lang = 'nl-NL'
+    utt.rate = 0.9
+    const voice = pickVoice()
+    if (voice) utt.voice = voice
+    utteranceRef.current = utt
 
-    // Best Dutch voice selection (Google voices support onboundary better on Chrome/Windows)
-    const dutchVoice = voices.find(v => v.name.includes('Google') && v.lang.toLowerCase().includes('nl-nl')) ||
-                       voices.find(v => v.lang.toLowerCase().includes('nl-nl') && !v.localService) || 
-                       voices.find(v => v.lang.toLowerCase().includes('nl-nl')) ||
-                       voices.find(v => v.lang.toLowerCase().includes('nl'))
-    if (dutchVoice) utterance.voice = dutchVoice
-
-    utterance.onstart = () => {
-      console.log(`[SpeechContext] Chunk ${index + 1} started with voice: ${utterance.voice?.name || 'default'}`)
+    utt.onstart = () => {
       setIsSpeaking(true)
       setIsLoading(false)
-      
-      const start = globalOffsetRef.current
-      const end = start + chunkText.length
-      setCurrentRange({ start, end })
-      
-      // Initial word highlight
-      setCurrentCharIndex(start)
+      setActiveSentenceIndex(idx)
+      setActiveWordStart(-1)
+      setActiveWordEnd(-1)
     }
 
-    utterance.onboundary = (event) => {
-      if (event.name === 'word') {
-        const absoluteIndex = globalOffsetRef.current + event.charIndex
-        console.log(`[SpeechContext] Boundary: word at index ${absoluteIndex} ("${chunkText.substring(event.charIndex, event.charIndex+10)}...")`)
-        setCurrentCharIndex(absoluteIndex)
+    utt.onboundary = (e) => {
+      if (e.name === 'word') {
+        const charIdx = e.charIndex
+        // find word boundaries
+        let start = charIdx
+        let end = charIdx
+        while (end < text.length && !/\s/.test(text[end])) end++
+        setActiveWordStart(start)
+        setActiveWordEnd(end)
       }
     }
 
-    utterance.onend = () => {
-      console.log(`[SpeechContext] Chunk ${index + 1} ended`)
-      
-      const nextIdx = index + 1
-      if (nextIdx < chunksRef.current.length) {
-        // Find exact start of next chunk in the full text to keep offsets aligned
-        const searchStart = globalOffsetRef.current + chunkText.length
-        const found = currentText.indexOf(chunksRef.current[nextIdx], searchStart)
-        
-        if (found !== -1) {
-          globalOffsetRef.current = found
-        } else {
-          globalOffsetRef.current += chunkText.length + 1
-        }
-        
-        currentChunkIndexRef.current = nextIdx
-        speakChunk(nextIdx)
+    utt.onend = () => {
+      const next = idx + 1
+      currentSentenceRef.current = next
+      if (next < sentencesRef.current.length) {
+        speakSentence(next)
       } else {
         setIsSpeaking(false)
-        setCurrentCharIndex(-1)
+        setActiveSentenceIndex(-1)
+        setActiveWordStart(-1)
+        setActiveWordEnd(-1)
       }
     }
 
-    utterance.onerror = (event) => {
-      if (event.error === 'interrupted' || event.error === 'canceled') {
-        console.log(`[SpeechContext] Chunk ${index + 1} stopped (${event.error})`)
-        return
-      }
-      console.error(`[SpeechContext] Error in chunk ${index + 1}:`, event.error)
+    utt.onerror = (e) => {
+      if (e.error === 'interrupted' || e.error === 'canceled') return
+      console.error('[SpeechContext] utterance error', e.error)
       setIsSpeaking(false)
       setIsLoading(false)
     }
 
-    synth.speak(utterance)
+    synth.speak(utt)
     if (synth.paused) synth.resume()
-  }, [voices])
+  }, [pickVoice])
 
+  // ── Speak full text ────────────────────────────────────────────────
   const speak = useCallback((text: string) => {
     if (typeof window === 'undefined' || !text) return
-    console.log("[SpeechContext] speak() requested for text length:", text.length)
-    
     stop()
     setIsLoading(true)
 
     const cleaned = cleanForSpeech(text)
+    const sents = splitSentences(cleaned)
+
     setCurrentText(cleaned)
+    setSentences(sents)
+    sentencesRef.current = sents
+    currentSentenceRef.current = 0
 
-    // Chunking text by sentence
-    const sentences = cleaned.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0)
-    chunksRef.current = sentences
-    currentChunkIndexRef.current = 0
-    globalOffsetRef.current = 0
-
-    console.log(`[SpeechContext] Text split into ${sentences.length} chunks`)
-
-    // Tiny delay to ensure cancel() finished
-    setTimeout(() => {
-      speakChunk(0)
-    }, 50)
-  }, [stop, speakChunk])
+    // small delay so cancel() has time to complete
+    setTimeout(() => speakSentence(0), 60)
+  }, [stop, speakSentence])
 
   return (
-    <SpeechContext.Provider value={{ isSpeaking, currentText, currentCharIndex, speak, stop, isLoading, currentRange }}>
+    <SpeechContext.Provider
+      value={{
+        isSpeaking,
+        isLoading,
+        currentText,
+        activeSentenceIndex,
+        activeWordStart,
+        activeWordEnd,
+        sentences,
+        speak,
+        stop,
+      }}
+    >
       {children}
     </SpeechContext.Provider>
   )
 }
 
 export function useSpeech() {
-  const context = useContext(SpeechContext)
-  if (context === undefined) {
-    throw new Error('useSpeech must be used within a SpeechProvider')
-  }
-  return context
+  const ctx = useContext(SpeechContext)
+  if (!ctx) throw new Error('useSpeech must be used within a SpeechProvider')
+  return ctx
 }

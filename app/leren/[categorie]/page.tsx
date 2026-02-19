@@ -1,10 +1,11 @@
 "use client"
 
-import { Suspense, useEffect, useState } from "react"
+import React, { Suspense, useEffect, useState } from "react"
 import { useParams, useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import LessonContent, { InhoudBlok } from "@/components/LessonContent"
 import { TextToSpeechButton } from "@/components/TextToSpeechButton"
+import { HighlightableHtml } from "@/components/HighlightableHtml"
 import { stripHtml, cleanForSpeech, formatLessonContent } from "@/lib/utils"
 import { ChevronDown, ChevronRight, Menu, X, Lock, BookOpen } from "lucide-react"
 import clsx from "clsx"
@@ -16,7 +17,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import parse from "html-react-parser"
 import Footer from "@/components/footer"
 import { useSession } from "next-auth/react"
 import LoadingSpinner from "@/components/LoadingSpinner"
@@ -251,7 +251,54 @@ function LesPaginaContent() {
     return <div className="p-8 text-center text-slate-500">Onderwerp niet gevonden...</div>
   }
 
-  const plainText = actieveLes ? cleanForSpeech(stripHtml(typeof actieveLes.inhoud === 'string' ? actieveLes.inhoud : '')) : ""
+  // Build the full plain text for TTS (works for both structured and HTML lessons)
+  const plainText = React.useMemo(() => {
+    if (!actieveLes) return ""
+    
+    // Use DOMParser on client to match exactly what HighlightableHtml extracts.
+    // This fixes issues where stripHtml() leaves entities (like &amp;) that interfere
+    // with highlighting and speech since HighlightableHtml sees decoded entities.
+    if (typeof window !== 'undefined' && typeof actieveLes.inhoud === 'string') {
+       try {
+         // Apply the same formatting HighlightableHtml uses
+         const formatted = formatLessonContent(actieveLes.inhoud)
+         const parser = new DOMParser()
+         const doc = parser.parseFromString(formatted, 'text/html')
+         
+         const texts: string[] = []
+         const walk = (node: Node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const t = node.textContent?.trim()
+              if (t) texts.push(t)
+            } else {
+              node.childNodes.forEach(walk)
+            }
+         }
+         walk(doc.body)
+         
+         // Join text nodes with spaces, then clean. 
+         // This ensures we have the "visual" text.
+         return cleanForSpeech(texts.join(' '))
+       } catch (e) {
+         // fallback
+       }
+    }
+
+    if (typeof actieveLes.inhoud === "string") {
+      return cleanForSpeech(stripHtml(actieveLes.inhoud))
+    }
+    // Structured InhoudBlok[]
+    return cleanForSpeech(
+      (actieveLes.inhoud as InhoudBlok[])
+        .map((b) => {
+          if (b.type === "paragraaf") return b.tekst || ""
+          if (b.type === "lijst") return (b.items || []).join(". ")
+          return ""
+        })
+        .filter(Boolean)
+        .join(" ")
+    )
+  }, [actieveLes])
   const hasPlanAccess = accessInfo?.hasActivePlan ?? false
   const isLessonLocked = Boolean(actieveLes?.isLocked)
 
@@ -482,9 +529,10 @@ function LesPaginaContent() {
 
                   <div className="prose prose-slate dark:prose-invert prose-lg max-w-none prose-headings:font-extrabold prose-headings:tracking-tight prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-3xl prose-img:shadow-lg prose-strong:text-slate-900 dark:prose-strong:text-white">
                     {typeof actieveLes.inhoud === 'string' ? (
-                      <div className="theory-html-content">
-                        {parse(formatLessonContent(actieveLes.inhoud))}
-                      </div>
+                      <HighlightableHtml
+                        html={formatLessonContent(actieveLes.inhoud)}
+                        className="theory-html-content"
+                      />
                     ) : (
                       <LessonContent inhoud={actieveLes.inhoud} />
                     )}
